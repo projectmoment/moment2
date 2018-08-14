@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   post 'profile/update/:id' => 'profile#update'
   get 'profile/show/:id' => 'profile#show'
   post 'profile/delete/:id' => 'profile#delete', as: 'delete_profile'
+  get 'profile/follow/:user_id' => 'profile#follow'
   resources :profile
   
   get 'board/:id' => 'board#index'
@@ -23,7 +24,7 @@ Rails.application.routes.draw do
   post 'board/:board_id/like', to: "likes#like_toggle", as: 'like_board'
   post 'board/comments/:id' => 'board#comments'
   resources :board
-
+  
   resources :categories, only: [:show]
   
   # omniauth : for SNS(facebook) login
