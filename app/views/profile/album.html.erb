@@ -8,7 +8,7 @@
     <div class="grid-box e">하는 게임</div>
   </div>
   
-<h2>[JQuery Tab Here 제이쿼리 탭 넣는 자리]</h2>
+<h5>[JQuery Tab Here 제이쿼리 탭 넣는 자리]</h5>
 
 <% if current_user.id != @user.id %>
 	<a href="/profile/mypage/<%= @user.id %>">프로필 메인</a>
@@ -22,7 +22,7 @@
   <a href="/profile/<%= current_user.id %>/tagged">태그됨</a>
 <% end %>
 
-<h2><%= @user.id %>번 유저가 포스트한 모든 게시물</h2>
+<h5>profile/user_id/album임. 해당 유저가 작성한 모든 board 표시</h5>
 
 <!-- 사진첩 만드는 곳-->
 <div class="box-container">

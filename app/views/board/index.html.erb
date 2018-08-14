@@ -8,7 +8,8 @@
     <div class="grid-box e">하는 게임</div>
   </div>
   
-<h1>[JQuery Tab Here 제이쿼리 탭 넣는 자리]</h1>
+<h5>[JQuery Tab Here 제이쿼리 탭 넣는 자리]</h5>
+
 <% if current_user.id != @bo.profile.user.id %>
 	<a href="/profile/mypage/<%= @bo.profile.user.id %>">프로필 메인</a>
 	<a href="/profile/<%= @bo.profile.user.id %>/album">전체 게시물</a>
@@ -21,7 +22,7 @@
   <a href="/profile/<%= current_user.id %>/tagged">태그됨</a>
 <% end %>
 
-<h2><%= @bo.id %>번 게시물 입니다</h2>
+<h5>board/board_id 임. <%= @bo.id %>번 게시물 표시</h5>
 
 <!-- 게시물 클릭 시 인스타 게시물 클릭 한 것 처럼 뜨게 하는 곳-->
 
