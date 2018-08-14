@@ -49,6 +49,7 @@ class BoardController < ApplicationController
         @board = Board.find(params[:id])
         @board.title = params[:board][:title]
         @board.content = params[:board][:content]
+        @board.image_url = params[:board][:image_url]
         @board.save
         @pro = @board.profile_id
         redirect_to "/profile/#{@pro}"
@@ -76,6 +77,8 @@ class BoardController < ApplicationController
     end
     
 private
+    
+    
     def hashtag_params
       params.require(:board).permit(hashtags_attributes: [:title])
     end
