@@ -37,18 +37,6 @@
       <% end %>
     </div>
     
-    <div>
-      <% if user_signed_in?%>
-      <form action="/board/comments/<%= @bo.id %>" method="POST">
-        <input type="text" name="body">
-        <input type="submit">
-      </form>
-      <% end %>
-      <% @bo.comments.each do |comment| %>
-      <%= comment.body %><hr>
-      <% end %>
-    </div>
-
     <div>해시태그:<br>
      <% @bo.hashtags.each do |h| %>
      <!-- 등록하지 않을경우 출력하지 않음-->
@@ -56,6 +44,18 @@
          #<%= h.title %>
        <% end %>
      <% end %>
+    </div>
+
+    <div>
+      <% if user_signed_in?%>
+      <form action="/board/comments/<%= @bo.id %>" method="POST">
+        <input type="textarea" name="body">
+        <input type="submit">
+      </form>
+      <% end %>
+      <% @bo.comments.each do |comment| %>
+      <%= comment.body %><hr>
+      <% end %>
     </div>
 
 
