@@ -5,5 +5,4 @@ class Info < ActiveRecord::Base
   
   belongs_to :user
   belongs_to :play
-  belongs_to :relationship
 end

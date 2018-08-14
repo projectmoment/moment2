@@ -8,6 +8,8 @@ class InfoController < ApplicationController
     def create
         @info = Info.new
         @play = Play.new
+        
+        
         @info.user_id = params[:user_id]
         @info.introduction = params[:introduction]
         

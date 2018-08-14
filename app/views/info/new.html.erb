@@ -13,12 +13,12 @@
     <p>하는 게임을 모두 선택 하세요</p>
     <% @categories.each do |category|%>
     
-    <%= radio_button_tag(:category_id)%>
-    <%= label_tag(:category_id, category.name) %>
+
     
     <% end %>
-    
-
+<!-- 이 제대로 작동하는 HTML 코드도 안 먹는건 Materialize 문제라고 봄 ...
+<input type="checkbox" name="chk_info" value="HTML">HTML
+<input type="checkbox" name="chk_info" value="CSS">CSS
+<input type="checkbox" name="chk_info" value="웹디자인">웹디자인 -->
     <%= f.submit "제출" %>
-    
 <% end %>
