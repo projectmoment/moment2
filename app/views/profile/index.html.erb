@@ -41,13 +41,12 @@
         <% @board.each do |board| %>
             <div class="col m4 l4">
                 <div class="box">
-                <!--img class="image" src="<!%= board.picture %>">-->
+                <a href="/board/<%= board.id %>"><img class="image" src="<%= board.image_url %>"></a>
                     <div class="padding">
                         <div class="buttons">
-                            <a href="/board/<%= board.id %>">보기</a>
                             <% if user_signed_in? && current_user.id == @pro.user_id %>
-                            <a href="/board/edit/<%= board.id %>">수정</a>
-                            <%= link_to 'delete', board, method: :delete, data: { confirm: 'Are you sure?' } %>
+                            <a href="/board/edit/<%= board.id %>"><i class="material-icons">edit</i></a>
+                            <%= link_to '삭제', board, method: :delete, data: { confirm: '진짜 삭제?' } %>
                             <% end %>
                         </div>
                     </div>
@@ -106,9 +105,7 @@
     }
     
     .box .image {
-      margin-top: 5em;
       width: 100%;
-      margin-bottom: 1em;
     }
     
     .box .hit {

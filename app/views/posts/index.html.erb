@@ -20,39 +20,53 @@
         document.getElementById("mySidenav").style.width = "0";
     }
     </script>
-<nav role="navigation">
-     
-  <div class="container">
-    
-      <!-- toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <!-- 사이트소개 페이지 -->
-          <li>
-            <%=link_to "Moment", "/posts/intro" %>
-          </li>
-          <!-- 로그인/아웃 -->
-          <li>
-            <% if user_signed_in?%>
+
+
+  <!-- 여기서부터 -->
+
+  <nav class="nav-extended">
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo"><i class="material-icons">cloud</i>Moment</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/"><i class="material-icons">explore</i></a></li>
+        <li><a href="/"><i class="material-icons">accessibility</i></a></li>
+        <li><a href="/"><i class="material-icons">notifications</i></a></li>
+        <li><a href="/"><i class="material-icons">account_circle</i></a></li>
+        <li> <% if user_signed_in?%>
               <%= link_to "LogOut", destroy_user_session_path, method: :delete%>
             <% else %>
               <%= link_to "LogIn", new_user_session_path%>
-            <% end%>
-          </li>
-          <!-- 마이페이지 -->
-          <li>
-            <%= link_to "마이페이지", mypage_path(current_user.id) %>
-          </li>
-          <!-- 친구목록 -->
-          <li>
-            <%= link_to "친구목록", "#"%>
-          </li>
+            <% end%></li>
+        <li><a href="/"><i class="material-icons">more_vert</i></a></li>
+      </ul>
+    </div>
     
-        </ul>
-      </div> <!-- collapse -->
-      
-  </div> <!-- container -->
-</nav>  
+    <div class="nav-content">
+      <ul class="tabs tabs-transparent">
+        <li class="tab"><%=link_to "posts/intro", "/posts/intro" %></li>
+        <li class="tab"><a href="/">Test 2</a></li>
+        <li class="tab"><%= link_to "profile/mypage", mypage_path(current_user.id) %></li>
+        <li><form>
+        <div class="input-field">
+          <input id="search" type="search" required>
+          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
+        </div>
+        </form></li>
+      </ul>
+    </div>
+  </nav>
+
+  <ul class="sidenav" id="mobile-demo">
+    <li><a href="/">Sass</a></li>
+    <li><a href="/">Components</a></li>
+    <li><a href="/">JavaScript</a></li>
+  </ul>
+  
+  <!-- 여기까지가 상단바 예시 코드임 -->
+
 
  <!-- Post List Table -->
   <div class="container">  
@@ -60,6 +74,7 @@
       <p>
         <% if user_signed_in?%>
           <%= current_user.name %>님 환영합니다<br>
+          다들 화이팅!ㅋㅋ
         <%end%>
       </p>
     <p id="notice"><%= notice %></p>

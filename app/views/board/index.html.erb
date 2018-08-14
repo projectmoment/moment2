@@ -30,10 +30,7 @@
     <div>제목: <%= @bo.title %></div>
     <div>내용: <%= @bo.content %></div>
     <div>
-      <strong>사진</strong><br>
-
-        <img src="<%= @bo.image_url %>">
-
+      <img class="image" src="<%= @bo.image_url %>">
     </div>
 
     <div>
@@ -57,7 +54,7 @@
       <% if user_signed_in?%>
       <form action="/board/comments/<%= @bo.id %>" method="POST">
  <!-- 코멘트 입력 / 제출 -->
-        <input type="textarea" name="body">
+        <input type="textarea" name="body" placeholder="댓글 쓰는 곳">
         <input type="submit">
 
       </form>
@@ -117,10 +114,11 @@
       margin-bottom: 1.5em;
     }
     
-    .box .image {
-      margin-top: 5em;
-      width: 100%;
-      margin-bottom: 1em;
+    .image {
+    min-width: 700px;
+    max-width: 100%;
+    max-height: 600px;
+    margin-bottom: 1em;
     }
     
     .box .hit {
