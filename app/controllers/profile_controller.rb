@@ -13,23 +13,20 @@ class ProfileController < ApplicationController
     end
     
     def mypage
+        @user = User.find(params[:user_id])
         @profile = Profile.where(user_id: params[:user_id])
         @profile_user = (params[:user_id]).to_i
     end
     
     def follow
         @user = User.find(params[:user_id])
-        @user_id = params[:user_id]
-        @current_user = current_user.id
-        @current_user.follow(@user)
-        @follow = Follow.find_by(follower: @current_user, followable: @user)
+        current_user.follow(@user)
         respond_to :js
     end
     
     def unfollow
         @user = User.find(params[:user_id])
-        @current_user = current_user.id
-        @current_user.stop_following(@user)
+        current_user.stop_following(@user)
         respond_to :js
     end
     

@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   post 'profile/update/:id' => 'profile#update'
   get 'profile/show/:id' => 'profile#show'
   post 'profile/delete/:id' => 'profile#delete', as: 'delete_profile'
-  get 'profile/follow/:user_id' => 'profile#follow'
+  post 'profile/follow/:user_id' => 'profile#follow'
+  post 'profile/unfollow/:user_id' => 'profile#unfollow'
   resources :profile
   
   get 'board/:id' => 'board#index'
