@@ -5,5 +5,13 @@ class PlaysController < ApplicationController
 
     end   
     
+    def create
+        @play = Play.new
+        @play.user_id = params[:user_id]
+        @play.category_id = params[:category_id]
+        @play.save
+        @userid = current_user.id
+        redirect_to "/profile/mypage/#{@userid}"
+    end
 
 end

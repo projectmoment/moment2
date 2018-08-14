@@ -26,10 +26,12 @@ Rails.application.routes.draw do
 
   resources :categories, only: [:show]
   
-  get 'info/edit/:id' => 'info#edit', as: 'edit_info'
-  post 'info/update/:id' => 'info#update'
-  post 'info/create' => 'info#create', as: 'create_info'
   get 'info/new/:user_id' => 'info#new', as: 'new_info'
+  post 'info/create' => 'info#create', as: 'create_info'
+  get 'info/edit/:id' => 'info#edit', as: 'edit_info'
+  post 'info/update/:id' => 'info#update', as: 'update_info'
+  
+  get 'play/create/:user_id/:category_id' => 'play#create'
   
   # omniauth : for SNS(facebook) login
   devise_for :users, :controllers => { omniauth_callbacks: 'user/omniauth_callbacks' }

@@ -1,29 +1,18 @@
-    <!--div class = "intro">
-<!-- model:profile 안에 image를 넣어야함
-    <!--%= image_tag(@profile.image_url) %>
-    <!-- %= @profile.introduction %>
-    <!-- 하는 게임-->
-    <!-- 팔로우-->
-    <!-- 설정-->
-    <!-- %= link_to "설정", "/profiles/edit2"%>
-    
-</div>-->
-
 <h1>[상단 네브바]</h1>
-<!-- 관련 info 가 있는 경우-->
-<% if @infos.length != 0 %>
+<% if @info.blank? %>
+  <%= link_to "개인정보가 없습니다. 개인정보를 생성하세요.", new_info_path(current_user.id) %>
+<% else %>
   <div class="grid">
-    <div class="grid-box a"><%= image_url(@infos.image_url) %></div>
-    <div class="grid-box b"><%= @infos.introduction %></div>
+    <div class="grid-box a"><img src = "<%= @info.image_url %>"></div>
+    <div class="grid-box b"><%= @info.introduction %></div>
     <div class="grid-box c">팔로우</div>
-    <div class="grid-box d"><%= link_to "설정", edit_info_path(@infos.user) %></div>
+    <div class="grid-box d"><%= link_to "설정", edit_info_path(@info.user_id) %></div>
     <div class="grid-box e">하는 게임</div>
   </div>
-<!-- 관련 info 가 없는 경우-->  
-<% elsif @profile_user == current_user.id %>
-  <%= link_to "개인정보가 없습니다. 개인정보를 생성하세요.", new_info_path(current_user.id) %>
   
 <% end %>
+ 
+
   
 <h2>[JQuery Tab Here 제이쿼리 탭 넣는 자리]</h2>
 
@@ -73,7 +62,7 @@
 
 <!-- CSS -->
 
- <style>
+  <style>
     body {
       background-color: #FAFAFA;
     }
@@ -169,4 +158,4 @@
       grid-column-start: 2;
       grid-column-end: 5;
     }
-</style>
+  </style>

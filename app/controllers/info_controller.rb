@@ -1,22 +1,17 @@
 class InfoController < ApplicationController
     def new
-        @info = Info.new
         @categories = Category.all
         
     end
     
     def create
         @info = Info.new
-        @play = Play.new
-        
-        
-        @info.user_id = params[:user_id]
+        @info.image_url = params[:image_url]
         @info.introduction = params[:introduction]
-        
+        @info.user_id = current_user.id
         @info.save
         @userid = current_user.id
         redirect_to "/profile/mypage/#{@userid}"
-    
     end
     def edit
         @info = Info.find(params[:id])
@@ -25,11 +20,12 @@ class InfoController < ApplicationController
     
     def update
         @info = Info.find(params[:id])
-        
+        @info.image_url = params[:image_url]
+        @info.introduction = params[:introduction]
+        @info.user_id = current_user.id
         @info.save
         @userid = current_user.id
         redirect_to "/profile/mypage/#{@userid}"
     end
-    
     
 end
