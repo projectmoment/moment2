@@ -1,0 +1,24 @@
+<h1>info 생성 페이지</h1>
+
+<%= form_for(Info.new, url: mypage_path) do |f| %>
+
+    <p>프로필 사진</p>
+    <%= f.label :image_url %><br>
+    <%= f.file_field :image_url %><br>
+    
+    <p>자기소개</p>
+    <%= f.label :introduction %><br>
+    <%= f.text_field :introduction %><br>
+    
+    <p>하는 게임을 모두 선택 하세요</p>
+    <% @categories.each do |category|%>
+    
+    <%= radio_button_tag(:category_id)%>
+    <%= label_tag(:category_id, category.name) %>
+    
+    <% end %>
+    
+
+    <%= f.submit "제출" %>
+    
+<% end %>

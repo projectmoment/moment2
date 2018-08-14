@@ -15,6 +15,7 @@ class ProfileController < ApplicationController
     def mypage
         @profile = Profile.where(user_id: params[:user_id])
         @profile_user = (params[:user_id]).to_i
+        @infos = Profile.where(user_id:params[:user_id])
     end
     
     def new

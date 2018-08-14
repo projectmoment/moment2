@@ -10,14 +10,20 @@
 </div>-->
 
 <h1>[상단 네브바]</h1>
-
+<!-- 관련 info 가 있는 경우-->
+<% if @infos.length != 0 %>
   <div class="grid">
-    <div class="grid-box a">프로필 사진</div>
-    <div class="grid-box b">자기소개</div>
+    <div class="grid-box a"><%= image_url(@infos.image_url) %></div>
+    <div class="grid-box b"><%= @infos.introduction %></div>
     <div class="grid-box c">팔로우</div>
-    <div class="grid-box d">설정</div>
+    <div class="grid-box d"><%= link_to "설정", edit_info_path(@infos.user) %></div>
     <div class="grid-box e">하는 게임</div>
   </div>
+<!-- 관련 info 가 없는 경우-->  
+<% elsif @profile_user == current_user.id %>
+  <%= link_to "개인정보가 없습니다. 개인정보를 생성하세요.", new_info_path(current_user.id) %>
+  
+<% end %>
   
 <h2>[JQuery Tab Here 제이쿼리 탭 넣는 자리]</h2>
 <a href="/profile/mypage/<%= current_user.id %>">프로필 메인</a> <!-- 다른 사람 페이지 가서 눌렀을 때 current user 말고 그 사람 id 오게 하기.... -->
