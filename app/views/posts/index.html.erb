@@ -20,53 +20,39 @@
         document.getElementById("mySidenav").style.width = "0";
     }
     </script>
-
-
-  <!-- 여기서부터 -->
-
-  <nav class="nav-extended">
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo"><i class="material-icons">cloud</i>Moment</a>
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="/"><i class="material-icons">explore</i></a></li>
-        <li><a href="/"><i class="material-icons">accessibility</i></a></li>
-        <li><a href="/"><i class="material-icons">notifications</i></a></li>
-        <li><a href="/"><i class="material-icons">account_circle</i></a></li>
-        <li> <% if user_signed_in?%>
+<nav role="navigation">
+     
+  <div class="container">
+    
+      <!-- toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <!-- 사이트소개 페이지 -->
+          <li>
+            <%=link_to "Moment", "/posts/intro" %>
+          </li>
+          <!-- 로그인/아웃 -->
+          <li>
+            <% if user_signed_in?%>
               <%= link_to "LogOut", destroy_user_session_path, method: :delete%>
             <% else %>
               <%= link_to "LogIn", new_user_session_path%>
-            <% end%></li>
-        <li><a href="/"><i class="material-icons">more_vert</i></a></li>
-      </ul>
-    </div>
+            <% end%>
+          </li>
+          <!-- 마이페이지 -->
+          <li>
+            <%= link_to "마이페이지", mypage_path(current_user.id) %>
+          </li>
+          <!-- 친구목록 -->
+          <li>
+            <%= link_to "친구목록", "#"%>
+          </li>
     
-    <div class="nav-content">
-      <ul class="tabs tabs-transparent">
-        <li class="tab"><%=link_to "posts/intro", "/posts/intro" %></li>
-        <li class="tab"><a href="/">Test 2</a></li>
-        <li class="tab"><%= link_to "profile/mypage", mypage_path(current_user.id) %></li>
-        <li><form>
-        <div class="input-field">
-          <input id="search" type="search" required>
-          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-          <i class="material-icons">close</i>
-        </div>
-        </form></li>
-      </ul>
-    </div>
-  </nav>
-
-  <ul class="sidenav" id="mobile-demo">
-    <li><a href="/">Sass</a></li>
-    <li><a href="/">Components</a></li>
-    <li><a href="/">JavaScript</a></li>
-  </ul>
-  
-  <!-- 여기까지가 상단바 예시 코드임 -->
-
+        </ul>
+      </div> <!-- collapse -->
+      
+  </div> <!-- container -->
+</nav>  
 
  <!-- Post List Table -->
   <div class="container">  
@@ -74,13 +60,11 @@
       <p>
         <% if user_signed_in?%>
           <%= current_user.name %>님 환영합니다<br>
-          다들 화이팅!ㅋㅋ
         <%end%>
       </p>
     <p id="notice"><%= notice %></p>
     </div>
   </div>
-    
 
 <div class="box-container">
   <div class="newsfeed">
@@ -89,10 +73,25 @@
         <div class="">
           <img class="image" src="<%= board.image_url %>">
           <div class="padding">
-            <div class="buttons">
-              <%= link_to 'Show', board %>
-              <%= link_to 'Edit', edit_board_path(board) %>
-              <%= link_to 'Destroy', board, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <div class="">
+              <% if user_signed_in? && current_user.id == board.profile.user.id %>
+              <a href="/board/edit/<%= board.id %>"><i class="material-icons">edit</i></a>
+              <%= link_to '삭제', board, method: :delete, data: { confirm: '진짜 삭제?' } %>
+              
+              <!-- 코멘트 입력 / 제출 -->
+              <div>
+                <% if user_signed_in?%>
+                  <form action="/board/comments/<%= board.id %>" method="POST">
+                  <input type="textarea" name="body" placeholder="댓글 쓰는 곳">
+                  <input type="submit">
+                  </form>
+                <% end %>
+                  <% board.comments.each do |comment| %>
+                  <%= comment.body %><hr>
+                  <% end %>
+              </div>
+        
+              <% end %>
             </div>
             <div class="contentbox">
               <%= board.content %>

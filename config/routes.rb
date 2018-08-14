@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root "posts#index"
-  get '/posts/explore' => 'posts#explore' 
-  get '/posts/intro'  => 'posts#intro'
+  get 'posts/explore' => 'posts#explore' 
+  get 'posts/intro'  => 'posts#intro'
   resources :posts
   
   get 'profile/:profile_id' => 'profile#index', as: 'profile_index'
