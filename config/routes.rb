@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root "posts#index"
-  get '/posts/explore' => 'posts#explore' 
-  get '/posts/intro'  => 'posts#intro'
+  get 'posts/explore' => 'posts#explore' 
+  get 'posts/intro'  => 'posts#intro'
   resources :posts
   
   get 'profile/:profile_id' => 'profile#index', as: 'profile_index'
@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   post 'profile/update/:id' => 'profile#update'
   get 'profile/show/:id' => 'profile#show'
   post 'profile/delete/:id' => 'profile#delete', as: 'delete_profile'
+  post 'profile/follow/:user_id' => 'profile#follow'
+  post 'profile/unfollow/:user_id' => 'profile#unfollow'
   resources :profile
   
   get 'board/:id' => 'board#index'
@@ -23,7 +25,7 @@ Rails.application.routes.draw do
   post 'board/:board_id/like', to: "likes#like_toggle", as: 'like_board'
   post 'board/comments/:id' => 'board#comments'
   resources :board
-
+  
   resources :categories, only: [:show]
   
   # omniauth : for SNS(facebook) login

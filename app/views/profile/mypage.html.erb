@@ -14,12 +14,20 @@
   <div class="grid">
     <div class="grid-box a">프로필 사진</div>
     <div class="grid-box b">자기소개</div>
-    <div class="grid-box c">팔로우</div>
+    <div class="grid-box c">
+      <% if current_user.following?(@user) %>
+      <%= link_to "Following", {action: 'unfollow', id: @user.id}, method: 'post', remote: true %>
+      <% elsif current_user != @user %>
+      <%= link_to "Follow", {action: 'follow', id: @user.id}, method: 'post', remote: true %>
+      <% elsif current_user == @user %>
+      여기선 이 문구가 뜨고 다른 유저 페이지에서는 Follow가 뜸 (기능구현완료) 일단 profile / mypage 에만 적용시켜둠
+      <% end %>
+    </div>
     <div class="grid-box d">설정</div>
     <div class="grid-box e">하는 게임</div>
   </div>
   
-<h2>[JQuery Tab Here 제이쿼리 탭 넣는 자리]</h2>
+<h5>[JQuery Tab Here 제이쿼리 탭 넣는 자리]</h5>
 
 <% if current_user.id != @profile_user %>
 	<a href="/profile/mypage/<%= @profile_user %>">프로필 메인</a>
@@ -37,8 +45,7 @@
   <a href="/profile/<%= current_user.id %>/new">앨범 만들기</a>
 <% end %>
 
-<h3>user_id <%= @profile_user %>의 마이페이지</h3>
-<h4>아래는 사진첩</h4>
+<h5>profile/mypage/user_id임. user_id <%= @profile_user %>의 마이페이지(메인). 아래는 사진첩.</h5>
 
 <!-- 사진첩 만드는 곳-->
 <div class="box-container">
