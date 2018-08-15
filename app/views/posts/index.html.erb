@@ -74,9 +74,22 @@
           <img class="image" src="<%= board.image_url %>">
           <div class="padding">
             <div class="">
+              
+              <!-- 좋아요 -->
+              <div>
+                <% if current_user.is_like?(board) %>
+                <%= link_to "좋아요 취소", like_board_path(board), method: "POST" %>
+                <% else %>
+                <%= link_to "좋아요", like_board_path(board), method: "POST" %>
+                <% end %>
+                <%= board.liked_users.size %>
+              </div>
+              
+              <!-- 게시글 편집 -->
               <% if user_signed_in? && current_user.id == board.profile.user.id %>
               <a href="/board/edit/<%= board.id %>"><i class="material-icons">edit</i></a>
               <%= link_to '삭제', board, method: :delete, data: { confirm: '진짜 삭제?' } %>
+              <% end %>
               
               <!-- 코멘트 입력 / 제출 -->
               <div>
@@ -85,17 +98,11 @@
                   <input type="textarea" name="body" placeholder="댓글 쓰는 곳">
                   <input type="submit">
                   </form>
-                <% end %>
                   <% board.comments.each do |comment| %>
-                  <%= comment.body %><hr>
+                  <%= comment.body.reverse %><hr>
                   <% end %>
+                <% end %>
               </div>
-        
-              <% end %>
-            </div>
-            <div class="contentbox">
-              <%= board.content %>
-              <%= board.liked_users.size %>
             </div>
           </div>  
         </div>    
