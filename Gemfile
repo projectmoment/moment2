@@ -7,6 +7,7 @@ gem 'omniauth-naver'
 
 gem 'figaro'
 
+gem 'acts_as_follower'
 gem 'carrierwave'
 gem "rails_db", "1.6"
 gem 'devise'

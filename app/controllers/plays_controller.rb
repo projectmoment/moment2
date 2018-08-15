@@ -6,7 +6,8 @@ class PlaysController < ApplicationController
     # end   
     
     def create
-         @category_id.each do |i| 
+        @category_id = params[:category_id]
+        @category_id.each do |i| 
             @play = Play.new
             @play.user_id = params[:user_id]
             @play.category_id = i
@@ -15,6 +16,17 @@ class PlaysController < ApplicationController
 
         @userid = current_user.id
         redirect_to "/profile/mypage/#{@userid}"
+    end
+    
+    def update
+        
+        @category_id = params[:category_id]
+        @category_id.each do |i|
+            
+    end
+    
+    def destroy
+        
     end
 
 end

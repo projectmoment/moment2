@@ -8,7 +8,9 @@ class User < ActiveRecord::Base
   has_many :boards
   has_many :likes
   has_many :liked_boards, through: :likes, source: :board
-  
+  acts_as_follower
+  acts_as_followable
+
   #좋아요
   def is_like?(board)
     Like.find_by(user_id: self.id, board_id: board.id).present?

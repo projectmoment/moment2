@@ -5,11 +5,8 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   
-  def mypage
-  end
-  
   def index
-    @posts = Post.all.reverse
+    @boards = Board.all.reverse
   end
 
   # GET /posts/1
@@ -20,11 +17,6 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
-    
-    # 해시태그세번 입력하도록 설정
-    # 동적으로 추가할 수 있도록 나중에 개선해보자
-    
-    3.times { @post.hashtags.new }
    
   end
 
@@ -36,16 +28,6 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
-    
-    # 해시태그 처리
-    3.times do |x|
-      # 날아오는 params 중 hashtag 관련 params를 받아온다. 인썸니아 강의 12:52
-      tag = hashtag_params[:hashtags_attributes]["#{x}"]["title"]
-      myHash = Hashtag.find_or_create_by(title: tag)
-      
-      @post.hashtags << myHash
-    end
-    
     respond_to do |format|
       if @post.save
         format.html { redirect_to posts_path, notice:"게시물이 성공적으로 작성되었습니다."}
@@ -94,7 +76,4 @@ class PostsController < ApplicationController
       params.require(:post).permit(:title, :content)
     end
     
-    def hashtag_params
-      params.require(:post).permit(hashtags_attributes: [:title])
-    end
 end

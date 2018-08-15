@@ -1,11 +1,26 @@
-<html>
-  
 <head>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
 <body>
+  <div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="#">About</a>
+  <a href="#">Services</a>
+  <a href="#">Clients</a>
+  <a href="#">Contact</a>
+</div>
 <!-- nav -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <script>
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+    }
+    
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+    </script>
+<nav role="navigation">
      
   <div class="container">
     
@@ -42,40 +57,199 @@
  <!-- Post List Table -->
   <div class="container">  
     <div class="sign_inform">
-    <p><% if user_signed_in?%>
-                <%= current_user.name %>님 환영합니다<br>
-    <%end%></p>
+      <p>
+        <% if user_signed_in?%>
+          <%= current_user.name %>님 환영합니다<br>
+        <%end%>
+      </p>
     <p id="notice"><%= notice %></p>
-     <button><%= link_to '글 올리기', new_post_path %></button>
     </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Content</th>
-            <th colspan="3"></th>
-          </tr>
-        </thead>
-  
-        <% @posts.each do |post| %>
-        <tbody>
-            <tr>
-              <td><%= post.title %></td>
-              <td><%= post.content %></td>
-              <td><%= link_to 'Show', post %></td>
-              <td><%= link_to 'Edit', edit_post_path(post) %></td>
-              <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            </tr>
-        </tbody>
-         <% end %>
-      </table>
-  </div> <!--Contaner ;  Post List table -->
+  </div>
+
+<div class="box-container">
+  <div class="newsfeed">
+    <% @boards.each do |board| %>
+      <div class="box">
+        <div class="">
+          <img class="image" src="<%= board.image_url %>">
+          <div class="padding">
+            <div class="">
+              
+              <!-- 좋아요 -->
+              <div>
+                <% if current_user.is_like?(board) %>
+                <%= link_to "좋아요 취소", like_board_path(board), method: "POST" %>
+                <% else %>
+                <%= link_to "좋아요", like_board_path(board), method: "POST" %>
+                <% end %>
+                <%= board.liked_users.size %>
+              </div>
+              
+              <!-- 게시글 편집 -->
+              <% if user_signed_in? && current_user.id == board.profile.user.id %>
+              <a href="/board/edit/<%= board.id %>"><i class="material-icons">edit</i></a>
+              <%= link_to '삭제', board, method: :delete, data: { confirm: '진짜 삭제?' } %>
+              <% end %>
+              
+              <!-- 코멘트 입력 / 제출 -->
+              <div>
+                <% if user_signed_in?%>
+                  <form action="/board/comments/<%= board.id %>" method="POST">
+                  <input type="textarea" name="body" placeholder="댓글 쓰는 곳">
+                  <input type="submit">
+                  </form>
+                  <% board.comments.each do |comment| %>
+                  <%= comment.body.reverse %><hr>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>  
+        </div>    
+      </div>
+      <div class="newspace"><br>
+      <!-- 게시글 사이에 여백 -->
+      </div>
+    <% end %>
+  </div>
+</div>
 
   <br>
-
-
-
-
-</html>
-
 </body>
+
+  
+<footer>
+</footer>
+
+
+
+
+
+<style>
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
+  body {
+    background-color: #FAFAFA;
+  }
+  
+  a:hover {
+    background: none;
+  }
+  
+  .box-container {
+    text-align: center;
+  }
+  
+  .box {
+    display: inline-block;
+    background-color: white;
+    border-radius: 3px;
+    border-color: #E6E6E6;
+    border-style: solid;
+    border-width: 1px;
+    max-width: 700px;
+    text-align: left;
+  }
+  
+  .box-mobile {
+    border: none;
+    margin-bottom: 0;
+  }
+  
+  .box .buttons{
+    font-size: 2em;
+  }
+  
+  .box .buttons .glyphicon{
+    color: black;
+    margin-right: 0.3em;
+  }
+  
+  .box .padding {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    margin-bottom: 1.5em;
+  }
+  
+  .box .image {
+    margin-top: 5em;
+    min-width: 700px;
+    max-width: 100%;
+    max-height: 600px;
+    margin-bottom: 1em;
+  }
+  
+  .box .hit {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+  }
+  
+  .contentbox {
+    width: 100%;
+  }
+  
+  .newsfeed {
+    display: inline-block;
+    background-color: white;
+    width: 700px;
+    text-align: left;
+  }
+  
+  .newspace {
+    background-color: #FAFAFA;
+    padding-bottom: 3.5em;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template: 1fr 1fr / 2fr 6fr 1fr 1fr;
+  }
+  
+  .grid .grid-box {
+    background-color: #FAFAFA;
+    color: black;
+    border-radius: 5px;
+    border: 2px dodgerblue solid;
+    grid-gap: 10px;
+  }
+
+
+</style>
