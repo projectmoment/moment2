@@ -1,0 +1,26 @@
+<form action='/board/search' method="GET">
+
+
+<% @boards.each do |board| %>
+            <div class="col m4 l4">
+                <div class="box">
+                <a href="/board/<%= board.id %>"><img class="image" src="<%= board.image_url %>"></a>
+                    <div class="padding">
+                        <div class="buttons">
+                            <% if user_signed_in? && current_user.id == @user.id %>
+                            <a href="/board/edit/<%= board.id %>"><i class="material-icons">edit</i></a>
+                            <%= link_to '삭제', board, method: :delete, data: { confirm: '진짜 삭제?' } %>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+
+
+<% end %>
+</div>
+
+<input type="text" name="search">
+<input type="submit">
+
