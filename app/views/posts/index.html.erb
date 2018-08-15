@@ -85,6 +85,11 @@
                 <%= board.liked_users.size %>
               </div>
               
+              <!-- 게시글 정보 -->
+              <b><%= board.profile.user.name %></b>
+                 <%= board.title %>
+                 <%= board.content %>
+              
               <!-- 게시글 편집 -->
               <% if user_signed_in? && current_user.id == board.profile.user.id %>
               <a href="/board/edit/<%= board.id %>"><i class="material-icons">edit</i></a>
