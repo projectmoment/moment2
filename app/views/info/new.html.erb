@@ -1,25 +1,44 @@
 <h1>info 생성 페이지</h1>
-
-<form action="/info/create" method="post" enctype="multipart/form-data">
+<% if @info.blank? %>
+    <form action="/info/create" method="post" enctype="multipart/form-data">
+        <div>
+            <p>프로필 사진</p>
+            <input type="file" name="image_url" id="info_image_url"><br>
+        </div>
+    
+        <div>
+            <p>자기소개</p>
+            <input type="text" name="introduction">
+        </div>
+        
+        <input type="submit" value="저장">
+    </form>
+<% else %>
     <div>
         <p>프로필 사진</p>
-        <input type="file" name="image_url" id="info_image_url"><br>
+        <img src= "<%= @info.image_url%>" >
     </div>
-
+        
     <div>
         <p>자기소개</p>
-        <input type="text" name="introduction">
+        <%= @info.introduction %>
     </div>
-    
-    <input type="submit" value="저장">
-</form>
-    
+<% end %>
+
+
 <div>
     <p>하는 게임을 모두 선택하시오.</p>
-    <form action="/play/create/" method="post">
-        <% @categories.each do |category|%>    
-            <%= category.name %><input type="checkbox" name="category_id" value= category.id><br>
+    <form action="/plays/create/<%= current_user.id %>" method="post">
+        <% @categories.each do |category|%> 
+            <p>
+              <label>
+                <input type="checkbox" name="category_id[]" value= "<%= category.id %>" class="filled-in"  />
+                <span><%= category.name %></span>
+              </label>
+            </p>
         <% end %> 
+        
+        <input type="submit" value="저장">  
     </form>    
        
 </div>

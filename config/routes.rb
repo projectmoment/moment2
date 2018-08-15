@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   get 'info/edit/:id' => 'info#edit', as: 'edit_info'
   post 'info/update/:id' => 'info#update', as: 'update_info'
   
-  get 'play/create/:user_id/:category_id' => 'play#create'
+  post 'plays/create/:user_id' => 'plays#create'
   
   # omniauth : for SNS(facebook) login
   devise_for :users, :controllers => { omniauth_callbacks: 'user/omniauth_callbacks' }

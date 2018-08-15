@@ -1,6 +1,7 @@
 class InfoController < ApplicationController
     def new
         @categories = Category.all
+        @info = Info.find_by(user_id: params[:user_id])
         
     end
     
@@ -11,7 +12,7 @@ class InfoController < ApplicationController
         @info.user_id = current_user.id
         @info.save
         @userid = current_user.id
-        redirect_to "/profile/mypage/#{@userid}"
+        redirect_to "/info/new/#{@userid}"
     end
     def edit
         @info = Info.find(params[:id])
