@@ -9,7 +9,7 @@
     <%= f.text_area :content %><br>
     
     <% if @board.image_url.present? %>
-    <%= current.@board.image_url %>
+    <% f.hidden_field :image_url_cache %>
     <% else %>
     <%= f.label :image_url, "이미지 첨부" %><br><br>
     <%= f.file_field :image_url %><br><br>

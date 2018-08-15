@@ -2,6 +2,7 @@ class BoardController < ApplicationController
     
     def index
         @bo = Board.find(params[:id])
+        @current_image = @bo.image_url
         @pro = @bo.profile_id
     end
     
@@ -46,9 +47,13 @@ class BoardController < ApplicationController
     
     def update
         @board = Board.find(params[:id])
-        @board.title = params[:board][:title]
-        @board.content = params[:board][:content]
-        @board.image_url = params[:board][:image_url]
+        if  @board.image_url.present?
+            @board.image_url.cache!
+        else
+            @board.title = params[:board][:title]
+            @board.content = params[:board][:content]
+            @board.image_url = params[:board][:image_url]
+        end
         @board.save
         @pro = @board.profile_id
         redirect_to "/profile/#{@pro}"
