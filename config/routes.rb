@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'profile/:profile_id' => 'profile#index', as: 'profile_index'
   get 'profile/:user_id/new' => 'profile#new'
   get 'profile/:user_id/album' => 'profile#album'
+  get 'profile/:user_id/archive' => 'profile#album'
   get 'profile/mypage/:user_id' => 'profile#mypage', as: 'mypage'
   post 'profile/:user_id/create' => 'profile#create', as: 'create_profile'
   get 'profile/edit2/:id' =>  'profile#edit2', as: 'edit2_profile'
