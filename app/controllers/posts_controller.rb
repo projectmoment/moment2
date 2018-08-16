@@ -9,6 +9,11 @@ class PostsController < ApplicationController
     @boards = Board.all.reverse
   end
 
+#    def search
+ #   @boardtitle = Board.where(title: params[:search])
+  #  @boardcontent = Board.where(content: params[:search])
+   # @boards = @boardtitle + @boardcontent
+    #end
   # GET /posts/1
   # GET /posts/1.json
   def show
