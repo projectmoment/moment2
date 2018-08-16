@@ -14,15 +14,12 @@ class ProfileController < ApplicationController
     
     def archive
         @user = User.find(params[:user_id])
-        @profile = Profile.find_by(user_id: @user.id)
-        @board = Board.where(profile_id: @profile.id)
+        @board = Board.where(profile: @user.profiles)
     end
     
     def mypage
         @user = User.find(params[:user_id])
-        @profile = Profile.find_by(user_id: @user.id)
-        @board = Board.where(profile_id: @profile.id)
-        @profile_user = (params[:user_id]).to_i
+        @board = Board.where(profile: @user.profiles)
     end
     
     def follow

@@ -18,11 +18,11 @@
   
 <h5>[JQuery Tab Here 제이쿼리 탭 넣는 자리]</h5>
 
-<% if current_user.id != @profile_user %>
-	<a href="/profile/mypage/<%= @profile_user %>">프로필 메인</a>
-	<a href="/profile/<%= @profile_user %>/album">앨범</a>
-	<a href="/profile/<%= @profile_user %>/archive">아카이브</a>
-  <a href="/profile/<%= @profile_user %>/tagged">태그됨</a>
+<% if current_user != @user %>
+	<a href="/profile/mypage/<%= @user.id %>">프로필 메인</a>
+	<a href="/profile/<%= @user.id %>/album">앨범</a>
+	<a href="/profile/<%= @user.id %>/archive">아카이브</a>
+  <a href="/profile/<%= @user.id %>/tagged">태그됨</a>
 <% else %>
 	<a href="/profile/mypage/<%= current_user.id %>">프로필 메인</a>
 	<a href="/profile/<%= current_user.id %>/album">앨범</a>
@@ -30,7 +30,7 @@
   <a href="/profile/<%= current_user.id %>/tagged">태그됨</a>
 <% end %>
 
-<h6>profile/mypage/user_id임. user_id <%= @profile_user %>의 마이페이지(메인)</h6>
+<h6>profile/mypage/user_id임. user_id <%= @user.id %>의 마이페이지(메인)</h6>
 <h6>사이트 최초 메인화면과 비슷한 레이아웃으로 가려 함</h6>
 
 <div class="box-container">
@@ -77,7 +77,7 @@
               </div>
             </div>
           </div>  
-        </div>    
+        </div>
       </div>
       <div class="newspace"><br>
       <!-- 게시글 사이에 여백 -->
