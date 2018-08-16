@@ -14,3 +14,10 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+// 탭
+//  $(document).ready(function(){
+//    $('.tabs').tabs();
+//  });
+  
+  

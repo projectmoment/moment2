@@ -3,7 +3,7 @@ class ProfileController < ApplicationController
     def index
         @board = Board.where(profile_id: params[:profile_id])
         @pro = Profile.find(params[:profile_id])
-        @temp = params[:profile_id]
+        @user = @pro.user
     end
     
     def album
@@ -19,7 +19,7 @@ class ProfileController < ApplicationController
     
     def mypage
         @user = User.find(params[:user_id])
-        @board = Board.where(profile: @user.profiles)
+        @board = Board.where(profile: @user.profiles).reverse
     end
     
     def follow

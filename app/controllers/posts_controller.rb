@@ -6,7 +6,7 @@ class PostsController < ApplicationController
   # GET /posts.json
   
   def index
-    @boards = Board.all.reverse
+    @board = Board.all.reverse
   end
 
 #    def search

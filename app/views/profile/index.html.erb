@@ -1,38 +1,37 @@
-    <!--div class = "intro">
-<!-- model:profile 안에 image를 넣어야함
-    <!--%= image_tag(@profile.image_url) %>
-    <!-- %= @profile.introduction %>
-    <!-- 하는 게임-->
-    <!-- 팔로우-->
-    <!-- 설정-->
-    <!-- %= link_to "설정", "/profiles/edit2"%>
-    
-</div>-->
+<h4>[상단 네브바]</h4>
 
-<h1>[상단 네브바]</h1>
-
-  <div class="grid">
-    <div class="grid-box a">프로필 사진</div>
-    <div class="grid-box b">자기소개</div>
-    <div class="grid-box c">팔로우</div>
-    <div class="grid-box d">설정</div>
-    <div class="grid-box e">하는 게임</div>
+<div class="grid">
+  <div class="grid-box a">프로필 사진</div>
+  <div class="grid-box b">자기소개</div>
+  <div class="grid-box c">
+    <% if current_user.following?(@user) %>
+    <%= link_to "Following", {action: 'unfollow', id: @user.id}, method: 'post', remote: true %>
+    <% elsif current_user != @user %>
+    <%= link_to "Follow", {action: 'follow', id: @user.id}, method: 'post', remote: true %>
+    <% elsif current_user == @user %>
+    여기선 이 문구가 뜨고 다른 유저 페이지에서는 Follow가 뜸
+    <% end %>
   </div>
-  
-<h5>[JQuery Tab Here 제이쿼리 탭 넣는 자리]</h5>
+  <div class="grid-box d">설정</div>
+  <div class="grid-box e">하는 게임</div>
+</div>
 
-<% if current_user.id != @pro.user_id %>
-	<a href="/profile/mypage/<%= @pro.user_id %>">프로필 메인</a>
-	<a href="/profile/<%= @pro.user_id %>/album">앨범/a>
-	<a href="/profile/<%= @pro.user_id %>/archive">아카이브</a>
-  <a href="/profile/<%= @pro.user_id %>/tagged">태그됨</a>
+<% if current_user != @pro.user_id %>
+  <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
+    <li class="tab"><a href="/profile/mypage/<%= @pro.user_id %>">프로필 메인</a></li>
+    <li class="tab"><a href="/profile/<%= @pro.user_id %>/album">앨범</a></li>
+    <li class="tab"><a href="/profile/<%= @pro.user_id %>/archive">아카이브</a></li>
+    <li class="tab"><a href="/profile/<%= @pro.user_id %>/tagged">태그됨</a></li>
+  </ul>
 <% else %>
-	<a href="/profile/mypage/<%= current_user.id %>">프로필 메인</a>
-	<a href="/profile/<%= current_user.id %>/album">앨범</a>
-	<a href="/profile/<%= current_user.id %>/archive">아카이브</a>
-  <a href="/profile/<%= current_user.id %>/tagged">태그됨</a>
-  <a href="/board/<%= @pro.id %>/new">글쓰기</a>
+  <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
+    <li class="tab"><a href="/profile/mypage/<%= current_user.id %>">프로필 메인</a></li>
+    <li class="tab"><a href="/profile/<%= current_user.id %>/album">앨범</a></li>
+    <li class="tab"><a href="/profile/<%= current_user.id %>/archive">아카이브</a></li>
+    <li class="tab"><a href="/profile/<%= current_user.id %>/tagged">태그됨</a></li>
+  </ul>
 <% end %>
+<a href="/board/<%= @pro.id %>/new">글쓰기</a>
 
 <h6>profile/index/profile_id임. 여기서 글쓰기 가능</h6>
 
