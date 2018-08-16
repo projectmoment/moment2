@@ -20,7 +20,8 @@ class ProfileController < ApplicationController
     
     def mypage
         @user = User.find(params[:user_id])
-        @profile = Profile.where(user_id: params[:user_id])
+        @profile = Profile.find_by(user_id: @user.id)
+        @board = Board.where(profile_id: @profile.id)
         @profile_user = (params[:user_id]).to_i
     end
     

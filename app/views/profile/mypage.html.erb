@@ -20,43 +20,70 @@
 
 <% if current_user.id != @profile_user %>
 	<a href="/profile/mypage/<%= @profile_user %>">프로필 메인</a>
-	<a href="/profile/<%= @profile_user %>/album">전체 게시물</a>
-	<a href="/profile/<%= @profile_user %>/saved">즐겨찾기</a>
+	<a href="/profile/<%= @profile_user %>/album">앨범</a>
+	<a href="/profile/<%= @profile_user %>/archive">아카이브</a>
   <a href="/profile/<%= @profile_user %>/tagged">태그됨</a>
 <% else %>
 	<a href="/profile/mypage/<%= current_user.id %>">프로필 메인</a>
-	<a href="/profile/<%= current_user.id %>/album">전체 게시물</a>
-	<a href="/profile/<%= current_user.id %>/saved">즐겨찾기</a>
+	<a href="/profile/<%= current_user.id %>/album">앨범</a>
+	<a href="/profile/<%= current_user.id %>/archive">아카이브</a>
   <a href="/profile/<%= current_user.id %>/tagged">태그됨</a>
 <% end %>
 
-<% if user_signed_in? && current_user.id == @profile_user  %>
-  <a href="/profile/<%= current_user.id %>/new">앨범 만들기</a>
-<% end %>
+<h6>profile/mypage/user_id임. user_id <%= @profile_user %>의 마이페이지(메인)</h6>
+<h6>사이트 최초 메인화면과 비슷한 레이아웃으로 가려 함</h6>
 
-<h5>profile/mypage/user_id임. user_id <%= @profile_user %>의 마이페이지(메인). 아래는 사진첩.</h5>
-
-<!-- 사진첩 만드는 곳-->
 <div class="box-container">
-    <div class="row">
-        <% @profile.each do |profile| %>
-            <div class="col m4 l4">
-                <div class="box">
-                <!--img class="image" src="<!%= profile.picture %>">-->
-                    <div class="padding">
-                        <div class="buttons">
-                            <!--%= link_to 'show', profile %-->
-                            <a href="/profile/<%= profile.id %>">보기</a>
-                            <% if user_signed_in? && current_user.id == profile.user_id %>
-                            <%= link_to 'edit', edit2_profile_path(profile) %>
-                            <%= link_to 'delete', profile, method: :delete, data: { confirm: 'Are you sure?' } %>
-                            <% end %>
-                        </div>
-                    </div>
-                </div>
+  <div class="newsfeed">
+    <% @board.each do |board| %>
+      <div class="box">
+        <div class="">
+          <img class="image" src="<%= board.image_url %>">
+          <div class="padding">
+            <div class="">
+              
+              <!-- 좋아요 -->
+              <div>
+                <% if current_user.is_like?(board) %>
+                <%= link_to "좋아요 취소", like_board_path(board), method: "POST" %>
+                <% else %>
+                <%= link_to "좋아요", like_board_path(board), method: "POST" %>
+                <% end %>
+                <%= board.liked_users.size %>
+              </div>
+              
+              <!-- 게시글 정보 -->
+              <b><%= board.profile.user.name %></b>
+                 <%= board.title %>
+                 <%= board.content %>
+              
+              <!-- 게시글 편집 -->
+              <% if user_signed_in? && current_user.id == board.profile.user.id %>
+              <a href="/board/edit/<%= board.id %>"><i class="material-icons">edit</i></a>
+              <%= link_to '삭제', board, method: :delete, data: { confirm: '진짜 삭제?' } %>
+              <% end %>
+              
+              <!-- 코멘트 입력 / 제출 -->
+              <div>
+                <% if user_signed_in?%>
+                  <form action="/board/comments/<%= board.id %>" method="POST">
+                  <input type="textarea" name="body" placeholder="댓글 쓰는 곳">
+                  <input type="submit">
+                  </form>
+                  <% board.comments.each do |comment| %>
+                  <%= comment.body.reverse %><hr>
+                  <% end %>
+                <% end %>
+              </div>
             </div>
-        <% end %>
-    </div>
+          </div>  
+        </div>    
+      </div>
+      <div class="newspace"><br>
+      <!-- 게시글 사이에 여백 -->
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <a href="/">홈으로</a>
@@ -64,99 +91,117 @@
 <!-- CSS -->
 
  <style>
-    body {
-      background-color: #FAFAFA;
-    }
-    
-    a:hover {
-      background: none;
-    }
-    
-    .box-container {
-      text-align: center;
-    }
-    
-    .box {
-      display: inline-block;
-      background-color: white;
-      border-radius: 3px;
-      border-color: #E6E6E6;
-      border-style: solid;
-      border-width: 1px;
-      text-align: left;
-      margin-bottom: 30px;
-    }
-    
-    .box-mobile {
-      border: none;
-      margin-bottom: 0;
-    }
-    
-    .box .buttons{
-      font-size: 2em;
-    }
+  body {
+    background-color: #FAFAFA;
+  }
+  
+  a:hover {
+    background: none;
+  }
+  
+  .box-container {
+    text-align: center;
+  }
+  
+  .box {
+    display: inline-block;
+    background-color: white;
+    border-radius: 3px;
+    border-color: #E6E6E6;
+    border-style: solid;
+    border-width: 1px;
+    max-width: 700px;
+    text-align: left;
+  }
+  
+  .box-mobile {
+    border: none;
+    margin-bottom: 0;
+  }
+  
+  .box .buttons{
+    font-size: 2em;
+  }
+  
+  .box .buttons .glyphicon{
+    color: black;
+    margin-right: 0.3em;
+  }
+  
+  .box .padding {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    margin-bottom: 1.5em;
+  }
+  
+  .box .image {
+    margin-top: 5em;
+    min-width: 700px;
+    max-width: 100%;
+    max-height: 600px;
+    margin-bottom: 1em;
+  }
+  
+  .box .hit {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+  }
+  
+  .contentbox {
+    width: 100%;
+  }
+  
+  .newsfeed {
+    display: inline-block;
+    background-color: white;
+    width: 700px;
+    text-align: left;
+  }
+  
+  .newspace {
+    background-color: #FAFAFA;
+    padding-bottom: 3.5em;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template: 1fr 1fr / 2fr 6fr 1fr 1fr;
+  }
+  
+  .grid .grid-box {
+    background-color: #FAFAFA;
+    color: black;
+    border-radius: 5px;
+    border: 2px dodgerblue solid;
+    grid-gap: 10px;
+  }
+  
+  .grid .a {
+    grid-row-start: 1;
+    grid-row-end: 3;
+  }
+  
+  .grid .b {
+    grid-row-start: 1;
+    grid-row-end: 2;
+  }
+  
+  .grid .c {
+    grid-row-start: 1;
+    grid-row-end: 2;
+  }
+  
+  .grid .d {
+    grid-row-start: 1;
+    grid-row-end: 2;
+  }
+  
+  .grid .e {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 2;
+    grid-column-end: 5;
+  }
 
-    .box .buttons .glyphicon{
-      color: black;
-      margin-right: 0.3em;
-    }
-    
-    .box .padding {
-      padding-left: 1.5em;
-      padding-right: 1.5em;
-      margin-bottom: 1.5em;
-    }
-    
-    .box .image {
-      margin-top: 5em;
-      width: 100%;
-      margin-bottom: 1em;
-    }
-    
-    .box .hit {
-      font-weight: bold;
-      margin-bottom: 0.5em;
-    }
 
-
-
-    .grid {
-      display: grid;
-      grid-template: 1fr 1fr / 2fr 6fr 1fr 1fr;
-    }
-    
-    .grid .grid-box {
-      background-color: #FAFAFA;
-      color: black;
-      border-radius: 5px;
-      border: 2px dodgerblue solid;
-      grid-gap: 10px;
-    }
-    
-    .grid .a {
-      grid-row-start: 1;
-      grid-row-end: 3;
-    }
-    
-    .grid .b {
-      grid-row-start: 1;
-      grid-row-end: 2;
-    }
-    
-    .grid .c {
-      grid-row-start: 1;
-      grid-row-end: 2;
-    }
-    
-    .grid .d {
-      grid-row-start: 1;
-      grid-row-end: 2;
-    }
-    
-    .grid .e {
-      grid-row-start: 2;
-      grid-row-end: 3;
-      grid-column-start: 2;
-      grid-column-end: 5;
-    }
 </style>
