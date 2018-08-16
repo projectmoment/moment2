@@ -8,8 +8,8 @@ class ProfileController < ApplicationController
     
     def album
         @user = User.find(params[:user_id])
-        @profile = Profile.find_by(user_id: @user.id)
-        @board = Board.where(profile_id: @profile.id)
+        @profile = Profile.where(user_id: params[:user_id])
+        @profile_user = (params[:user_id]).to_i
     end
     
     def archive
@@ -46,7 +46,7 @@ class ProfileController < ApplicationController
         @profile.category_id = params[:category_id]
         @profile.save
         @userid = current_user.id
-        redirect_to "/profile/mypage/#{@userid}"
+        redirect_to "/profile/#{@userid}/album"
     end
 
     def edit2
@@ -58,7 +58,7 @@ class ProfileController < ApplicationController
         @profile.category_id = params[:category_id]
         @profile.save
         @userid = current_user.id
-        redirect_to "/profile/mypage/#{@userid}"
+        redirect_to "/profile/#{@userid}/album"
     end
     
     def show
