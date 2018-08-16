@@ -43,7 +43,18 @@
        
 </div>
 
-
+<div>
+   <p>하는 게임을 모두 선택하시오.</p>
+    <% @categories.each do |category|%> 
+        <% if current_user.following?(category.id ) %>
+        <%= link_to "Following", {action: 'unfollow', id: @user.id}, method: 'post', remote: true %>
+        <% elsif current_user != @user %>
+        <%= link_to "Follow", {action: 'follow', id: @user.id}, method: 'post', remote: true %>
+        <% elsif current_user == @user %>
+        여기선 이 문구가 뜨고 다른 유저 페이지에서는 Follow가 뜸 (기능구현완료) 일단 profile / mypage 에만 적용시켜둠
+        <% end %>
+    <% end %>
+</div>
 
 
 
