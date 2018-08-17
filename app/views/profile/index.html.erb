@@ -41,12 +41,12 @@
         <% @board.each do |board| %>
             <div class="col m4 l4">
                 <div class="box">
-                <a class="modal-trigger" href="#modal1">
+                <a class="modal-trigger" href="#<%=board.id%>">
                   <img class="image" src="<%= board.image_url %>"></a>
 
                         <!-- Modal Structure -->
 
-                        <div id="modal1" class="modal">
+                        <div id="<%=board.id%>" class="modal">
                           <div class="modal-content">
                             <img class="modal-image" src="<%= board.image_url %>">
                             <h4><%= board.title %></h4>
