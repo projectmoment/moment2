@@ -40,7 +40,7 @@
         <% @board.each do |board| %>
             <div class="col m4 l4">
                 <div class="box">
-                <a href="/board/<%= board.id %>"><img class="image" src="<%= board.image_url %>"></a>
+                <a href="/board/<%= board.id %>"><img class="image" src="<%= board.profile.category.image_url %>"></a>
                     <div class="padding">
                         <div class="">
                             <% if user_signed_in? && current_user.id == @pro.user_id %>

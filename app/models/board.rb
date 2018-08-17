@@ -1,7 +1,5 @@
 class Board < ActiveRecord::Base
 
-# Hashtag M:N Relationship Setting
-# board.rb / hashtag.rb
     require 'carrierwave/orm/activerecord'
     mount_uploader :image_url, ImageUploader
     

@@ -44,7 +44,7 @@
         <% @profile.each do |profile| %>
             <div class="col m4 l4">
                 <div class="box">
-                <!--img class="image" src="<!%= profile.picture %>">-->
+                <a href="/profile/<%= profile.id %>"><img class="image" src="<%= profile.category.image_url %>"></a>
                     <div class="padding">
                         <div class="buttons">
                             <!--%= link_to 'show', profile %-->
