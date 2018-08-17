@@ -47,10 +47,7 @@
                 <a href="/profile/<%= profile.id %>"><img class="image" src="<%= profile.category.image_url %>"></a>
                     <div class="padding">
                         <div class="buttons">
-                            <!--%= link_to 'show', profile %-->
-                            <a href="/profile/<%= profile.id %>">보기</a>
                             <% if user_signed_in? && current_user.id == profile.user_id %>
-                            <%= link_to 'edit', edit2_profile_path(profile) %>
                             <%= link_to 'delete', profile, method: :delete, data: { confirm: 'Are you sure?' } %>
                             <% end %>
                         </div>
