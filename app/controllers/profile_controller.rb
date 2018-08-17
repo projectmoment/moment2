@@ -34,6 +34,10 @@ class ProfileController < ApplicationController
         respond_to :js
     end
     
+    def modal
+        respond_to :js
+    end
+    
     def new
         @categories = Category.all.map { |cat| [cat.name, cat.id] }
     end
