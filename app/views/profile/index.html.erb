@@ -41,18 +41,27 @@
         <% @board.each do |board| %>
             <div class="col m4 l4">
                 <div class="box">
-                <a href="/board/<%= board.id %>" class="modal-trigger"><img class="image" src="<%= board.image_url %>"></a>
-                    <div class="padding">
-                        <div class="">
-                            <% if user_signed_in? && current_user.id == @pro.user_id %>
+                <a class="modal-trigger" href="#modal1">
+                  <img class="image" src="<%= board.image_url %>"></a>
+
+                        <!-- Modal Structure -->
+
+                        <div id="modal1" class="modal">
+                          <div class="modal-content">
+                            <img class="modal-image" src="<%= board.image_url %>">
+                            <h4><%= board.title %></h4>
+                            <p><%= board.content %>/p>
+                          </div>
+                          <div class="modal-footer">
+                            <a href="#!" class="modal-close waves-effect waves-green btn-flat">
+                              <% if user_signed_in? && current_user.id == @pro.user_id %>
                             <a href="/board/edit/<%= board.id %>"><i class="material-icons">edit</i></a>
-                            <%= link_to '삭제', board, method: :delete, data: { confirm: '진짜 삭제' } %><br>
-                            <b><%= board.profile.user.name %></b>
-                            <%= board.title %>
-                            <%= board.content %>
-                            <% end %>
+                            <%= link_to '삭제', board, method: :delete, data: { confirm: '진짜 삭제' } %>
+                            </a><% end %>
+                          </div>
                         </div>
-                    </div>
+                    
+                    
                 </div>
             </div>
         <% end %>
