@@ -18,19 +18,19 @@
 
 <% if current_user != @user %>
   <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
-    <li class="tab"><a href="/profile/mypage/<%= @user.id %>">프로필 메인</a></li>
-    <li class="tab"><a href="/profile/<%= @user.id %>/album">앨범</a></li>
-    <li class="tab"><%= @user.name %></a></li>
-    <li class="tab"><a href="/profile/<%= @user.id %>/archive">아카이브</a></li>
-    <li class="tab"><a href="/profile/<%= @user.id %>/tagged">태그됨</a></li>
+    <li class="tab waves-effect waves-pink"><a href="/profile/mypage/<%= @user.id %>">프로필 메인</a></li>
+    <li class="tab waves-effect waves-pink"><a href="/profile/<%= @user.id %>/album">앨범</a></li>
+    <li class="tab waves-effect waves-pink"><%= @user.name %></a></li>
+    <li class="tab waves-effect waves-pink"><a href="/profile/<%= @user.id %>/archive">아카이브</a></li>
+    <li class="tab waves-effect waves-pink"><a href="/profile/<%= @user.id %>/tagged">태그됨</a></li>
   </ul>
 <% else %>
   <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
-    <li class="tab"><a href="/profile/mypage/<%= current_user.id %>">프로필 메인</a></li>
-    <li class="tab"><a href="/profile/<%= current_user.id %>/album">앨범</a></li>
-    <li class="tab"><%= @user.name %></a></li>
-    <li class="tab"><a href="/profile/<%= current_user.id %>/archive">아카이브</a></li>
-    <li class="tab"><a href="/profile/<%= current_user.id %>/tagged">태그됨</a></li>
+    <li class="tab waves-effect waves-pink"><a href="/profile/mypage/<%= current_user.id %>">프로필 메인</a></li>
+    <li class="tab waves-effect waves-pink"><a href="/profile/<%= current_user.id %>/album">앨범</a></li>
+    <li class="tab waves-effect waves-pink"><%= @user.name %></a></li>
+    <li class="tab waves-effect waves-pink"><a href="/profile/<%= current_user.id %>/archive">아카이브</a></li>
+    <li class="tab waves-effect waves-pink"><a href="/profile/<%= current_user.id %>/tagged">태그됨</a></li>
   </ul>
 <% end %>
 

@@ -1,75 +1,78 @@
-<h4>[상단 네브바]</h4>
-
-<div class="grid">
-  <div class="grid-box a">프로필 사진</div>
-  <div class="grid-box b">자기소개</div>
-  <div class="grid-box c">
-    <% if current_user.following?(@user) %>
-    <%= link_to "Following", {action: 'unfollow', id: @user.id}, method: 'post', remote: true %>
-    <% elsif current_user != @user %>
-    <%= link_to "Follow", {action: 'follow', id: @user.id}, method: 'post', remote: true %>
-    <% elsif current_user == @user %>
-    여기선 이 문구가 뜨고 다른 유저 페이지에서는 Follow가 뜸
+<head></head>
+<body>
+  <h4>[상단 네브바]</h4>
+  
+  <div class="grid">
+    <div class="grid-box a">프로필 사진</div>
+    <div class="grid-box b">자기소개</div>
+    <div class="grid-box c">
+      <% if current_user.following?(@user) %>
+      <%= link_to "Following", {action: 'unfollow', id: @user.id}, method: 'post', remote: true %>
+      <% elsif current_user != @user %>
+      <%= link_to "Follow", {action: 'follow', id: @user.id}, method: 'post', remote: true %>
+      <% elsif current_user == @user %>
+      여기선 이 문구가 뜨고 다른 유저 페이지에서는 Follow가 뜸
+      <% end %>
+    </div>
+    <div class="grid-box d">설정
+           <img src="/settings_icon.png", width='100px' height='100px'></img>
+    </div>
+    <div class="grid-box e">하는 게임</div>
+  </div>
+  <div class="list">
+    <% if current_user != @pro.user %>
+      <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
+        <li class="tab waves-effect waves-pink"><a href="/profile/mypage/<%= @pro.user_id %>">프로필 메인</a></li>
+        <li class="tab waves-effect waves-pink"><a href="/profile/<%= @pro.user_id %>/album">앨범</a></li>
+        <li class="tab waves-effect waves-pink"><%= @pro.user.name %></a></li>
+        <li class="tab waves-effect waves-pink"><a href="/profile/<%= @pro.user_id %>/archive">아카이브</a></li>
+        <li class="tab waves-effect waves-pink"><a href="/profile/<%= @pro.user_id %>/tagged">태그됨</a></li>
+      </ul>
+    <% else %>
+      <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
+        <li class="tab waves-effect waves-pink"><a href="/profile/mypage/<%= current_user.id %>">프로필 메인</a></li>
+        <li class="tab waves-effect waves-pink"><a href="/profile/<%= current_user.id %>/album">앨범</a></li>
+        <li class="tab waves-effect waves-pink"><a href="/board/<%= @pro.id %>/new">글쓰기</a></li>
+        <li class="tab waves-effect waves-pink"><a href="/profile/<%= current_user.id %>/archive">아카이브</a></li>
+        <li class="tab waves-effect waves-pink"><a href="/profile/<%= current_user.id %>/tagged">태그됨</a></li>
+      </ul>
     <% end %>
   </div>
-  <div class="grid-box d">설정</div>
-  <div class="grid-box e">하는 게임</div>
-</div>
-
-<% if current_user != @pro.user %>
-  <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
-    <li class="tab"><a href="/profile/mypage/<%= @pro.user_id %>">프로필 메인</a></li>
-    <li class="tab"><a href="/profile/<%= @pro.user_id %>/album">앨범</a></li>
-    <li class="tab"><%= @pro.user.name %></a></li>
-    <li class="tab"><a href="/profile/<%= @pro.user_id %>/archive">아카이브</a></li>
-    <li class="tab"><a href="/profile/<%= @pro.user_id %>/tagged">태그됨</a></li>
-  </ul>
-<% else %>
-  <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
-    <li class="tab"><a href="/profile/mypage/<%= current_user.id %>">프로필 메인</a></li>
-    <li class="tab"><a href="/profile/<%= current_user.id %>/album">앨범</a></li>
-    <li class="tab"><a href="/board/<%= @pro.id %>/new">글쓰기</a></li>
-    <li class="tab"><a href="/profile/<%= current_user.id %>/archive">아카이브</a></li>
-    <li class="tab"><a href="/profile/<%= current_user.id %>/tagged">태그됨</a></li>
-  </ul>
-<% end %>
-
-<h6>profile/index/profile_id임. 여기서 글쓰기 가능</h6>
-
-<div class="box-container">
-    <div class="row">
-        <% @board.each do |board| %>
-            <div class="col m4 l4">
-                <div class="box">
-                <a class="modal-trigger" href="#<%=board.id%>">
-                  <img class="image" src="<%= board.image_url %>"></a>
-
-                        <!-- Modal Structure -->
-
-                        <div id="<%=board.id%>" class="modal">
-                          <div class="modal-content">
-                            <img class="modal-image" src="<%= board.image_url %>">
-                            <h4><%= board.title %></h4>
-                            <p><%= board.content %>/p>
+  <h6>profile/index/profile_id임. 여기서 글쓰기 가능</h6>
+  
+  <div class="box-container">
+      <div class="row">
+          <% @board.each do |board| %>
+              <div class="col m4 l4">
+                  <div class="box">
+                  <a class="modal-trigger" href="#<%=board.id%>">
+                    <img class="image" src="<%= board.image_url %>"></a>
+  
+                          <!-- Modal Structure -->
+  
+                          <div id="<%=board.id%>" class="modal">
+                            <div class="modal-content">
+                              <img class="modal-image" src="<%= board.image_url %>">
+                              <h4><%= board.title %></h4>
+                              <p><%= board.content %>/p>
+                            </div>
+                            <div class="modal-footer">
+                              <a href="#!" class="modal-close waves-effect waves-green btn-flat">
+                                <% if user_signed_in? && current_user.id == @pro.user_id %>
+                              <a href="/board/edit/<%= board.id %>"><i class="material-icons">edit</i></a>
+                              <%= link_to '삭제', board, method: :delete, data: { confirm: '진짜 삭제' } %>
+                              </a><% end %>
+                            </div>
                           </div>
-                          <div class="modal-footer">
-                            <a href="#!" class="modal-close waves-effect waves-green btn-flat">
-                              <% if user_signed_in? && current_user.id == @pro.user_id %>
-                            <a href="/board/edit/<%= board.id %>"><i class="material-icons">edit</i></a>
-                            <%= link_to '삭제', board, method: :delete, data: { confirm: '진짜 삭제' } %>
-                            </a><% end %>
-                          </div>
-                        </div>
-                    
-                    
-                </div>
-            </div>
-        <% end %>
-    </div>
-</div>
-
-<a href="/">홈으로</a>
-
+                  </div>
+              </div>
+          <% end %>
+      </div>
+  </div>
+  
+  <a href="/">홈으로</a>
+</body>
+<footer></footer>
 <!-- CSS -->
 
  <style>
@@ -118,6 +121,10 @@
     
     .box .image {
       width: 100%;
+    }
+    
+    .modal-image {
+      max-width: 100%;
     }
     
     .box .hit {

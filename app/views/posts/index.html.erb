@@ -2,57 +2,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<body>
-  <div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="#">About</a>
-  <a href="#">Services</a>
-  <a href="#">Clients</a>
-  <a href="#">Contact</a>
-</div>
-<!-- nav -->
-    <script>
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-    }
-    
-    function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-    }
-    </script>
-<nav role="navigation">
-     
-  <div class="container">
-    
-      <!-- toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <!-- 사이트소개 페이지 -->
-          <li>
-            <%=link_to "Moment", "/posts/intro" %>
-          </li>
-          <!-- 로그인/아웃 -->
-          <li>
-            <% if user_signed_in?%>
-              <%= link_to "LogOut", destroy_user_session_path, method: :delete%>
-            <% else %>
-              <%= link_to "LogIn", new_user_session_path%>
-            <% end%>
-          </li>
-          <!-- 마이페이지 -->
-          <li>
-            <%= link_to "마이페이지", mypage_path(current_user.id) %>
-          </li>
-          <!-- 친구목록 -->
-          <li>
-            <%= link_to "친구목록", "#"%>
-          </li>
-    
-        </ul>
-      </div> <!-- collapse -->
-      
-  </div> <!-- container -->
-</nav>  
+
+
 
  <!-- Post List Table -->
   <div class="container">  
@@ -68,7 +19,7 @@
 
 <div class="box-container">
   <div class="newsfeed">
-    <% @board.each do |board| %>
+    <% @boards.each do |board| %>
       <div class="box">
         <div class="">
           <img class="image" src="<%= board.image_url %>">
