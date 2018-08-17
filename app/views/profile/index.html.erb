@@ -16,10 +16,11 @@
   <div class="grid-box e">하는 게임</div>
 </div>
 
-<% if current_user != @pro.user_id %>
+<% if current_user != @pro.user %>
   <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
     <li class="tab"><a href="/profile/mypage/<%= @pro.user_id %>">프로필 메인</a></li>
     <li class="tab"><a href="/profile/<%= @pro.user_id %>/album">앨범</a></li>
+    <li class="tab"><%= @pro.user.name %></a></li>
     <li class="tab"><a href="/profile/<%= @pro.user_id %>/archive">아카이브</a></li>
     <li class="tab"><a href="/profile/<%= @pro.user_id %>/tagged">태그됨</a></li>
   </ul>
@@ -27,11 +28,11 @@
   <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
     <li class="tab"><a href="/profile/mypage/<%= current_user.id %>">프로필 메인</a></li>
     <li class="tab"><a href="/profile/<%= current_user.id %>/album">앨범</a></li>
+    <li class="tab"><a href="/board/<%= @pro.id %>/new">글쓰기</a></li>
     <li class="tab"><a href="/profile/<%= current_user.id %>/archive">아카이브</a></li>
     <li class="tab"><a href="/profile/<%= current_user.id %>/tagged">태그됨</a></li>
   </ul>
 <% end %>
-<a href="/board/<%= @pro.id %>/new">글쓰기</a>
 
 <h6>profile/index/profile_id임. 여기서 글쓰기 가능</h6>
 
@@ -40,7 +41,7 @@
         <% @board.each do |board| %>
             <div class="col m4 l4">
                 <div class="box">
-                <a href="/board/<%= board.id %>"><img class="image" src="<%= board.image_url %>"></a>
+                <a href="/board/<%= board.id %>" class="modal-trigger"><img class="image" src="<%= board.image_url %>"></a>
                     <div class="padding">
                         <div class="">
                             <% if user_signed_in? && current_user.id == @pro.user_id %>

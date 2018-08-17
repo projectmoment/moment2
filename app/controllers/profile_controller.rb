@@ -1,8 +1,8 @@
 class ProfileController < ApplicationController
     
     def index
-        @board = Board.where(profile_id: params[:profile_id])
-        @pro = Profile.find(params[:profile_id])
+        @board = Board.where(profile_id: params[:user_id])
+        @pro = Profile.find(params[:user_id])
         @user = @pro.user
     end
     
