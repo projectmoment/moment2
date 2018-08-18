@@ -19,7 +19,7 @@
       설정 페이지 추가하기==========================================
     -->
     
-    <a href="/profile/<%= current_user.id%>/setting">
+    <a href="/profile/<%= current_user.id%>/edit">
       <img src="/settings_icon.png", width='100px' height='100px'></img>
     </a>
     
@@ -64,6 +64,8 @@
                               <img class="modal-image" src="<%= board.image_url %>">
                               <h4><%= board.title %> </h4>
                               <p> <%= board.content %> </p>
+                              
+                              <!-- Comments --> 
                               
                               <!-- 해시태그 in Modal -->
                               <p>
