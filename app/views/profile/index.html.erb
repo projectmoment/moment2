@@ -1,6 +1,35 @@
-<head></head>
-<body>
-  <h4>[상단 네브바]</h4>
+<!-- 네브바 시작 -->
+<nav class="navbarbg">
+  <div class="nav-wrapper">
+    <a href="/" class="brand-logo white-text">로고</a>
+    <ul class="hide-on-med-and-down right">               
+      <li>    
+        <div class="center row">
+          <div class="col s12">
+            <div class="row" id="topbarsearch">
+              <div class="input-field col s6 s12 white-text">
+              <i class="white-text material-icons prefix">search</i>
+              <input type="text" placeholder="search" id="autocomplete-input" class="autocomplete white-text" >
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      
+      <li><a href="javascript:void(0);" onclick="toggleFullScreen()"><i class="material-icons toggle-fullscreen">settings_overscan</i></a></li>
+      <li><a href=""><i class="material-icons">people_outline</i></a></li>
+      <li><a href=""><i class="material-icons">notifications_none</i></a></li>
+      <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">accessibility</i></a></li>
+      <li>
+        <% if user_signed_in?%>
+          <%= link_to "로그아웃", destroy_user_session_path, method: :delete%><i class="material-icons right">power_settings_new</i>
+        <% else %>
+          <%= link_to "로그인", new_user_session_path%>
+        <% end%></a></li>
+    </ul>
+  </div>
+</nav>
+<!-- 네브바 끝 -->
   
   <div class="grid">
     <div class="grid-box a">프로필 사진</div>
@@ -19,25 +48,30 @@
     </div>
     <div class="grid-box e">하는 게임</div>
   </div>
-  <div class="list">
-    <% if current_user != @pro.user %>
-      <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
-        <li class="tab waves-effect waves-pink"><a href="/profile/mypage/<%= @pro.user_id %>">프로필 메인</a></li>
-        <li class="tab waves-effect waves-pink"><a href="/profile/<%= @pro.user_id %>/album">앨범</a></li>
-        <li class="tab waves-effect waves-pink"><%= @pro.user.name %></a></li>
-        <li class="tab waves-effect waves-pink"><a href="/profile/<%= @pro.user_id %>/archive">아카이브</a></li>
-        <li class="tab waves-effect waves-pink"><a href="/profile/<%= @pro.user_id %>/tagged">태그됨</a></li>
-      </ul>
-    <% else %>
-      <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
-        <li class="tab waves-effect waves-pink"><a href="/profile/mypage/<%= current_user.id %>">프로필 메인</a></li>
-        <li class="tab waves-effect waves-pink"><a href="/profile/<%= current_user.id %>/album">앨범</a></li>
-        <li class="tab waves-effect waves-pink"><a href="/board/<%= @pro.id %>/new">글쓰기</a></li>
-        <li class="tab waves-effect waves-pink"><a href="/profile/<%= current_user.id %>/archive">아카이브</a></li>
-        <li class="tab waves-effect waves-pink"><a href="/profile/<%= current_user.id %>/tagged">태그됨</a></li>
-      </ul>
-    <% end %>
-  </div>
+  
+  
+<!-- 중앙 탭 시작 -->
+<div class="list">
+  <% if current_user != @pro.user %>
+    <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
+      <li class="tab waves-effect waves-pink"><a href="/profile/mypage/<%= @pro.user_id %>">프로필 메인</a></li>
+      <li class="tab waves-effect waves-pink"><a href="/profile/<%= @pro.user_id %>/album">앨범</a></li>
+      <li class="tab waves-effect waves-pink"><%= @pro.user.name %></a></li>
+      <li class="tab waves-effect waves-pink"><a href="/profile/<%= @pro.user_id %>/archive">아카이브</a></li>
+      <li class="tab waves-effect waves-pink"><a href="/profile/<%= @pro.user_id %>/tagged">태그됨</a></li>
+    </ul>
+  <% else %>
+    <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
+      <li class="tab waves-effect waves-pink"><a href="/profile/mypage/<%= current_user.id %>"><i class="material-icons small">person</i></a></li>
+      <li class="tab waves-effect waves-pink"><a href="/profile/<%= current_user.id %>/album"><i class="material-icons small">photo_library</i></a></li>
+      <li class="tab waves-effect waves-pink"><a href="/board/<%= @pro.id %>/new"><i class="material-icons small">add_a_photo</i></a></li>
+      <li class="tab waves-effect waves-pink"><a href="/profile/<%= current_user.id %>/archive"><i class="material-icons small">grid_on</i></a></li>
+      <li class="tab waves-effect waves-pink"><a href="/profile/<%= current_user.id %>/tagged">태그됨</a></li>
+    </ul>
+  <% end %>
+</div>
+<!-- 중앙 탭 끝 -->
+  
   <h6>profile/index/profile_id임. 여기서 글쓰기 가능</h6>
   
   <div class="box-container">
