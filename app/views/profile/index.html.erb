@@ -15,7 +15,16 @@
       <% end %>
     </div>
     <div class="grid-box d">설정
-           <img src="/settings_icon.png", width='100px' height='100px'></img>
+    <!-- 
+      설정 페이지 추가하기==========================================
+    -->
+    
+    <a href="/profile/<%= current_user.id%>/setting">
+      <img src="/settings_icon.png", width='100px' height='100px'></img>
+    </a>
+    
+    <!-- ==========================================================-->
+           
     </div>
     <div class="grid-box e">하는 게임</div>
   </div>
@@ -53,8 +62,16 @@
                           <div id="<%=board.id%>" class="modal">
                             <div class="modal-content">
                               <img class="modal-image" src="<%= board.image_url %>">
-                              <h4><%= board.title %></h4>
-                              <p><%= board.content %>/p>
+                              <h4><%= board.title %> </h4>
+                              <p> <%= board.content %> </p>
+                              
+                              <!-- 해시태그 in Modal -->
+                              <p>
+                                <% board.hashtags.each do |hash|%>
+                                  #<%= hash.title %> &nbsp;
+                                <% end %>
+                              </p>
+                              
                             </div>
                             <div class="modal-footer">
                               <a href="#!" class="modal-close waves-effect waves-green btn-flat">

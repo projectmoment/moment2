@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get 'posts/intro'  => 'posts#intro'
   resources :posts
   
+  get 'profile/:user_id/setting' => 'profile#setting'
+  
   get 'profile/:user_id' => 'profile#index', as: 'profile_index'
   get 'profile/mypage/:user_id' => 'profile#mypage', as: 'mypage'
   get 'profile/:user_id/new' => 'profile#new'
