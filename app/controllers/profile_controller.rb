@@ -69,4 +69,7 @@ class ProfileController < ApplicationController
         @profile.destroy
         redirect_to(:back)
     end
+    
+    def tagged
+    end
 end
