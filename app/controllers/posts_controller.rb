@@ -11,6 +11,12 @@ class PostsController < ApplicationController
     #@boards = Board.where(profile: @following_user_profile_id)
     #@all_boards = Board.where(profile_id: @following_user_board_id + current_user.profiles.pluck["id"])
     # User.find(current_user.id).following_users.includes(:profiles).collect{|u| u.profiles}.flatten
+    if @search = params[:search]
+      @search_user = User.search(params[:search]).order("created_at DESC")
+    else
+      @search_user = User.all.order('created_at DESC')
+    end
+    respond_to :js
   end
 
   # GET /posts/1

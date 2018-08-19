@@ -78,26 +78,27 @@
             <div class="">
               
               <!-- 좋아요 -->
-
               <div class="like">
                 <% if current_user.is_like?(board) %>
-                  <%= link_to like_board_path(board), method: "POST", class: "ui red button" do%>
-                  좋아요 취소
+                  <%= link_to like_board_path(board), method: "POST" do%>
+                   <div class="ui red button">
+                   좋아요 취소
+                   </div>
                   <% end %>
                 <% else %>
-                  <%= link_to  like_board_path(board), method: "POST", class: "ui red button", tabindex: "0"  do%>
-                  <div class="ui red button">
-                  <i class="heart icon"></i> 좋아요
-                  </div>
+                  <%= link_to  like_board_path(board), method: "POST", tabindex: "0", class: "ui red button" do%>
+                  <i class="heart icon"></i>like
+                  <a class="ui basic red left pointing label"><%= board.liked_users.size %></a>
                   <% end %>
                 <% end %>
-                <div class="ui labeled button" tabindex="0">
-                <div class="ui red button">
-                  <i class="heart icon"></i> Like
+                  <div class="ui labeled button" tabindex="0">
+                    <div class="ui red button">
+                      <i class="heart icon"></i> Like
+                    </div>
+                  <a class="ui basic red left pointing label"><%= board.liked_users.size %></a>
                 </div>
-                <a class="ui basic red left pointing label"><%= board.liked_users.size %></a>
               </div>
-              
+                  </div>
               <!-- 게시글 정보 -->
               <b><%= board.profile.user.name %></b>
                  <%= board.title %>
@@ -146,6 +147,8 @@
     background: none;
   }
   
+  .like:hover{
+  }
   .box-container {
     text-align: center;
   }

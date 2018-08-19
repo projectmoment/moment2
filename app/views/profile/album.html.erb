@@ -22,7 +22,7 @@
       <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">accessibility</i></a></li>
       <li>
         <% if user_signed_in?%>
-          <%= link_to "로그아웃", destroy_user_session_path, method: :delete%><i class="material-icons right">power_settings_new</i>
+          <%= link_to "로그아웃", destroy_user_session_path, method: :delete%>
         <% else %>
           <%= link_to "로그인", new_user_session_path%>
         <% end%></a></li>
