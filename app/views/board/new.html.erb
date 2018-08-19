@@ -1,31 +1,97 @@
-<h1>게시물 입력 페이지</h1>
 
-<%= form_for(@board, url: create_board_path, method: 'post') do |f| %>
-
-    <%= f.label :title, "글 제목" %>
-    <%= f.text_field :title, placeholder: "hello world" %><br>
-    
-    <%= f.label :content, "글 내용"%>
-    <%= f.text_area :content %><br>
-    
-<!--image upload-->
-    
-    <%= f.label :image_url, "이미지 첨부" %><br><br>
-    <%= f.file_field :image_url %>
-    
-  <!-- Hashtag 입력창 넣기! -->
-  <ul>
-    <%= f.fields_for :hashtags do |h|%>
-      <li>
-        <%= h.label :title, "해시태그" %>
-        <%= h.text_field :title %>
-      </li>
+<head>
+  <div class="logo">
+    <%= link_to root_path do %>
+    <%= image_tag('모멘트 로고.png') %>
     <% end %>
-  </ul>
-  
- 
-  
-  
-  <%= f.submit "제출" %>
+  </div>
+  <script>
+//   $('.sequenced.images .image')
+//   .transition({
+//     debug     : true,
+//     animation : 'jiggle',
+//     duration  : 500,
+//     interval  : 200
+//   })
+// ;
+</script>
+</head>
+<body>
+  <!--test-->
+  <div class="ui labeled button" tabindex="0">
+  <div class="ui red button">
+    <i class="heart icon"></i> Like
+  </div>
+  <a class="ui basic red left pointing label">
+    좋아요개수
+  </a>
+</div>
+  <!--여기까지test-->
+  <h3>글을 작성해 주세요</h3>
+  <div class="new">
+    <!-- form_for(Board.new , ) => form_for(@board ,) -->
+    <%= form_for(@board, url: create_board_path, method: 'post') do |f| %>
+
     
-<% end %>
+        <%= f.label :title, "글 제목" %>
+        <%= f.text_field :title, placeholder: "hello world" %><br>
+        
+        <%= f.label :content, "글 내용"%>
+        <%= f.text_area :content %><br>
+        
+    <!--image upload-->
+        
+        <%= f.label :image_url, "이미지 첨부" %><br><br>
+        <%= f.file_field :image_url %>
+        
+      <!-- Hashtag 입력창 넣기! -->
+      <ul>
+        <%= f.fields_for :hashtags do |h|%>
+          <li>
+            <%= h.label :title, "해시태그" %>
+            <%= h.text_field :title %>
+          </li>
+        <% end %>
+      </ul>
+      <a class="waves-effect waves-light btn-large" href="#"> <%= f.submit "제출" %></a>
+    <% end %>  
+  </div>
+</body>
+<footer>
+  <div class="ui inverted segment">
+  <button class="ui inverted basic button">Basic</button>
+  <button class="ui inverted primary basic button">Primary</button>
+  <button class="ui inverted secondary basic button">Secondary</button>
+  <button class="ui inverted red basic button">Basic Red</button>
+  <button class="ui inverted orange basic button">Basic Orange</button>
+  <button class="ui inverted yellow basic button">Basic Yellow</button>
+  <button class="ui inverted olive basic button">Basic Olive</button>
+  <button class="ui inverted green basic button">Basic Green</button>
+  <button class="ui inverted teal basic button">Basic Teal</button>
+  <button class="ui inverted blue basic button">Basic Blue</button>
+  <button class="ui inverted violet basic button">Basic Violet</button>
+  <button class="ui inverted purple basic button">Basic Purple</button>
+  <button class="ui inverted pink basic button">Basic Pink</button>
+  <button class="ui inverted brown basic button">Basic Brown</button>
+  <button class="ui inverted grey basic button">Basic Grey</button>
+  <button class="ui inverted black basic button">Basic Black</button>
+</div>
+</footer>
+<style>
+  .body{
+    text-align:center;
+  }
+  .waves-effect.waves-brown .waves-ripple {
+   /* The alpha value allows the text and background color
+   of the button to still show through. */
+    background-color: rgba(121, 85, 72, 0.65);
+  }
+  .logo{
+    width:200;
+    height:100;
+    text-align:center;
+  }          
+</style>
+<script>
+  
+</script>
