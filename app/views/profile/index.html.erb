@@ -53,8 +53,21 @@
                           <div id="<%=board.id%>" class="modal">
                             <div class="modal-content">
                               <img class="modal-image" src="<%= board.image_url %>">
+                              
                               <h4><%= board.title %></h4>
-                              <p><%= board.content %>/p>
+                              <p><%= board.content %></p>
+                              <p>
+                                <form action="/board/comments/<%= board.id %>" method="POST">
+                                  <input type="textarea" name="body" placeholder="댓글 쓰는 곳">
+                                  <input type="submit">
+                                </form>
+                              </p>
+                              <p>
+                                <% board.comments.each do |c| %>
+                                  <span><%= c.body %></span>
+                                  <hr>
+                                <% end %>
+                              </p>
                             </div>
                             <div class="modal-footer">
                               <a href="#!" class="modal-close waves-effect waves-green btn-flat">
