@@ -15,7 +15,7 @@
       <div class="modal-content black center">
         <h2>친구찾기</h2>
         <%= form_tag("/", :method => "get", id: "search-form") do %>
-        <%= text_field_tag :search, params[:search], placeholder: "Search Posts", :class => 'white-text' %>
+        <%= text_field_tag :search, params[:search], placeholder: "유저 검색", :class => 'white-text' %>
         <%= submit_tag "Search"%>
         <% end %>
         

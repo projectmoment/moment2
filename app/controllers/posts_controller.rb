@@ -16,7 +16,6 @@ class PostsController < ApplicationController
     else
       @search_user = User.all.order('created_at DESC')
     end
-    respond_to :js
   end
 
   # GET /posts/1
