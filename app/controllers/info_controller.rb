@@ -2,7 +2,7 @@ class InfoController < ApplicationController
     def new
         @categories = Category.all
         @info = Info.find_by(user_id: params[:user_id])
-        
+        @user_id = current_user.id
     end
     
     def create
@@ -30,7 +30,7 @@ class InfoController < ApplicationController
     end
     
     def follow
-        @category = Category.find(params[:user_id])
+        @user = User.find(params[:user_id])
         current_user.follow(@user)
         respond_to :js
     end
