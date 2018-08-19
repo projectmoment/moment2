@@ -15,7 +15,7 @@
           </div>
         </div>
       </li>
-      
+<body>
       <li><a href="javascript:void(0);" onclick="toggleFullScreen()"><i class="material-icons toggle-fullscreen">settings_overscan</i></a></li>
       <li><a href=""><i class="material-icons">people_outline</i></a></li>
       <li><a href=""><i class="material-icons">notifications_none</i></a></li>
@@ -78,13 +78,24 @@
             <div class="">
               
               <!-- 좋아요 -->
-              <div>
+
+              <div class="like">
                 <% if current_user.is_like?(board) %>
-                <%= link_to "좋아요 취소", like_board_path(board), method: "POST" %>
+                  <%= link_to like_board_path(board), method: "POST", class: "ui red button" do%>
+                  좋아요 취소
+                  <% end %>
                 <% else %>
-                <%= link_to "좋아요", like_board_path(board), method: "POST" %>
+                  <%= link_to  like_board_path(board), method: "POST", class: "ui red button", tabindex: "0"  do%>
+                  <div class="ui red button">
+                  <i class="heart icon"></i> 좋아요
+                  </div>
+                  <% end %>
                 <% end %>
-                <%= board.liked_users.size %>
+                <div class="ui labeled button" tabindex="0">
+                <div class="ui red button">
+                  <i class="heart icon"></i> Like
+                </div>
+                <a class="ui basic red left pointing label"><%= board.liked_users.size %></a>
               </div>
               
               <!-- 게시글 정보 -->
@@ -120,14 +131,15 @@
     <% end %>
   </div>
 </div>
+  <button class="ui inverted olive basic button"> <a href="/"></a>홈으로</button>
+  <button class="ui inverted green basic button">Basic Green</button>
 
-<a href="/">홈으로</a>
-
+</body>
 <!-- CSS -->
 
  <style>
   body {
-    background-color: #FAFAFA;
+  background: linear-gradient(to top right, #33ccff 0%, #ff99cc 100%);
   }
   
   a:hover {
