@@ -1,5 +1,5 @@
 <h4>[상단 네브바]</h4>
-
+<!-- profile/mypage/id -->
 <div class="grid">
   <div class="grid-box a">프로필 사진</div>
   <div class="grid-box b">자기소개</div>
@@ -71,22 +71,38 @@
               <div>
                 <% if user_signed_in?%>
                   <form action="/board/comments/<%= board.id %>" method="POST">
-                  <input type="textarea" name="body" placeholder="댓글 쓰는 곳">
-                  <input type="submit">
+                    <input type="textarea" name="body" placeholder="댓글 쓰는 곳">
+                    
+                    <input type="submit">
                   </form>
+                  <!-- Tags in Comment -->
                   <% board.comments.each do |comment| %>
-                  <%= comment.body.reverse %><hr>
+                    <% user = nil %>
+                    <% comment.body.scan(/^@[^0-9 ]*/).map do |c|%> 
+                      <% user = User.find_by(name: c.delete('@'))%>
+                    <% end %>
+                    
+                    <% if user == nil %>
+                          <%= comment.body %> <hr>
+                    <% else %>
+                          <%= link_to '@'+user.name, "/profile/mypage/#{user.id}" %> 
+                          <%= comment.body.gsub! '@'+user.name,''%><hr>
+                    <% end %>
+                    
                   <% end %>
-                <% end %>
+                  
+                <% end %> <!-- if user sign in? -->
+              <% end %> <!-- @board.each do -->
               </div>
             </div>
           </div>  
         </div>
       </div>
+      
       <div class="newspace"><br>
       <!-- 게시글 사이에 여백 -->
       </div>
-    <% end %>
+
   </div>
 </div>
 

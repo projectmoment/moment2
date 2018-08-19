@@ -19,7 +19,8 @@ class ProfileController < ApplicationController
     
     def mypage
         @user = User.find(params[:user_id])
-        @board = Board.where(profile: @user.profiles).reverse
+        @board = Board.where(profile: @user.profiles)
+  
     end
     
     def follow
