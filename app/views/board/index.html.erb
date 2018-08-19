@@ -58,11 +58,13 @@
         <form action="/board/comments/<%= @bo.id %>" method="POST">
    <!-- 코멘트 입력 / 제출 -->
           <input type="textarea" name="body" placeholder="댓글 쓰는 곳">
+          
           <input type="submit">
         </form>
         <% end %>
+        
         <% @bo.comments.each do |comment| %>
-        <%= comment.body.reverse %><hr>
+          <%= render_with_tags(comment.body) %><hr>
         <% end %>
       </div>
   
