@@ -17,11 +17,11 @@
       <!--여기부터 유저 프로필-->
     <li><div class="user-view">
       <div class="background">
-        <img src="images/office.jpg">
+        <img src="images/game.jpg">
       </div>
-      <a href="#user"><img class="circle" src="images/yuna.jpg"></a>
+      <a href="/profile/mypage/<%=current_user.id%>"><img class="circle" src="<%= @info.try("image_url") %>"></a>
       <a href="#"><span class="white-text name"><%= current_user.name %></span></a>
-      <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+      <a href="#email"><span class="white-text email"><%= current_user.email%></span></a>
     </div></li>
       <li><div class="divider"></div></li>
     <!--여기까지 유저 프로필-->
@@ -246,6 +246,10 @@
     grid-gap: 10px;
   }
   .nanumgothic * { font-family: 'Nanum Gothic', sans-serif;
+  }
+  .circle{
+    border: 4px solid #000000;
+    
   }
 
 </style>

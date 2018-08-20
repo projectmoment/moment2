@@ -3,7 +3,7 @@
 <%= form_for(Profile.new, url: create_profile_path, method: 'post') do |f| %>
 
     <%= f.label :category %><br>
-    <%= select_tag(:category_id, options_for_select(@categories) ),class: "ui fluid dropdown"%><br>
+    <%= select_tag(:category_id, options_for_select(@categories) )%><br>
     
     <!--%= f.label :title, "글 제목" %>
     <!--%= f.text_field :title %><br>

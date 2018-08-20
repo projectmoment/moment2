@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   # GET /posts.json
   
   def index
+    @info  = Info.find_by(user_id: current_user.id)
     @following_user_profile_id = Profile.where(user_id: current_user.following_users.pluck("id")).ids
     @boards = Board.all.reverse
     #@boards = Board.where(profile: @following_user_profile_id)

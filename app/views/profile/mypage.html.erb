@@ -58,7 +58,7 @@
 <% else %>
   <div class="grid">
     <div class="grid-box a"><img src="<%= @info.image_url %>">프로필 사진</div>
-    <div class="grid-box b"><%= @info.introduction %>자기소개</div>
+    <div class="grid-box b"><h5>자기소개</h5><br><h6><%= @info.introduction %></h6></div>
     <div class="grid-box c">
       <% if current_user.following?(@user) %>
       <%= link_to "Following", {action: 'unfollow', id: @user.id}, method: 'post', remote: true %>
@@ -74,7 +74,7 @@
       <div class="grid-box d"><a href="/info/edit/<%=current_user.id%>">설정</div>
     <% end %>
     <div class="grid-box e">
-      <p>하는 게임</p>
+      <h6>하는 게임</h6><br>
       <% @plays.each do |play|%>
         <p><%= play.name %></p>
       <% end %>
