@@ -11,15 +11,7 @@ class BoardController < ApplicationController
         @bo.comments.create(body:params[:body])
         redirect_to :back
     end
-    
-    def comments_destroy
-        @bo = Board.find(params[:board_id])
-        @comment = @bo.comments.find(params[:id])
-        @comment.destroy
-        
-        redirect_to :back
-        
-    end
+
 
     
     def new

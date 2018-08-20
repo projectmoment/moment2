@@ -100,9 +100,11 @@
                                       <%=  # @이름으로 링크를 달아서 출력
                                       h comment.body.gsub(/@[^0-9 ]*/){|word|
                                           link_to word.delete('@'), "/profile/mypage/#{getIDbyName(word)}", class: "ui violet basic button"}.html_safe  
-                                      %><hr>
+                                      %>
                            
                                   <% end %>
+              
+                                <hr>
                                 <% end %> <!-- Tag and Comment -->
                               </p>
                               <p>

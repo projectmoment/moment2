@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get 'profile/:user_id/tagged' => 'profile#tagged'
   resources :profile
   
+  
   get 'board/:id' => 'board#index'
   get 'board/:profile_id/new' => 'board#new'
   post 'board/:profile_id/create' => 'board#create', as: 'create_board'
@@ -27,6 +28,7 @@ Rails.application.routes.draw do
   post 'board/update/:id' => 'board#update'
   post 'board/:board_id/like', to: "likes#like_toggle", as: 'like_board'
   post 'board/comments/:id' => 'board#comments'
+  post 'board/:board_id/comments_destroy/:comments_id' => 'board#comments_destroy'
   resources :board
   
   resources :categories, only: [:show]
