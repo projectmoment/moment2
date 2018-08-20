@@ -1,4 +1,5 @@
-class ProfileController < ApplicationController
+ class ProfileController < ApplicationController
+    
     
     def index
         @board = Board.where(profile_id: params[:user_id])
@@ -21,8 +22,13 @@ class ProfileController < ApplicationController
         @user = User.find(params[:user_id])
         @info = Info.find_by(user_id: params[:user_id])
         @board = Board.where(profile: @user.profiles).reverse
-        @plays = @user.all_following# Follow.find_by(follower: params[:user_id], followable_type: "Category")
+        @plays = @user.all_following
+        # Follow.find_by(follower: params[:user_id], followable_type: "Category")
 
+    end
+    
+    def ingame
+        
     end
     
     def follow
@@ -71,8 +77,5 @@ class ProfileController < ApplicationController
         @profile = Profile.find(params[:id])
         @profile.destroy
         redirect_to(:back)
-    end
-    
-    def tagged
     end
 end

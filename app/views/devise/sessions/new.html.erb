@@ -1,3 +1,23 @@
+<div class="ui two column middle aligned very relaxed stackable grid">
+  <div class="column">
+    <div class="ui form">
+      <div class="field">
+        <label>Username</label>
+        <div class="ui left icon input">
+          <input type="text" placeholder="Username">
+          <i class="user icon"></i>
+        </div>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <div class="ui left icon input">
+          <input type="password">
+          <i class="lock icon"></i>
+        </div>
+      </div>
+    </div>
+
+<!------------------------------------------------------------------------------------------------------------------------->
 <div class="container">
 <div class="devide_login">
   <!-- view/devise/sessions/new.html.erb-->
@@ -9,37 +29,34 @@
   container, content1, content2 설정
   => app/stylesheets/posts.scss
 -->
-  <div class="blank_login_1"></div>
+  <!--<div class="blank_login_1"></div>-->
 
   <div class="moment_logo">
     <img src="/모멘트 로고.png" >
   </div>
-  
-  <div class="blank_login_2"></div>
+  <div class="ui vertical divider">
+      Or
+    </div>
+  <!--<div class="blank_login_2"></div>-->
 
   <!-- 로그인 화면 -->
   <div class="login_box">
     <img src="/moment_word.png" hspace="20"><br>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-      </div>
+        <div class="ui form">
+          <i class="user icon"></i><%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "ui left icon input", placeholder: "이메일을 입력해 주세요" %>
     
       <div class="field">
-        <%= f.label :password %><br />
-        <%= f.password_field :password, autocomplete: "off" %>
+          <i class="lock icon"></i><%= f.label :password %><br />
+          <%= f.password_field :password, autocomplete: "off", class: "ui left icon input" %>
       </div>
     
-      <% if devise_mapping.rememberable? -%>
-        <div class="field">
-          <%= f.check_box :remember_me %>
-          <%= f.label :remember_me %>
         </div>
-      <% end -%>
-    
-      <div class="actions">
-        <%= f.submit "Log in" %>
+      </div>
+      <div class="action">
+        <%= f.submit "Log in",class: "ui blue submit button" %>
       </div>
     <% end %>
     
@@ -49,3 +66,13 @@
 </div>
 
 </div>
+    
+  </div>
+</div>
+
+<style>
+  .moment_logo{
+    padding-right: 90px;
+  }
+  
+</style>

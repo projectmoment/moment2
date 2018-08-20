@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   where("name LIKE ?", "%#{search}%")
   end
 
+
   #좋아요
   def is_like?(board)
     Like.find_by(user_id: self.id, board_id: board.id).present?
