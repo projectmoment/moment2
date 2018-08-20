@@ -1,4 +1,6 @@
+require 'open-uri'
 class ProfileController < ApplicationController
+    
     
     def index
         @board = Board.where(profile_id: params[:user_id])
@@ -26,8 +28,7 @@ class ProfileController < ApplicationController
     end
     
     def ingame
-        @user = User.find(params[:user_id])
-        @board = Board.where(profile: @user.profiles)
+        
     end
     
     def follow

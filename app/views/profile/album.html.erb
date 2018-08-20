@@ -68,7 +68,7 @@
                             <button class="ui secondary button"> Show</button>
                             <% if user_signed_in? && current_user.id == profile.user_id %>
                             <button class="ui button"><a href="/profile/delete/<%= profile.id %>">Delete</button>
-                            <%= link_to 'delete', profile, method: :delete, data: { confirm: 'Are you sure?' } %>
+                            <!-- link_to 'delete', profile, method: :delete, data: { confirm: 'Are you sure?' } %>
                             <% end %>
                         </div>
                     </div>
