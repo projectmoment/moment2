@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180813213455) do
-
+ActiveRecord::Schema.define(version: 20180818124310) do
 
   create_table "boards", force: :cascade do |t|
     t.integer  "profile_id"
@@ -38,6 +37,7 @@ ActiveRecord::Schema.define(version: 20180813213455) do
   end
 
   create_table "comments", force: :cascade do |t|
+    t.integer  "user_id"
     t.text     "body"
     t.integer  "board_id"
     t.datetime "created_at", null: false
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20180813213455) do
   end
 
   add_index "comments", ["board_id"], name: "index_comments_on_board_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "follows", force: :cascade do |t|
     t.integer  "followable_id",                   null: false

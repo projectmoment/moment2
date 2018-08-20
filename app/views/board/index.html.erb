@@ -83,10 +83,10 @@
        <% end %>
       </div>
   
+   <!-- 코멘트 입력 / 제출 -->
       <div>
         <% if user_signed_in?%>
         <form action="/board/comments/<%= @bo.id %>" method="POST">
-   <!-- 코멘트 입력 / 제출 -->
           <input type="textarea" name="body" placeholder="댓글 쓰는 곳">
           
           <input type="submit">
@@ -94,6 +94,10 @@
         <% end %>
         
         <% @bo.comments.each do |comment| %>
+        <%= comment.user.name %>
+          <% if current_user.id != @bo.profile.user.id %>
+          <%= comment.content %> <a href= "/comment/<%= @bo.id %>/destroy/<%= c.id %>" data-method="post">삭제</a><br>
+          <% end %>
    
           <% user = nil %>
           
@@ -113,9 +117,9 @@
               h comment.body.gsub(/@[^0-9 ]*/){|word|
                   link_to word.delete('@'), "/profile/mypage/#{getIDbyName(word)}", class: "ui violet basic button"}.html_safe  
               %><hr>
-   
           <% end %>
-        <% end %> <!-- Tag and Comment -->
+          
+        <% end %> <!-- Tag and Comment End -->
 
       </div>
   

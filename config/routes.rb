@@ -21,7 +21,6 @@ Rails.application.routes.draw do
   get 'profile/:user_id/ingame' => 'profile#ingame'
   resources :profile
   
-  
   get 'board/:id' => 'board#index'
   get 'board/:profile_id/new' => 'board#new'
   post 'board/:profile_id/create' => 'board#create', as: 'create_board'
