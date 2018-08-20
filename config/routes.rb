@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   post 'board/update/:id' => 'board#update'
   post 'board/:board_id/like', to: "likes#like_toggle", as: 'like_board'
   post 'board/comments/:id' => 'board#comments'
+  post 'board/:board_id/comments_destroy/:comments_id' => 'board#comments_destroy'
   resources :board
   
   resources :categories, only: [:show]
@@ -41,6 +42,7 @@ Rails.application.routes.draw do
   
   post 'plays/create/:user_id' => 'plays#create'
   
+  resources :images
   # omniauth : for SNS(facebook) login
   devise_for :users, :controllers => { omniauth_callbacks: 'user/omniauth_callbacks' }
   

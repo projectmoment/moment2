@@ -35,8 +35,8 @@
 <!-- current_user 와 @user가 다를 경우 설정에 link 없음-->
 <% if current_user != @user %>
   <div class="grid">
-    <div class="grid-box a"><img src="<%= @info.image_url %>">프로필 사진</div>
-    <div class="grid-box b"><%= @info.introduction %>자기소개</div>
+    <div class="grid-box a"><img src="<%=%>">프로필 사진</div>
+    <div class="grid-box b"><%=%>자기소개</div>
     <div class="grid-box c">
       <% if current_user.following?(@user) %>
       <%= link_to "Following", {action: 'unfollow', id: @user.id}, method: 'post', remote: true %>
@@ -54,7 +54,7 @@
   
 <!-- current_user 와 @user가 같을 경우 설정에 link 있음-->  
 <% elsif  @info.blank? %>
-  <a href="/info/new/<%=current_user.id%>">개인정보가 없습니다. 개인정보를 설정해 주세요.
+  <a href="/info/new/<%=current_user.id%>">개인정보가 없습니다. 개인정보를 설정해 주세요.</a>
 <% else %>
   <div class="grid">
     <div class="grid-box a"><img src="<%= @info.image_url %>">프로필 사진</div>
@@ -77,9 +77,9 @@
       <h6>하는 게임</h6><br>
       <% @plays.each do |play|%>
         <p><%= play.name %></p>
-      <% end %>
-    </div>
-  </div>
+        <% end %>
+      </div>
+</div>
 <% end %>
 
 <% if current_user != @user %>
@@ -150,22 +150,48 @@
               <div>
                 <% if user_signed_in?%>
                   <form action="/board/comments/<%= board.id %>" method="POST">
-                  <input type="textarea" name="body" placeholder="댓글 쓰는 곳">
-                  <input type="submit">
+                    <input type="textarea" name="body" placeholder="댓글 쓰는 곳">
+                    
+                    <input type="submit">
                   </form>
+                  <p>
+                  <!-- Tags in Comment -->
                   <% board.comments.each do |comment| %>
-                  <%= comment.body %><hr>
+                    <% user = nil %>
+                    
+                    <!-- @XXX 문자열이 없으면 그대로 출력 -->
+                    <% if comment.body.scan(/@[^0-9 ]*/).map.first.nil? %>
+                      <%= comment.body %> <hr>
+                    <!-- @XXX 문자열이 있다면?-->
+                    <% else %>
+                      <!-- @XXX 형태의 문자열을 겹치는 값이 없는 배열로 저장-->
+                      <% comment.body.scan(/@[^0-9 ]*/).map.each do |c|%>
+                        <!-- @를 제거한 XXX를 이름으로 User 테이블에서 검색-->
+                        <% user = User.find_by(name: c.delete('@'))%>
+                      <% end %>
+                      <!-- user가 검색되었다면 -->
+            
+                        <%=  # @이름으로 링크를 달아서 출력
+                        h comment.body.gsub(/@[^0-9 ]*/){|word|
+                            link_to word.delete('@'), "/profile/mypage/#{getIDbyName(word)}", class: "ui violet basic button"}.html_safe  
+                        %>
+             
+                    <% end %>
+                    
+                  <hr><% end %> <!-- Tag and Comment -->
                   <% end %>
-                <% end %>
+                </p>
               </div>
             </div>
-          </div>  
+          </div>
+          <%end%>
         </div>
       </div>
+      
       <div class="newspace"><br>
       <!-- 게시글 사이에 여백 -->
       </div>
-    <% end %>
+
   </div>
 </div>
   <button class="ui inverted olive basic button"> <a href="/"></a>홈으로</button>

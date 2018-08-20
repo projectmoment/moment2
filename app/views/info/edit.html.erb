@@ -3,6 +3,7 @@
 <form action="/info/update/<%= @info.id%>" method="post" enctype="multipart/form-data">
     <div>
         <p>프로필 사진</p>
+        
         <input type="file" name="image_url" id="info_image_url"><br>
     </div>
 
@@ -19,7 +20,6 @@
                 <%= link_to "On", unfollow_info_path(category.id), method: 'post', remote: true , class: "game#{category.id}" %><br>
             <% else %>
                 <%= link_to "Off",follow_info_path(category.id), method: 'post', remote: true, class: "game#{category.id}" %><br>
-        
             <% end %>
         <% end %>
     </div>
