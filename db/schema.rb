@@ -74,6 +74,18 @@ ActiveRecord::Schema.define(version: 20180818124310) do
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id"
 
+  create_table "infos", force: :cascade do |t|
+    t.integer  "user_id"
+    t.text     "introduction"
+    t.integer  "play_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "image_url"
+  end
+
+  add_index "infos", ["play_id"], name: "index_infos_on_play_id"
+  add_index "infos", ["user_id"], name: "index_infos_on_user_id"
+
   create_table "likes", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "board_id"
