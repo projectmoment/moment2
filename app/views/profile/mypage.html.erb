@@ -126,22 +126,22 @@
                       <%= comment.body %> <hr>
                     <% else %>
                       <% comment.body.scan(/@[^0-9 ]*/).map.each do |c|%>
-                        
                         <% user = User.find_by(name: c.delete('@'))%>
-                        
-                        <% #link_to '@'+user.name, "/profile/mypage/#{user.id}" %> 
-                        <% #comment.body.gsub(/@[^0-9 ]*/, '')%>
-                        
-                      <% end %>
+                      <% end%>  
                     <% end %>
-                    <%= h comment.body.gsub(/@[^0-9 ]*/){|word| link_to word, 
+                    
+                    <%= 
+                      h comment.body.gsub(/@[^0-9 ]*/){|word| link_to word, 
                             "/profile/mypage/#{getIDbyName(word)}"}.html_safe  
                     %>
                     <hr>
                   <% end %> <!-- Tag and Comment -->
+                  
+                  <%end%>
               </div>
             </div>
-          </div>  
+          </div>
+          <%end%>
         </div>
       </div>
       
