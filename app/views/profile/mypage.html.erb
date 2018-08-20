@@ -55,8 +55,8 @@
   <a href="/info/new/<%=current_user.id%>">개인정보가 없습니다. 개인정보를 설정해 주세요.
 <% else %>
   <div class="grid">
-    <div class="grid-box a"><img src="">프로필 사진</div>
-    <div class="grid-box b"><%= %>자기소개</div>
+    <div class="grid-box a"><img src="<%=@info.image_url%>">프로필 사진</div>
+    <div class="grid-box b"><%=@info.introduction %>자기소개</div>
     <div class="grid-box c">
       <% if current_user.following?(@user) %>
       <%= link_to "Following", {action: 'unfollow', id: @user.id}, method: 'post', remote: true %>
