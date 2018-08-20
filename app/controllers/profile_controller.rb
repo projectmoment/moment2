@@ -22,6 +22,11 @@ class ProfileController < ApplicationController
         @board = Board.where(profile: @user.profiles).reverse
     end
     
+    def ingame
+        @user = User.find(params[:user_id])
+        @board = Board.where(profile: @user.profiles)
+    end
+    
     def follow
         @user = User.find(params[:user_id])
         current_user.follow(@user)

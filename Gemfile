@@ -1,16 +1,10 @@
 source 'https://rubygems.org'
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
 gem 'jquery-turbolinks'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
-# Semantic UI assets
 gem 'therubyracer'
 gem 'less-rails-semantic_ui', '~> 2.0.7.0'
 
-
+gem 'whenever'
 gem 'sprockets-rails', '~> 2'
 gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
 # 

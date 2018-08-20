@@ -1,31 +1,55 @@
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<!--SIDE NAV-->
+    <ul id="slide-out" class="sidenav">
+    <li><div class="user-view">
+      <div class="background">
+        <img src="images/office.jpg">
+      </div>
+      <a href="#user"><img class="circle" src="images/yuna.jpg"></a>
+      <a href="#"><span class="white-text name"><%= current_user.name %></span></a>
+      <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+    </div></li>
+    <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">cloud</i>MyPage</a></li>
+    <li>
+      <% if user_signed_in?%>
+      <%= link_to "로그아웃", destroy_user_session_path, method: :delete%>
+      <% else %>
+      <%= link_to "로그인", new_user_session_path%>
+      <% end%>
+    </li>
+    
+    
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">Subheader</a></li>
+    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+  </ul>
+  <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+  
 <!-- 네브바 시작 -->
 <nav class="navbarbg">
   <div class="nav-wrapper">
     <a href="/" class="brand-logo white-text">로고</a>
-    <ul class="hide-on-med-and-down right">               
-      <li>    
-        <div class="center row">
-          <div class="col s12">
-            <div class="row" id="topbarsearch">
-              <div class="input-field col s6 s12 white-text">
-              <i class="white-text material-icons prefix">search</i>
-              <input type="text" placeholder="search" id="autocomplete-input" class="autocomplete white-text" >
-              </div>
-            </div>
-          </div>
-        </div>
-      </li>
-<body>
+    <ul class="hide-on-med-and-down right">
+      
+      <!-- 검색 시작 -->
+      <li><a href="#search" class="modal-trigger"><i class="material-icons">search</i></a>
+      <div id="search" class="modal">
+      <div class="modal-content black center">
+        
+      
       <li><a href="javascript:void(0);" onclick="toggleFullScreen()"><i class="material-icons toggle-fullscreen">settings_overscan</i></a></li>
       <li><a href=""><i class="material-icons">people_outline</i></a></li>
       <li><a href=""><i class="material-icons">notifications_none</i></a></li>
       <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">accessibility</i></a></li>
       <li>
         <% if user_signed_in?%>
-          <%= link_to "로그아웃", destroy_user_session_path, method: :delete%><i class="material-icons right">power_settings_new</i>
+          <%= link_to "로그아웃", destroy_user_session_path, method: :delete%>
         <% else %>
           <%= link_to "로그인", new_user_session_path%>
-        <% end%></a></li>
+        <% end%></li>
     </ul>
   </div>
 </nav>
@@ -66,82 +90,16 @@
   </ul>
 <% end %>
 
-<h6>profile/mypage/user_id임. user_id <%= @user.id %>의 마이페이지(메인)</h6>
-<h6>사이트 최초 메인화면과 비슷한 레이아웃으로 가려 함</h6>
+<h6>profile/user_id/ingame임. 유저 인게임 정보</h6>
 
-<div class="box-container">
-  <div class="newsfeed">
-    <% @board.each do |board| %>
-      <div class="box">
-        <div class="">
-          <img class="image" src="<%= board.image_url %>">
-          <div class="padding">
-            <div class="">
-              
-              <!-- 좋아요 -->
-              <div class="like">
-                <% if current_user.is_like?(board) %>
-                  <%= link_to like_board_path(board), method: "POST" do%>
-                   <div class="ui red button">
-                   좋아요 취소
-                   </div>
-                  <% end %>
-                <% else %>
-                  <%= link_to  like_board_path(board), method: "POST", tabindex: "0", class: "ui red button" do%>
-                  <i class="heart icon"></i>like
-                  <a class="ui basic red left pointing label"><%= board.liked_users.size %></a>
-                  <% end %>
-                <% end %>
-                  <div class="ui labeled button" tabindex="0">
-                    <div class="ui red button">
-                      <i class="heart icon"></i> Like
-                    </div>
-                  <a class="ui basic red left pointing label"><%= board.liked_users.size %></a>
-                </div>
-              </div>
-                  </div>
-              <!-- 게시글 정보 -->
-              <b><%= board.profile.user.name %></b>
-                 <%= board.title %>
-                 <%= board.content %>
-              
-              <!-- 게시글 편집 -->
-              <% if user_signed_in? && current_user.id == board.profile.user.id %>
-              <a href="/board/edit/<%= board.id %>"><i class="material-icons">edit</i></a>
-              <%= link_to '삭제', board, method: :delete, data: { confirm: '진짜 삭제?' } %>
-              <% end %>
-              
-              <!-- 코멘트 입력 / 제출 -->
-              <div>
-                <% if user_signed_in?%>
-                  <form action="/board/comments/<%= board.id %>" method="POST">
-                  <input type="textarea" name="body" placeholder="댓글 쓰는 곳">
-                  <input type="submit">
-                  </form>
-                  <% board.comments.each do |comment| %>
-                  <%= comment.body %><hr>
-                  <% end %>
-                <% end %>
-              </div>
-            </div>
-          </div>  
-        </div>
-      </div>
-      <div class="newspace"><br>
-      <!-- 게시글 사이에 여백 -->
-      </div>
-    <% end %>
-  </div>
-</div>
-  <button class="ui inverted olive basic button"> <a href="/"></a>홈으로</button>
-  <button class="ui inverted green basic button">Basic Green</button>
 
-</body>
-<!-- CSS -->
+
+
 
  <style>
   body {
-    background-color: #FAFAFA;
+    background-image: url("gradient_bg.png");
+    background-repeat: repeat-x;
   }
   
   a:hover {

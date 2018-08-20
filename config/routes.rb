@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   post 'profile/delete/:id' => 'profile#delete', as: 'delete_profile'
   post 'profile/follow/:user_id' => 'profile#follow'
   post 'profile/unfollow/:user_id' => 'profile#unfollow'
-  get 'profile/:user_id/tagged' => 'profile#tagged'
+  get 'profile/:user_id/ingame' => 'profile#ingame'
   resources :profile
   
   get 'board/:id' => 'board#index'
