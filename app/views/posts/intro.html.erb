@@ -1,3 +1,74 @@
-<h1>소개페이지</h1>
+<head><h2>홈으로 연결된 모먼트 로고 or 네브바</h2></head>
+<body>
+    <section class="scene one">
+        <header>
+            <h1>안녕하세요 Moment입니다.</h1>
+            Moment에 대해 알고 싶나요?
+        </header>
+        
+    </section>
+    <section class="scene two">
+        <header>
+            <h1>안녕하세요 Moment입니다.</h1>
+            Moment에 대해 알고 싶나요?
+        </header>
+        
+    </section>
+    <section class="scene three">
+        <header>
+            <h1>안녕하세요 Moment입니다.</h1>
+            Moment에 대해 알고 싶나요?
+        </header>
+        
+    </section>
 
-<%= link_to "Home", root_url%>
+<%= link_to "돌아가기", root_url%>
+</body>
+<footer></footer>
+<style>
+    .body{
+        margin:0 auto;
+    }
+    .scene{
+        height:100vh;  
+        display: block;
+        background-attachment: fixed;
+    }
+    .scene h1{
+        margin:0;
+        font-size:2rem;
+        text-align:center;
+    }
+    .scene h1:after{
+        content:'';
+        border-bottom: 2px solid white;
+        display:block;
+        width:15rem;
+        margin:1rem auto;
+        font-weight: 200;
+
+    }
+    .scene header{
+        color:white;
+        max-width:80%;
+        position:relative;
+        top:50%;
+        left:50%;
+        transform:translateX(-50%) translateY(-50%);
+        font-weight: 200;
+        text-align: center;
+        }
+    .scene.one{
+        background-image:url(https://source.unsplash.com/FJFPuE1MAOM/700x900);
+    }
+    .scene.two{
+        background-image:url(https://source.unsplash.com/5ExRBlHu1DA/1600x900);
+    }
+    .scene.three{
+        background-image:url(https://source.unsplash.com/collection/1793372/700x900);
+    }
+</style>
+<script>
+    // 웹폰트 뭐하지
+</script>
+<!--AM 05:24자러감미당...-->

@@ -4,12 +4,18 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable
-
-  has_many :boards
+  has_many :profiles , dependent: :destroy
+  has_many :boards , dependent: :destroy
   has_many :likes
   has_many :liked_boards, through: :likes, source: :board
   acts_as_follower
   acts_as_followable
+
+  def self.search(search)
+  # Title is for the above case, the OP incorrectly had 'name'
+  where("name LIKE ?", "%#{search}%")
+  end
+
 
   #좋아요
   def is_like?(board)

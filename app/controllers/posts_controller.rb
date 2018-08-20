@@ -1,12 +1,26 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-
   # GET /posts
   # GET /posts.json
   
   def index
+    @following_user_profile_id = Profile.where(user_id: current_user.following_users.pluck("id")).ids
     @boards = Board.all.reverse
+    #@boards = Board.where(profile: @following_user_profile_id)
+    #@all_boards = Board.where(profile_id: @following_user_board_id + current_user.profiles.pluck["id"])
+    # User.find(current_user.id).following_users.includes(:profiles).collect{|u| u.profiles}.flatten
+    respond_to do |format|
+      format.html
+      format.json
+      if params[:search]
+        @search_user = User.search(params[:search]).order("created_at DESC")
+          format.js
+      else
+        @search_user = User.all.order('created_at DESC')
+          format.js
+      end
+    end
   end
 
   # GET /posts/1

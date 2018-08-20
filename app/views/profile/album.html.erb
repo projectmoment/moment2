@@ -1,41 +1,74 @@
-<h1>[상단 네브바]</h1>
-
-  <div class="grid">
-    <div class="grid-box a">프로필 사진</div>
-    <div class="grid-box b">자기소개</div>
-    <div class="grid-box c">팔로우</div>
-    <div class="grid-box d">설정</div>
-    <div class="grid-box e">하는 게임</div>
+<!-- 네브바 시작 -->
+<nav class="navbarbg">
+  <div class="nav-wrapper">
+    <a href="/" class="brand-logo white-text">로고</a>
+    <ul class="hide-on-med-and-down right">               
+      <li>    
+        <div class="center row">
+          <div class="col s12">
+            <div class="row" id="topbarsearch">
+              <div class="input-field col s6 s12 white-text">
+              <i class="white-text material-icons prefix">search</i>
+              <input type="text" placeholder="search" id="autocomplete-input" class="autocomplete white-text" >
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      
+      <li><a href="javascript:void(0);" onclick="toggleFullScreen()"><i class="material-icons toggle-fullscreen">settings_overscan</i></a></li>
+      <li><a href=""><i class="material-icons">people_outline</i></a></li>
+      <li><a href=""><i class="material-icons">notifications_none</i></a></li>
+      <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">accessibility</i></a></li>
+      <li>
+        <% if user_signed_in?%>
+          <%= link_to "로그아웃", destroy_user_session_path, method: :delete%>
+        <% else %>
+          <%= link_to "로그인", new_user_session_path%>
+        <% end%></a></li>
+    </ul>
   </div>
-  
-<h5>[JQuery Tab Here 제이쿼리 탭 넣는 자리]</h5>
+</nav>
+<!-- 네브바 끝 -->
 
-<% if current_user.id != @user.id %>
-	<a href="/profile/mypage/<%= @user.id %>">프로필 메인</a>
-	<a href="/profile/<%= @user.id %>/album">전체 게시물</a>
-	<a href="/profile/<%= @user.id %>/saved">즐겨찾기</a>
-  <a href="/profile/<%= @user.id %>/tagged">태그됨</a>
+
+<% if current_user != @profile_user %>
+  <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
+    <li class="tab waves-effect waves-pink"><a href="/profile/mypage/<%= @profile_user %>">프로필 메인</a></li>
+    <li class="tab waves-effect waves-pink"><a href="/profile/<%= @profile_user %>/album">앨범</a></li>
+    <li class="tab waves-effect waves-pink"><%= @user.name %></a></li>
+    <li class="tab waves-effect waves-pink"><a href="/profile/<%= @profile_user %>/archive">아카이브</a></li>
+    <li class="tab waves-effect waves-pink"><a href="/profile/<%= @profile_user %>/tagged">태그됨</a></li>
+  </ul>
 <% else %>
-	<a href="/profile/mypage/<%= current_user.id %>">프로필 메인</a>
-	<a href="/profile/<%= current_user.id %>/album">전체 게시물</a>
-	<a href="/profile/<%= current_user.id %>/saved">즐겨찾기</a>
-  <a href="/profile/<%= current_user.id %>/tagged">태그됨</a>
+  <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
+    <li class="tab waves-effect waves-pink"><a href="/profile/mypage/<%= current_user.id %>">프로필 메인</a></li>
+    <li class="tab waves-effect waves-pink"><a href="/profile/<%= current_user.id %>/album">앨범</a></li>
+    <li class="tab waves-effect waves-pink"><%= @user.name %></a></li>
+    <li class="tab waves-effect waves-pink"><a href="/profile/<%= current_user.id %>/archive">아카이브</a></li>
+    <li class="tab waves-effect waves-pink"><a href="/profile/<%= current_user.id %>/tagged">태그됨</a></li>
+  </ul>
 <% end %>
 
-<h5>profile/user_id/album임. profile, category 무관, 해당 유저가 작성한 모든 board 표시</h5>
+<% if user_signed_in? && current_user.id == @profile_user  %>
+  <a href="/profile/<%= current_user.id %>/new">앨범 만들기</a>
+<% end %>
+
+<h6>profile/user_id/album임. user_id <%= @profile_user %>의 앨범. 여기서 앨범 만들기 가능</h6>
 
 <!-- 사진첩 만드는 곳-->
 <div class="box-container">
     <div class="row">
-        <% @board.each do |board| %>
-            <div class="col m4 l4">
+        <% @profile.each do |profile| %>
+            <div class="col m4 l4" style="height:30%">
                 <div class="box">
-                <a href="/board/<%= board.id %>"><img class="image" src="<%= board.image_url %>"></a>
+                <a href="/profile/<%= profile.id %>"><img class="image" src="<%= profile.category.image_url %>"></a>
                     <div class="padding">
                         <div class="buttons">
-                            <% if user_signed_in? && current_user.id == @user.id %>
-                            <a href="/board/edit/<%= board.id %>"><i class="material-icons">edit</i></a>
-                            <%= link_to '삭제', board, method: :delete, data: { confirm: '진짜 삭제?' } %>
+                            <button class="ui secondary button"> Show</button>
+                            <% if user_signed_in? && current_user.id == profile.user_id %>
+                            <button class="ui button"><a href="/profile/delete/<%= profile.id %>">Delete</button>
+                            <!-- link_to 'delete', profile, method: :delete, data: { confirm: 'Are you sure?' } %>
                             <% end %>
                         </div>
                     </div>
@@ -44,6 +77,17 @@
         <% end %>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
 
 <a href="/">홈으로</a>
 

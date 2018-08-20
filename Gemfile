@@ -1,5 +1,14 @@
 source 'https://rubygems.org'
+gem 'jquery-turbolinks'
+# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+gem 'therubyracer'
+gem 'less-rails-semantic_ui', '~> 2.0.7.0'
 
+gem 'whenever'
+gem 'sprockets-rails', '~> 2'
+gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
+# 
+gem 'semantic-ui-rails'
 # for SNS  Login
 gem 'omniauth'
 gem 'omniauth-facebook'

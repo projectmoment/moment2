@@ -13,3 +13,6 @@
  *= require_tree .
  *= require_self
  */
+@import "semantic-ui";
+// 웹폰트 나눔고딕
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css); .nanumgothic * { font-family: 'Nanum Gothic', sans-serif; }
