@@ -14,6 +14,11 @@ class User < ActiveRecord::Base
   acts_as_follower
   acts_as_followable
 
+  def self.search(search)
+  # Title is for the above case, the OP incorrectly had 'name'
+  where("name LIKE ?", "%#{search}%")
+  end
+
   #좋아요
   def is_like?(board)
     Like.find_by(user_id: self.id, board_id: board.id).present?

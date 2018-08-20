@@ -94,8 +94,25 @@
         <% end %>
         
         <% @bo.comments.each do |comment| %>
-          <%= comment.body %><hr>
-        <% end %>
+
+          <% user = nil %>
+          <% if comment.body.scan(/@[^0-9 ]*/).map.first.nil? %>
+            <%= comment.body %> <hr>
+          <% else %>
+            <% comment.body.scan(/@[^0-9 ]*/).map.each do |c|%>
+              
+              <% user = User.find_by(name: c.delete('@'))%>
+              
+              <% #link_to '@'+user.name, "/profile/mypage/#{user.id}" %> 
+              <% #comment.body.gsub(/@[^0-9 ]*/, '')%>
+              
+            <% end %>
+          <% end %>
+          <%= h comment.body.gsub(/@[^0-9 ]*/){|word| link_to word, 
+                  "/profile/mypage/#{getIDbyName(word)}"}.html_safe  
+          %>
+          <hr>
+        <% end %> <!-- Tag in Comment -->
       </div>
   
   
