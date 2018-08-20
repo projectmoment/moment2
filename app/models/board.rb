@@ -13,4 +13,8 @@ class Board < ActiveRecord::Base
     has_many :liked_users, through: :likes, source: :user
     has_many :comments
     
+    # 사람 태그하기. ex) @철수
+    has_many :tags
+    
 end
+ 
