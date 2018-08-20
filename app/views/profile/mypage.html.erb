@@ -16,7 +16,7 @@
           </div>
         </div>
       </li>
-      
+<body>
       <li><a href="javascript:void(0);" onclick="toggleFullScreen()"><i class="material-icons toggle-fullscreen">settings_overscan</i></a></li>
       <li><a href=""><i class="material-icons">people_outline</i></a></li>
       <li><a href=""><i class="material-icons">notifications_none</i></a></li>
@@ -110,15 +110,27 @@
             <div class="">
               
               <!-- 좋아요 -->
-              <div>
+              <div class="like">
                 <% if current_user.is_like?(board) %>
-                <%= link_to "좋아요 취소", like_board_path(board), method: "POST" %>
+                  <%= link_to like_board_path(board), method: "POST" do%>
+                   <div class="ui red button">
+                   좋아요 취소
+                   </div>
+                  <% end %>
                 <% else %>
-                <%= link_to "좋아요", like_board_path(board), method: "POST" %>
+                  <%= link_to  like_board_path(board), method: "POST", tabindex: "0", class: "ui red button" do%>
+                  <i class="heart icon"></i>like
+                  <a class="ui basic red left pointing label"><%= board.liked_users.size %></a>
+                  <% end %>
                 <% end %>
-                <%= board.liked_users.size %>
+                  <div class="ui labeled button" tabindex="0">
+                    <div class="ui red button">
+                      <i class="heart icon"></i> Like
+                    </div>
+                  <a class="ui basic red left pointing label"><%= board.liked_users.size %></a>
+                </div>
               </div>
-              
+                  </div>
               <!-- 게시글 정보 -->
               <b><%= board.profile.user.name %></b>
                  <%= board.title %>
@@ -138,7 +150,7 @@
                   <input type="submit">
                   </form>
                   <% board.comments.each do |comment| %>
-                  <%= comment.body.reverse %><hr>
+                  <%= comment.body %><hr>
                   <% end %>
                 <% end %>
               </div>
@@ -152,21 +164,25 @@
     <% end %>
   </div>
 </div>
+  <button class="ui inverted olive basic button"> <a href="/"></a>홈으로</button>
+  <button class="ui inverted green basic button">Basic Green</button>
 
-<a href="/">홈으로</a>
-
+</body>
 <!-- CSS -->
 
 
  <style>
   body {
-    background-color: #FAFAFA;
+    background-image: url("gradient_bg.png");
+    background-repeat: repeat-x;
   }
   
   a:hover {
     background: none;
   }
   
+  .like:hover{
+  }
   .box-container {
     text-align: center;
   }
