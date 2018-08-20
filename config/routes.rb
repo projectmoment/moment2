@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'crawler/index' => 'crawler#index'
 
   root "posts#index"
   get 'posts/explore' => 'posts#explore' 
