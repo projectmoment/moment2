@@ -51,6 +51,8 @@
   </div>
   
 <!-- current_user 와 @user가 같을 경우 설정에 link 있음-->  
+<% elsif  @info.blank? %>
+  <a href="/info/new/<%=current_user.id%>">개인정보가 없습니다. 개인정보를 설정해 주세요.
 <% else %>
   <div class="grid">
     <div class="grid-box a"><img src="<%= @info.image_url %>">프로필 사진</div>
