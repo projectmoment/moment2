@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
   has_many :boards , dependent: :destroy
   has_many :likes
   has_many :liked_boards, through: :likes, source: :board
+  
+  has_one :tag
+  
   acts_as_follower
   acts_as_followable
 

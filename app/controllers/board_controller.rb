@@ -11,6 +11,8 @@ class BoardController < ApplicationController
         @bo.comments.create(body:params[:body])
         redirect_to :back
     end
+
+
     
     def new
         @board = Board.new

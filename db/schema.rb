@@ -13,6 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20180820135756) do
 
+
   create_table "boards", force: :cascade do |t|
     t.integer  "profile_id"
     t.string   "title"
@@ -132,6 +133,14 @@ ActiveRecord::Schema.define(version: 20180820135756) do
 
   add_index "profiles", ["category_id"], name: "index_profiles_on_category_id"
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id"
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "user_id"
+    t.integer  "board_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

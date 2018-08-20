@@ -1,3 +1,4 @@
+
 <!-- 네브바 시작 -->
 <nav class="navbarbg">
   <div class="nav-wrapper">
@@ -27,6 +28,7 @@
           <%= link_to "로그인", new_user_session_path%>
         <% end%></a></li>
     </ul>
+
   </div>
 </nav>
 <!-- 네브바 끝 -->
@@ -69,8 +71,48 @@
                           <div id="<%=board.id%>" class="modal">
                             <div class="modal-content">
                               <img class="modal-image" src="<%= board.image_url %>">
+                              
                               <h4><%= board.title %></h4>
-                              <p><%= board.content %>/p>
+                              <p><%= board.content %></p>
+                              <p>
+                                <form action="/board/comments/<%= board.id %>" method="POST">
+                                  <input type="textarea" name="body" placeholder="댓글 쓰는 곳">
+                                  <input type="submit">
+                                </form>
+                              </p>
+                              <p>
+                                <!-- Tags in Comment -->
+                                <% board.comments.each do |comment| %>
+                                  <% user = nil %>
+                                  
+                                  <!-- @XXX 문자열이 없으면 그대로 출력 -->
+                                  <% if comment.body.scan(/@[^0-9 ]*/).map.first.nil? %>
+                                    <%= comment.body %> <hr>
+                                  <!-- @XXX 문자열이 있다면?-->
+                                  <% else %>
+                                    <!-- @XXX 형태의 문자열을 겹치는 값이 없는 배열로 저장-->
+                                    <% comment.body.scan(/@[^0-9 ]*/).map.each do |c|%>
+                                      <!-- @를 제거한 XXX를 이름으로 User 테이블에서 검색-->
+                                      <% user = User.find_by(name: c.delete('@'))%>
+                                    <% end %>
+                                    <!-- user가 검색되었다면 -->
+                          
+                                      <%=  # @이름으로 링크를 달아서 출력
+                                      h comment.body.gsub(/@[^0-9 ]*/){|word|
+                                          link_to word.delete('@'), "/profile/mypage/#{getIDbyName(word)}", class: "ui violet basic button"}.html_safe  
+                                      %>
+                           
+                                  <% end %>
+              
+                                <hr>
+                                <% end %> <!-- Tag and Comment -->
+                              </p>
+                              <p>
+                                <% board.hashtags.each do |hash|%>
+                                  #<%= hash.title %> &nbsp;
+                                <% end %>
+                              </p>
+                              
                             </div>
                             <div class="modal-footer">
                               <a href="#!" class="modal-close waves-effect waves-green btn-flat">
