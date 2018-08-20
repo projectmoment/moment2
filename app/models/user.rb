@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
   
   has_one :info
   has_one :tag
-  
   acts_as_follower
   acts_as_followable
 

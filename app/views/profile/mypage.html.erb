@@ -46,7 +46,9 @@
       여기선 이 문구가 뜨고 다른 유저 페이지에서는 Follow가 뜸
       <% end %>
     </div>
-    <div class="grid-box d">설정</div>
+    <div class="grid-box d">설정
+          <img src "settings icon.png" >
+    </div>
     <div class="grid-box e">하는 게임</div>
   </div>
   
@@ -55,21 +57,25 @@
   <a href="/info/new/<%=current_user.id%>">개인정보가 없습니다. 개인정보를 설정해 주세요.</a>
 <% else %>
   <div class="grid">
-      <div class="grid-box a"><img src="<%= @info.image_url %>">프로필 사진</div>
-      <div class="grid-box b"><%= @info.introduction %>자기소개</div>
-        <div class="grid-box c">
-          <% if current_user.following?(@user) %>
-          <%= link_to "Following", {action: 'unfollow', id: @user.id}, method: 'post', remote: true %>
-          <% elsif current_user != @user %>
-          <%= link_to "Follow", {action: 'follow', id: @user.id}, method: 'post', remote: true %>
-          <% elsif current_user == @user %>
-          여기선 이 문구가 뜨고 다른 유저 페이지에서는 Follow가 뜸
-          <% end %>
-        </div>
+    <div class="grid-box a"><img src="<%= @info.image_url %>">프로필 사진</div>
+    <div class="grid-box b"><h5>자기소개</h5><br><h6><%= @info.introduction %></h6></div>
+    <div class="grid-box c">
+      <% if current_user.following?(@user) %>
+      <%= link_to "Following", {action: 'unfollow', id: @user.id}, method: 'post', remote: true %>
+      <% elsif current_user != @user %>
+      <%= link_to "Follow", {action: 'follow', id: @user.id}, method: 'post', remote: true %>
+      <% elsif current_user == @user %>
+      여기선 이 문구가 뜨고 다른 유저 페이지에서는 Follow가 뜸
+      <% end %>
+    </div>
+    <% if @info.blank? %>
+      <div class="grid-box d"><a href="/info/new/<%=current_user.id%>">설정</a></div>
+    <% else %>
       <div class="grid-box d"><a href="/info/edit/<%=current_user.id%>">설정</a></div>
-      <div class="grid-box e">
-        <p>하는 게임</p>
-        <% @plays.each do |play|%>
+    <% end %>
+    <div class="grid-box e">
+      <h6>하는 게임</h6><br>
+      <% @plays.each do |play|%>
         <p><%= play.name %></p>
         <% end %>
       </div>
