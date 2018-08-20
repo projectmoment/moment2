@@ -1,5 +1,5 @@
 class CrawlingLol < ActiveRecord::Base
-    def crawling name
+    def self.crawling name
       url = "http://www.op.gg/summoner/userName=#{name}"
       doc = Nokogiri::HTML(open(url))
       puts "url :#{url}"
