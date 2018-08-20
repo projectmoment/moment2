@@ -1,1 +1,4 @@
-$("#search").append("<%= @search_user.name %>");
+console.log("wonno is god")
+console.log("<%= @search_user.length %>")
+$("#searchtable").empty()
+$("#searchtable").append("<%= escape_javascript render 'searchtable', search_user: @search_user  %>")

@@ -34,9 +34,9 @@
             <!------ 검색 ------->
     <li><a href="#search" class="modal-trigger"><i class="material-icons">search</i></a>
       <div id="search" class="modal">
-      <div class="modal-content black center">
+      <div class="modal-content center">
         <h2>친구찾기</h2>
-        <%= form_tag("/#search", :method => "get", id: "search-form", remote: true) do %>
+        <%= form_tag("/", :method => "get", id: "search-form", remote: true) do %>
         <%= text_field_tag :search, params[:search], placeholder: "유저 검색", :class => 'white-text' %>
         <%= submit_tag "Search"%>
         <% end %>
@@ -50,14 +50,8 @@
               <th colspan="3"></th>
             </tr>
           </thead>
-          <tbody>
-            <% @search_user.each do |user| %>
-              <tr>
-                <td><%= user.id %></td>
-                <td><%= user.name %></td>
-                <td>페이지 주소</td>
-              </tr>
-            <% end %>
+          <tbody id="searchtable">
+            <%= render 'searchtable', search_user: @search_user %>
           </tbody>
         </table>
       <div></div></li>
