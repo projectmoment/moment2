@@ -1,0 +1,15 @@
+<%= form_tag("/", :method => "get", id: "search-lol") do %>
+<%= text_field_tag :search, params[:search], placeholder: "유저 검색", :class => 'white-text' %>
+<%= submit_tag "Search"%>
+
+<% Crawlinglol.all.each do |t| %>
+    <a href="http://www.op.gg/summoner/userName=#{params[:lolnick]}">
+        <%= t.name %>
+        <%= t.info %>
+        <%= t.point %>
+        <%= t.win %>
+        <%= t.lose %>
+        <%= t.ratio %>
+    </a>
+    <% end %>
+

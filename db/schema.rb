@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180820121525) do
+ActiveRecord::Schema.define(version: 20180820135756) do
 
   create_table "boards", force: :cascade do |t|
     t.integer  "profile_id"
@@ -46,8 +46,13 @@ ActiveRecord::Schema.define(version: 20180820121525) do
   add_index "comments", ["board_id"], name: "index_comments_on_board_id"
 
   create_table "crawling_lols", force: :cascade do |t|
+    t.string   "nick"
     t.string   "tier"
     t.string   "info"
+    t.string   "point"
+    t.string   "win"
+    t.string   "lose"
+    t.string   "ratio"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
