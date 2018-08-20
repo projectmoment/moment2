@@ -10,4 +10,13 @@ module ProfileHelper
       content.gsub(/@\w+/){|name| link_to name, "/mypage/#{user.user_id}", class: "chip"}.html_safe
     end
   end
+  
+  def getIDbyName(userName)
+    user = User.find_by(name: userName.delete('@'))
+    if user.nil?
+      return nil
+    end
+      
+    return user.id
+  end
 end
