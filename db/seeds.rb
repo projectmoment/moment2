@@ -17,4 +17,4 @@ Category.find_or_create_by(name: '스타크래프트', image_url: Rails.root.joi
 Category.find_or_create_by(name: '던전앤파이터', image_url: Rails.root.join("app/assets/images/던전앤파이터.jpg").open)
 Category.find_or_create_by(name: '히어로즈오브더스톰', image_url: Rails.root.join("app/assets/images/히어로즈오브더스톰.jpg").open)
 Category.find_or_create_by(name: '리니지', image_url: Rails.root.join("app/assets/images/리니지.jpg").open)
-# seed에 create쓰지 말고 find_or_create_by써야한대요!
+# seed에 create쓰지 말고 find_or_create_by써야한대요
