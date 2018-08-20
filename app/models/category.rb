@@ -4,4 +4,5 @@ class Category < ActiveRecord::Base
     mount_uploader :image_url, ImageUploader
     
     has_many :profiles
+    acts_as_followable
 end

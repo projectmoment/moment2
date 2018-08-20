@@ -19,7 +19,10 @@ class ProfileController < ApplicationController
     
     def mypage
         @user = User.find(params[:user_id])
+        @info = Info.find_by(user_id: params[:user_id])
         @board = Board.where(profile: @user.profiles).reverse
+        @plays = @user.all_following# Follow.find_by(follower: params[:user_id], followable_type: "Category")
+
     end
     
     def follow
