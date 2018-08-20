@@ -1,157 +1,154 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
+<body>  
+  <!-- 네브바 시작 -->
+  <nav class="navbarbg navbar-fixed">
+    <div class="nav-wrapper">
+      <div class="navbarcl">
+      <a href="/" class="brand-logo white-text">로고</a>
+      <ul class="hide-on-med-and-down right">
+      </ui>
+    </div>
+  </nav>
   
-<!-- 네브바 시작 -->
-<nav class="navbarbg">
-  <div class="nav-wrapper">
-    <div class="navbarcl">
-    <a href="/" class="brand-logo white-text">로고</a>
-    <ul class="hide-on-med-and-down right">
-    </ui>
-  </div>
-</nav>
-
-
-
-  <!--사이드 네브바 넣을 자리-->
-  <ul id="slide-out" class="sidenav">
-      <!--여기부터 유저 프로필-->
-    <li><div class="user-view  valign-wrapper">
-      <!--<div class="background">-->
-      <!--  <img src="images/m.ico">-->
-      <!--</div>-->
-      <a href="/profile/mypage/<%=current_user.id%>"><img class="circle-song" src="<%= @info.try("image_url") %>"></a>
-      <a href="#"><span class="white-text name"><%= current_user.name %></span></a>
-      <a href="#email"><span class="white-text email"><%= current_user.email%></span></a>
-    </div></li>
-      <li><div class="divider"></div></li>
-    <!--여기까지 유저 프로필-->
-    <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">cloud</i>MyPage</a></li>
   
-            <!------ 검색 ------->
-    <li><a href="#search" class="modal-trigger"><i class="material-icons">search</i> Search User</a>
-      <div id="search" class="modal">
-      <div class="modal-content black center">
-        <h2>친구찾기</h2>
-        <%= form_tag("/#search", :method => "get", id: "search-form", remote: true) do %>
-        <%= text_field_tag :search, params[:search], placeholder: "유저 검색", :class => 'white-text' %>
-        <%= submit_tag "Search"%>
-        <% end %>
-        
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>이름</th>
-              <th>페이지</th>
-              <th colspan="3"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @search_user.each do |user| %>
-              <tr>
-                <td><%= user.id %></td>
-                <td><%= user.name %></td>
-                <td>페이지 주소</td>
-              </tr>
+  
+    <!--사이드 네브바 넣을 자리-->
+    <ul id="slide-out" class="sidenav">
+        <!--여기부터 유저 프로필-->
+      <li>
+        <div class="user-view valign-wrapper">
+        <!--<div class="background">-->
+        <!--  <img src="images/m.ico">-->
+        <!--</div>-->
+          <a href="/profile/mypage/<%=current_user.id%>"><img class="circle-song" src="<%= @info.try("image_url") %>"></a>
+          <a href="#"><span class="white-text name"><%= current_user.name %></span></a>
+          <a href="#email"><span class="white-text email"><%= current_user.email%></span></a>
+        </div>
+      </li>
+        <li><div class="divider"></div></li>
+      <!--여기까지 유저 프로필-->
+      <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">cloud</i>MyPage</a></li>
+    
+              <!------ 검색 ------->
+      <li><a href="#search" class="modal-trigger"><i class="material-icons">search</i> Search User</a>
+        <div id="search" class="modal">
+          <div class="modal-content black center">
+            <h2>친구찾기</h2>
+            <%= form_tag("/#search", :method => "get", id: "search-form", remote: true) do %>
+            <%= text_field_tag :search, params[:search], placeholder: "유저 검색", :class => 'white-text' %>
+            <%= submit_tag "Search"%>
             <% end %>
-          </tbody>
-        </table>
-      <div></div></li>
-      <!--검색 끝 -->
-      <li><a href="javascript:void(0);" onclick="toggleFullScreen()"><i class="material-icons toggle-fullscreen">settings_overscan </i>Full Screen</a></li>
-      <!--<li><a href=""><i class="material-icons">people_outline</i></a></li>-->
-      <!--<li><a href=""><i class="material-icons">notifications_none</i></a></li>-->
-      <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">accessibility</i>Following & Follower</a></li>
-  </div>
-
-    <!--여기까지검색-->
-    <li><div class="divider"></div></li>
-    <li><a class="subheader">모먼트는 사랑입니다</a></li>
-    <!--<li><a class="waves-effect" href="#!">Third Link With Waves</a></li>-->
-     <li class="waves-effect">
-      <% if user_signed_in?%>
-      <%= link_to "로그아웃", destroy_user_session_path, method: :delete%>
-      <% else %>
-      <%= link_to "로그인", new_user_session_path%>
-      <% end%>
-    </li>
-  </ul>
-  <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
- 
- 
-<!-- Post List Table -->
-  <div class="container">
-  </div>
-
-<div class="box-container">
-  <div class="newsfeed">
-    <% @boards.each do |board| %>
-      <div class="box">
-        <div class="">
-            <a class="ui label">
-            <img src="<%= @info.try("image_url") %>">
-            <span><%= board.profile.user.name %></span>
-            </a>
-          <img class="image" src="<%= board.image_url %>">
-          <div class="padding">
-              <!-- 좋아요 -->
-            <div class="like">
-              <% if current_user.is_like?(board) %>
-                  <div class="ui labeled button like-button-songyi">
-                  <%= link_to like_board_path(board), method: "POST" do%>
-                   <div class="ui red button">
-                   좋아요 취소
-                   </div>
-                   <a class="ui basic right pointing label"><%= board.liked_users.size %></a>
-                  </div>
-                  <% end %>
-              <% else %>
-                  <div class="ui labeled button like-button-songyi" tabindex="0">
-                  <%= link_to like_board_path(board), method: "POST", class: "ui red button" do%>
-                  <i class="heart icon">like</i>
-                  <% end %>
-                  <a class="ui basic right pointing label"><%= board.liked_users.size %></a>
-                  </div>
-              <% end %>  
-            </div>
-              <!-- 게시글 정보 -->
-                 <h5><%= board.title %></h5>
-                 <h6><%= board.content %></h6>
-              
-              <!-- 게시글 편집 -->
-              <% if user_signed_in? && current_user.id == board.profile.user.id %>
-              <a href="/board/edit/<%= board.id %>"><i class="material-icons">edit</i></a>
-                  <%= link_to "<i class=\"heart icon\">삭제</i>".html_safe, board, method: :delete, data: { confirm: '진짜 삭제?' }, class: "ui button" %>
-              <% end %><br><br>
-              
-              <!-- 코멘트 입력 / 제출 -->
-              <div class="comment">
-                <% if user_signed_in?%>
-                  <form action="/board/comments/<%= board.id %>" method="POST">
-                  <input type="textarea" name="body" placeholder="댓글을 입력해 주세요">
-                  <input type="submit">
-                  </form>
-                    <% board.comments.each do |comment| %>
-                    <%= comment.body %><hr>
-                    <% end %>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>이름</th>
+                  <th>페이지</th>
+                  <th colspan="3"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @search_user.each do |user| %>
+                  <tr>
+                    <td><%= user.id %></td>
+                    <td><%= user.name %></td>
+                    <td>페이지 주소</td>
+                  </tr>
                 <% end %>
-              </div>
-          </div>  
-        </div>    
-      </div>
-      <div class="newspace"><br>
-      <!-- 게시글 사이에 여백 -->
-      </div>
-    <% end %>
-  </div>
-</div>
-
-
-</body>
-
+              </tbody>
+            </table>
+          <div></div></li>
+          <!--검색 끝 -->
+          <li><a href="javascript:void(0);" onclick="toggleFullScreen()"><i class="material-icons toggle-fullscreen">settings_overscan </i>Full Screen</a></li>
+          <!--<li><a href=""><i class="material-icons">people_outline</i></a></li>-->
+          <!--<li><a href=""><i class="material-icons">notifications_none</i></a></li>-->
+          <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">accessibility</i>Following & Follower</a></li>
+        </div>
+        </div>
+      <!--여기까지검색-->
+      <li><div class="divider"></div></li>
+        <li><a class="subheader">모먼트는 사랑입니다</a></li>
+      <!--<li><a class="waves-effect" href="#!">Third Link With Waves</a></li>-->
+           <li class="waves-effect">
+            <% if user_signed_in?%>
+            <%= link_to "로그아웃", destroy_user_session_path, method: :delete%>
+            <% else %>
+            <%= link_to "로그인", new_user_session_path%>
+            <% end%>
+            </li>
+    </ul>
+   <a href="#" data-target="slide-out" class="sidenav-trigger sidenav-song"><i class="material-icons">menu</i></a>
+   
+  <!-- Post List Table -->
+    <div class="container">
+    </div>
   
+  <div class="box-container">
+    <div class="newsfeed">
+      <% @boards.each do |board| %>
+        <div class="box">
+          <div class="">
+              <a class="ui label">
+              <img src="<%= board.profile.user.info.try("image_url") %>">
+              <span><%= board.profile.user.name %></span>
+              </a>
+            <img class="image" src="<%= board.image_url %>">
+            <div class="padding">
+                <!-- 좋아요 -->
+              <div class="like">
+                <% if current_user.is_like?(board) %>
+                    <div class="ui labeled button like-button-songyi">
+                    <%= link_to like_board_path(board), method: "POST" do%>
+                     <div class="ui red button">
+                     좋아요 취소
+                     </div>
+                     <a class="ui basic right pointing label"><%= board.liked_users.size %></a>
+                    </div>
+                    <% end %>
+                <% else %>
+                    <div class="ui labeled button like-button-songyi" tabindex="0">
+                    <%= link_to like_board_path(board), method: "POST", class: "ui red button" do%>
+                    <i class="heart icon">like</i>
+                    <% end %>
+                    <a class="ui basic right pointing label"><%= board.liked_users.size %></a>
+                    </div>
+                <% end %>  
+              </div>
+                <!-- 게시글 정보 -->
+                   <h5><%= board.title %></h5>
+                   <h6><%= board.content %></h6>
+                
+                <!-- 게시글 편집 -->
+                <% if user_signed_in? && current_user.id == board.profile.user.id %>
+                <a href="/board/edit/<%= board.id %>"><i class="material-icons">edit</i></a>
+                    <%= link_to board, method: :delete, data: { confirm: '삭제하시겠습니까??' } %>
+                    <!--"<i class=\"heart icon\">delete</i>".html_safe => link_to 안에서 html 태그 사용하기-->
+                <% end %><br><br>
+                
+                <!-- 코멘트 입력 / 제출 -->
+                <div class="comment">
+                  <% if user_signed_in?%>
+                    <form action="/board/comments/<%= board.id %>" method="POST">
+                    <input type="textarea" name="body" placeholder="댓글을 입력해 주세요">
+                    <input type="submit">
+                    </form>
+                      <% board.comments.each do |comment| %>
+                      <%= comment.body %><hr>
+                      <% end %>
+                  <% end %>
+                </div>
+            </div>  
+          </div>    
+        </div>
+        <div class="newspace"><br>
+        <!-- 게시글 사이에 여백 -->
+        </div>
+      <% end %>
+    </div>
+  </div>
+</body>
 <footer>
 </footer>
 
@@ -272,5 +269,10 @@
   
   .navbarcl {
     background-color: #84CFF4;
+  }
+  .sidenav-song{
+    position:fixed;
+    top:50%;
+    bottom:50%;
   }
 </style>
