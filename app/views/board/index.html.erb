@@ -94,25 +94,29 @@
         <% end %>
         
         <% @bo.comments.each do |comment| %>
-
+   
           <% user = nil %>
+          
+          <!-- @XXX 문자열이 없으면 그대로 출력 -->
           <% if comment.body.scan(/@[^0-9 ]*/).map.first.nil? %>
             <%= comment.body %> <hr>
+          <!-- @XXX 문자열이 있다면?-->
           <% else %>
+            <!-- @XXX 형태의 문자열을 겹치는 값이 없는 배열로 저장-->
             <% comment.body.scan(/@[^0-9 ]*/).map.each do |c|%>
-              
+              <!-- @를 제거한 XXX를 이름으로 User 테이블에서 검색-->
               <% user = User.find_by(name: c.delete('@'))%>
-              
-              <% #link_to '@'+user.name, "/profile/mypage/#{user.id}" %> 
-              <% #comment.body.gsub(/@[^0-9 ]*/, '')%>
-              
             <% end %>
+            <!-- user가 검색되었다면 -->
+  
+              <%=  # @이름으로 링크를 달아서 출력
+              h comment.body.gsub(/@[^0-9 ]*/){|word|
+                  link_to word.delete('@'), "/profile/mypage/#{getIDbyName(word)}", class: "ui violet basic button"}.html_safe  
+              %><hr>
+   
           <% end %>
-          <%= h comment.body.gsub(/@[^0-9 ]*/){|word| link_to word, 
-                  "/profile/mypage/#{getIDbyName(word)}"}.html_safe  
-          %>
-          <hr>
-        <% end %> <!-- Tag in Comment -->
+        <% end %> <!-- Tag and Comment -->
+
       </div>
   
   
