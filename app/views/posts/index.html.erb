@@ -7,14 +7,14 @@
 <nav class="navbarbg">
   <div class="nav-wrapper">
     <a href="/" class="brand-logo white-text">로고</a>
-    <ul class="hide-on-med-and-down right">      
+    <ul class="hide-on-med-and-down right">
       
       <!-- 검색 시작 -->
       <li><a href="#search" class="modal-trigger"><i class="material-icons">search</i></a>
       <div id="search" class="modal">
       <div class="modal-content black center">
         <h2>친구찾기</h2>
-        <%= form_tag("/", :method => "get", id: "search-form") do %>
+        <%= form_tag("/#search", :method => "get", id: "search-form", remote: true) do %>
         <%= text_field_tag :search, params[:search], placeholder: "유저 검색", :class => 'white-text' %>
         <%= submit_tag "Search"%>
         <% end %>
@@ -38,7 +38,8 @@
             <% end %>
           </tbody>
         </table>
-      </div></div></li> <!--검색 끝 -->
+      </div></div></li>
+      <!--검색 끝 -->
       
       <li><a href="javascript:void(0);" onclick="toggleFullScreen()"><i class="material-icons toggle-fullscreen">settings_overscan</i></a></li>
       <li><a href=""><i class="material-icons">people_outline</i></a></li>
@@ -127,7 +128,7 @@
                   <input type="submit">
                   </form>
                   <% board.comments.each do |comment| %>
-                  <%= comment.body.reverse %><hr>
+                  <%= comment.body %><hr>
                   <% end %>
                 <% end %>
               </div>

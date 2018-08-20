@@ -118,7 +118,7 @@
                   <input type="submit">
                   </form>
                   <% board.comments.each do |comment| %>
-                  <%= comment.body.reverse %><hr>
+                  <%= comment.body %><hr>
                   <% end %>
                 <% end %>
               </div>
@@ -140,7 +140,8 @@
 
  <style>
   body {
-  background: linear-gradient(to top right, #33ccff 0%, #ff99cc 100%);
+    background-image: url("gradient_bg.png");
+    background-repeat: repeat-x;
   }
   
   a:hover {

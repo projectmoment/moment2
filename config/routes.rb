@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'posts/explore' => 'posts#explore' 
   get 'posts/intro'  => 'posts#intro'
   get 'posts/search' => 'posts#search'
-  resources :posts
+  resources :posts, defaults: { format: 'js' }
   
   get 'profile/:user_id' => 'profile#index', as: 'profile_index'
   get 'profile/mypage/:user_id' => 'profile#mypage', as: 'mypage'
