@@ -35,8 +35,8 @@
 <!-- current_user 와 @user가 다를 경우 설정에 link 없음-->
 <% if current_user != @user %>
   <div class="grid">
-    <div class="grid-box a"><img src="<%= @info.image_url %>">프로필 사진</div>
-    <div class="grid-box b"><%= @info.introduction %>자기소개</div>
+    <div class="grid-box a"><img src="<%=%>">프로필 사진</div>
+    <div class="grid-box b"><%=%>자기소개</div>
     <div class="grid-box c">
       <% if current_user.following?(@user) %>
       <%= link_to "Following", {action: 'unfollow', id: @user.id}, method: 'post', remote: true %>
@@ -53,8 +53,8 @@
 <!-- current_user 와 @user가 같을 경우 설정에 link 있음-->  
 <% else %>
   <div class="grid">
-    <div class="grid-box a"><img src="<%= @info.image_url %>">프로필 사진</div>
-    <div class="grid-box b"><%= @info.introduction %>자기소개</div>
+    <div class="grid-box a"><img src="">프로필 사진</div>
+    <div class="grid-box b"><%= %>자기소개</div>
     <div class="grid-box c">
       <% if current_user.following?(@user) %>
       <%= link_to "Following", {action: 'unfollow', id: @user.id}, method: 'post', remote: true %>

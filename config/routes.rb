@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   
   post 'plays/create/:user_id' => 'plays#create'
   
+  resources :images
   # omniauth : for SNS(facebook) login
   devise_for :users, :controllers => { omniauth_callbacks: 'user/omniauth_callbacks' }
   

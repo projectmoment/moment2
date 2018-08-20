@@ -19,7 +19,6 @@
                 <%= link_to "On", unfollow_info_path(category.id), method: 'post', remote: true , class: "game#{category.id}" %><br>
             <% else %>
                 <%= link_to "Off",follow_info_path(category.id), method: 'post', remote: true, class: "game#{category.id}" %><br>
-        
             <% end %>
         <% end %>
     </div>

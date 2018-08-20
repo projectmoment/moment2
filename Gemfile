@@ -10,7 +10,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'therubyracer'
 gem 'less-rails-semantic_ui', '~> 2.0.7.0'
 
-gem 'sprockets', '3.7.0'
+gem 'sprockets', '3.7.2'
 
 gem 'sprockets-rails', '~> 2'
 gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
@@ -27,7 +27,7 @@ gem 'acts_as_follower'
 gem 'carrierwave'
 gem "rails_db", "1.6"
 gem 'devise'
-gem 'rails', '4.2.5'
+gem 'rails', '4.2.8'
 gem 'sqlite3'
 
 gem 'sass-rails', '~> 5.0', '>= 5.0.6'
