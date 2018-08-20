@@ -5,7 +5,7 @@
         @board = Board.where(profile_id: params[:user_id])
         @pro = Profile.find(params[:user_id])
         @user = @pro.user
-    en
+    end
     
     def album
         @user = User.find(params[:user_id])
@@ -22,7 +22,8 @@
         @user = User.find(params[:user_id])
         @info = Info.find_by(user_id: params[:user_id])
         @board = Board.where(profile: @user.profiles).reverse
-        @plays = @user.all_following# Follow.find_by(follower: params[:user_id], followable_type: "Category")
+        @plays = @user.all_following
+        # Follow.find_by(follower: params[:user_id], followable_type: "Category")
 
     end
     
@@ -76,8 +77,5 @@
         @profile = Profile.find(params[:id])
         @profile.destroy
         redirect_to(:back)
-    end
-    
-    def tagged
     end
 end
