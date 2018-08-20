@@ -1,9 +1,9 @@
 class ProfileController < ApplicationController
     
     def index
-        @board = Board.where(profile_id: params[:profile_id])
-        @pro = Profile.find(params[:profile_id])
-        @temp = params[:profile_id]
+        @board = Board.where(profile_id: params[:user_id])
+        @pro = Profile.find(params[:user_id])
+        @user = @pro.user
     end
     
     def album
@@ -14,16 +14,15 @@ class ProfileController < ApplicationController
     
     def archive
         @user = User.find(params[:user_id])
-        @profile = Profile.find_by(user_id: @user.id)
-        @board = Board.where(profile_id: @profile.id)
+        @board = Board.where(profile: @user.profiles)
     end
     
     def mypage
         @user = User.find(params[:user_id])
-        @profile = Profile.find_by(user_id: @user.id)
-        @board = Board.where(profile_id: @profile.id)
-        @profile_user = (params[:user_id]).to_i
         @info = Info.find_by(user_id: params[:user_id])
+        @board = Board.where(profile: @user.profiles).reverse
+        @plays = @user.all_following# Follow.find_by(follower: params[:user_id], followable_type: "Category")
+
     end
     
     def follow
@@ -72,5 +71,8 @@ class ProfileController < ApplicationController
         @profile = Profile.find(params[:id])
         @profile.destroy
         redirect_to(:back)
+    end
+    
+    def tagged
     end
 end

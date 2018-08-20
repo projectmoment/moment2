@@ -1,8 +1,8 @@
 class InfoController < ApplicationController
     def new
         @categories = Category.all
-        @info = Info.find_by(user_id: params[:user_id])
-        @user_id = current_user.id
+        
+        
     end
     
     def create
@@ -12,10 +12,11 @@ class InfoController < ApplicationController
         @info.user_id = current_user.id
         @info.save
         @userid = current_user.id
-        redirect_to "/info/new/#{@userid}"
+        redirect_to "/profile/mypage/#{@userid}"
     end
     def edit
         @info = Info.find(params[:id])
+        @categories = Category.all
         
     end
     
@@ -30,14 +31,14 @@ class InfoController < ApplicationController
     end
     
     def follow
-        @user = User.find(params[:user_id])
-        current_user.follow(@user)
+        @category = Category.find(params[:category_id])
+        current_user.follow(@category)
         respond_to :js
     end
     
     def unfollow
-        @user = User.find(params[:user_id])
-        current_user.stop_following(@user)
+        @category = Category.find(params[:category_id])
+        current_user.stop_following(@category)
         respond_to :js
     end
     

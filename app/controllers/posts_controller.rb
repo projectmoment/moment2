@@ -6,14 +6,13 @@ class PostsController < ApplicationController
   # GET /posts.json
   
   def index
+    @following_user_profile_id = Profile.where(user_id: current_user.following_users.pluck("id")).ids
     @boards = Board.all.reverse
+    #@boards = Board.where(profile: @following_user_profile_id)
+    #@all_boards = Board.where(profile_id: @following_user_board_id + current_user.profiles.pluck["id"])
+    # User.find(current_user.id).following_users.includes(:profiles).collect{|u| u.profiles}.flatten
   end
 
-#    def search
- #   @boardtitle = Board.where(title: params[:search])
-  #  @boardcontent = Board.where(content: params[:search])
-   # @boards = @boardtitle + @boardcontent
-    #end
   # GET /posts/1
   # GET /posts/1.json
   def show

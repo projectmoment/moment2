@@ -11,22 +11,19 @@
         <input type="text" name="introduction">
     </div>
     
+    <div class="aa">
+        <p>하는 게임을 모두 선택하시오.</p>
+        <% @categories.each do |category|%> 
+            <%= category.name %>
+            <% if current_user.following?(category) %>
+                <%= link_to "On", unfollow_info_path(category.id), method: 'post', remote: true , class: "game#{category.id}" %><br>
+            <% else %>
+                <%= link_to "Off",follow_info_path(category.id), method: 'post', remote: true, class: "game#{category.id}" %><br>
+        
+            <% end %>
+        <% end %>
+    </div>
+    
     <input type="submit" value="저장">
 </form>
     
-<div>
-    <p>하는 게임을 모두 선택하시오.</p>
-    <form action="/plays/update/<%= current_user.id %>" method="post">
-        <% @categories.each do |category|%> 
-            <p>
-              <label>
-                <input type="checkbox" name="category_id[]" value= "<%= category.id %>" class="filled-in"  />
-                <span><%= category.name %></span>
-              </label>
-            </p>
-        <% end %> 
-        
-        <input type="submit" value="저장">  
-    </form>    
-       
-</div>

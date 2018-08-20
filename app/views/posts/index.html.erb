@@ -1,58 +1,39 @@
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
-<body>
-  <div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="#">About</a>
-  <a href="#">Services</a>
-  <a href="#">Clients</a>
-  <a href="#">Contact</a>
-</div>
-<!-- nav -->
-    <script>
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-    }
-    
-    function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-    }
-    </script>
-<nav role="navigation">
-     
-  <div class="container">
-    
-      <!-- toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <!-- 사이트소개 페이지 -->
-          <li>
-            <%=link_to "Moment", "/posts/intro" %>
-          </li>
-          <!-- 로그인/아웃 -->
-          <li>
-            <% if user_signed_in?%>
-              <%= link_to "LogOut", destroy_user_session_path, method: :delete%>
-            <% else %>
-              <%= link_to "LogIn", new_user_session_path%>
-            <% end%>
-          </li>
-          <!-- 마이페이지 -->
-          <li>
-            <%= link_to "마이페이지", mypage_path(current_user.id) %>
-          </li>
-          <!-- 친구목록 -->
-          <li>
-            <%= link_to "친구목록", "#"%>
-          </li>
-    
-        </ul>
-      </div> <!-- collapse -->
+<!-- 네브바 시작 -->
+<nav class="navbarbg">
+  <div class="nav-wrapper">
+    <a href="/" class="brand-logo white-text">로고</a>
+    <ul class="hide-on-med-and-down right">               
+      <li>    
+        <div class="center row">
+          <div class="col s12">
+            <div class="row" id="topbarsearch">
+              <div class="input-field col s6 s12 white-text">
+              <i class="white-text material-icons prefix">search</i>
+              <input type="text" placeholder="search" id="autocomplete-input" class="autocomplete white-text" >
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
       
-  </div> <!-- container -->
-</nav>  
+      <li><a href="javascript:void(0);" onclick="toggleFullScreen()"><i class="material-icons toggle-fullscreen">settings_overscan</i></a></li>
+      <li><a href=""><i class="material-icons">people_outline</i></a></li>
+      <li><a href=""><i class="material-icons">notifications_none</i></a></li>
+      <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">accessibility</i></a></li>
+      <li>
+        <% if user_signed_in?%>
+          <%= link_to "로그아웃", destroy_user_session_path, method: :delete%><i class="material-icons right">power_settings_new</i>
+        <% else %>
+          <%= link_to "로그인", new_user_session_path%>
+        <% end%></a></li>
+    </ul>
+  </div>
+</nav>
+<!-- 네브바 끝 -->
 
  <!-- Post List Table -->
   <div class="container">  
@@ -119,7 +100,7 @@
   </div>
 </div>
 
-  <br>
+
 </body>
 
   
@@ -127,48 +108,8 @@
 </footer>
 
 
-
-
-
 <style>
-  .sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-}
 
-.sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-}
-
-.sidenav a:hover {
-    color: #f1f1f1;
-}
-
-.sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
 
 
   body {

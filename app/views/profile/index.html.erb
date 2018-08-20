@@ -1,66 +1,112 @@
-    <!--div class = "intro">
-<!-- model:profile 안에 image를 넣어야함
-    <!--%= image_tag(@profile.image_url) %>
-    <!-- %= @profile.introduction %>
-    <!-- 하는 게임-->
-    <!-- 팔로우-->
-    <!-- 설정-->
-    <!-- %= link_to "설정", "/profiles/edit2"%>
-    
-</div>-->
-
-<h1>[상단 네브바]</h1>
-
+<!-- 네브바 시작 -->
+<nav class="navbarbg">
+  <div class="nav-wrapper">
+    <a href="/" class="brand-logo white-text">로고</a>
+    <ul class="hide-on-med-and-down right">               
+      <li>    
+        <div class="center row">
+          <div class="col s12">
+            <div class="row" id="topbarsearch">
+              <div class="input-field col s6 s12 white-text">
+              <i class="white-text material-icons prefix">search</i>
+              <input type="text" placeholder="search" id="autocomplete-input" class="autocomplete white-text" >
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      
+      <li><a href="javascript:void(0);" onclick="toggleFullScreen()"><i class="material-icons toggle-fullscreen">settings_overscan</i></a></li>
+      <li><a href=""><i class="material-icons">people_outline</i></a></li>
+      <li><a href=""><i class="material-icons">notifications_none</i></a></li>
+      <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">accessibility</i></a></li>
+      <li>
+        <% if user_signed_in?%>
+          <%= link_to "로그아웃", destroy_user_session_path, method: :delete%><i class="material-icons right">power_settings_new</i>
+        <% else %>
+          <%= link_to "로그인", new_user_session_path%>
+        <% end%></a></li>
+    </ul>
+  </div>
+</nav>
+<!-- 네브바 끝 -->
+  
   <div class="grid">
     <div class="grid-box a">프로필 사진</div>
     <div class="grid-box b">자기소개</div>
-    <div class="grid-box c">팔로우</div>
-    <div class="grid-box d">설정</div>
+    <div class="grid-box c">
+      <% if current_user.following?(@user) %>
+      <%= link_to "Following", {action: 'unfollow', id: @user.id}, method: 'post', remote: true %>
+      <% elsif current_user != @user %>
+      <%= link_to "Follow", {action: 'follow', id: @user.id}, method: 'post', remote: true %>
+      <% elsif current_user == @user %>
+      여기선 이 문구가 뜨고 다른 유저 페이지에서는 Follow가 뜸
+      <% end %>
+    </div>
+    <div class="grid-box d">설정
+           <img src="/settings_icon.png", width='100px' height='100px'></img>
+    </div>
     <div class="grid-box e">하는 게임</div>
   </div>
   
-<h5>[JQuery Tab Here 제이쿼리 탭 넣는 자리]</h5>
-
-<% if current_user.id != @pro.user_id %>
-	<a href="/profile/mypage/<%= @pro.user_id %>">프로필 메인</a>
-	<a href="/profile/<%= @pro.user_id %>/album">앨범/a>
-	<a href="/profile/<%= @pro.user_id %>/archive">아카이브</a>
-  <a href="/profile/<%= @pro.user_id %>/tagged">태그됨</a>
-<% else %>
-	<a href="/profile/mypage/<%= current_user.id %>">프로필 메인</a>
-	<a href="/profile/<%= current_user.id %>/album">앨범</a>
-	<a href="/profile/<%= current_user.id %>/archive">아카이브</a>
-  <a href="/profile/<%= current_user.id %>/tagged">태그됨</a>
-  <a href="/board/<%= @pro.id %>/new">글쓰기</a>
-<% end %>
-
-<h6>profile/index/profile_id임. 여기서 글쓰기 가능</h6>
-
-<div class="box-container">
-    <div class="row">
-        <% @board.each do |board| %>
-            <div class="col m4 l4">
-                <div class="box">
-                <a href="/board/<%= board.id %>"><img class="image" src="<%= board.image_url %>"></a>
-                    <div class="padding">
-                        <div class="">
-                            <% if user_signed_in? && current_user.id == @pro.user_id %>
-                            <a href="/board/edit/<%= board.id %>"><i class="material-icons">edit</i></a>
-                            <%= link_to '삭제', board, method: :delete, data: { confirm: '진짜 삭제' } %><br>
-                            <b><%= board.profile.user.name %></b>
-                            <%= board.title %>
-                            <%= board.content %>
-                            <% end %>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <% end %>
-    </div>
+  
+<!-- 중앙 탭 시작 -->
+<div class="list">
+  <% if current_user != @pro.user %>
+    <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
+      <li class="tab waves-effect waves-pink"><a href="/profile/mypage/<%= @pro.user_id %>">프로필 메인</a></li>
+      <li class="tab waves-effect waves-pink"><a href="/profile/<%= @pro.user_id %>/album">앨범</a></li>
+      <li class="tab waves-effect waves-pink"><%= @pro.user.name %></a></li>
+      <li class="tab waves-effect waves-pink"><a href="/profile/<%= @pro.user_id %>/archive">아카이브</a></li>
+      <li class="tab waves-effect waves-pink"><a href="/profile/<%= @pro.user_id %>/tagged">태그됨</a></li>
+    </ul>
+  <% else %>
+    <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
+      <li class="tab waves-effect waves-pink"><a href="/profile/mypage/<%= current_user.id %>"><i class="material-icons small">person</i></a></li>
+      <li class="tab waves-effect waves-pink"><a href="/profile/<%= current_user.id %>/album"><i class="material-icons small">photo_library</i></a></li>
+      <li class="tab waves-effect waves-pink"><a href="/board/<%= @pro.id %>/new"><i class="material-icons small">add_a_photo</i></a></li>
+      <li class="tab waves-effect waves-pink"><a href="/profile/<%= current_user.id %>/archive"><i class="material-icons small">grid_on</i></a></li>
+      <li class="tab waves-effect waves-pink"><a href="/profile/<%= current_user.id %>/tagged">태그됨</a></li>
+    </ul>
+  <% end %>
 </div>
-
-<a href="/">홈으로</a>
-
+<!-- 중앙 탭 끝 -->
+  
+  <h6>profile/index/profile_id임. 여기서 글쓰기 가능</h6>
+  
+  <div class="box-container">
+      <div class="row">
+          <% @board.each do |board| %>
+              <div class="col m4 l4">
+                  <div class="box">
+                  <a class="modal-trigger" href="#<%=board.id%>">
+                    <img class="image" src="<%= board.image_url %>"></a>
+  
+                          <!-- Modal Structure -->
+  
+                          <div id="<%=board.id%>" class="modal">
+                            <div class="modal-content">
+                              <img class="modal-image" src="<%= board.image_url %>">
+                              <h4><%= board.title %></h4>
+                              <p><%= board.content %>/p>
+                            </div>
+                            <div class="modal-footer">
+                              <a href="#!" class="modal-close waves-effect waves-green btn-flat">
+                                <% if user_signed_in? && current_user.id == @pro.user_id %>
+                              <a href="/board/edit/<%= board.id %>"><i class="material-icons">edit</i></a>
+                              <%= link_to '삭제', board, method: :delete, data: { confirm: '진짜 삭제' } %>
+                              </a><% end %>
+                            </div>
+                          </div>
+                  </div>
+              </div>
+          <% end %>
+      </div>
+  </div>
+  
+  <a href="/">홈으로</a>
+</body>
+<footer></footer>
 <!-- CSS -->
 
  <style>
@@ -109,6 +155,10 @@
     
     .box .image {
       width: 100%;
+    }
+    
+    .modal-image {
+      max-width: 100%;
     }
     
     .box .hit {

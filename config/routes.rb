@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'posts/intro'  => 'posts#intro'
   resources :posts
   
-  get 'profile/:profile_id' => 'profile#index', as: 'profile_index'
+  get 'profile/:user_id' => 'profile#index', as: 'profile_index'
   get 'profile/mypage/:user_id' => 'profile#mypage', as: 'mypage'
   get 'profile/:user_id/new' => 'profile#new'
   get 'profile/:user_id/album' => 'profile#album'
@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   post 'profile/delete/:id' => 'profile#delete', as: 'delete_profile'
   post 'profile/follow/:user_id' => 'profile#follow'
   post 'profile/unfollow/:user_id' => 'profile#unfollow'
+  get 'profile/:user_id/tagged' => 'profile#tagged'
   resources :profile
   
   get 'board/:id' => 'board#index'
@@ -33,6 +34,8 @@ Rails.application.routes.draw do
   post 'info/create' => 'info#create', as: 'create_info'
   get 'info/edit/:id' => 'info#edit', as: 'edit_info'
   post 'info/update/:id' => 'info#update', as: 'update_info'
+  post 'info/follow/:category_id' => 'info#follow', as: 'follow_info'
+  post 'info/unfollow/:category_id' => 'info#unfollow', as: 'unfollow_info'
   
   post 'plays/create/:user_id' => 'plays#create'
   

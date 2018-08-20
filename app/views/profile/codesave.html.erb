@@ -1,0 +1,47 @@
+<nav role="navigation">
+     
+  <div class="container">
+    
+      <!-- toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <!-- 사이트소개 페이지 -->
+          <li>
+            <%=link_to "Moment", "/posts/intro" %>
+          </li>
+          <!-- 로그인/아웃 -->
+          <li>
+            <% if user_signed_in?%>
+              <%= link_to "LogOut", destroy_user_session_path, method: :delete%>
+            <% else %>
+              <%= link_to "LogIn", new_user_session_path%>
+            <% end%>
+          </li>
+          <!-- 마이페이지 -->
+          <li>
+            <%= link_to "마이페이지", mypage_path(current_user.id) %>
+          </li>
+          <!-- 친구목록 -->
+          <li>
+            <%= link_to "친구목록", "#"%>
+          </li>
+    
+        </ul>
+      </div> <!-- collapse -->
+      
+  </div> <!-- container -->
+</nav>  
+
+
+<li>    
+             <div class="center row">
+                <div class="col s12 " >
+                  <div class="row" id="topbarsearch">
+                    <div class="input-field col s6 s12 red-text">
+                      <i class="red-text material-icons prefix">search</i>
+                      <input type="text" placeholder="search" id="autocomplete-input" class="autocomplete red-text" >
+                    </div>
+                  </div>
+                </div>
+              </div>          
+          </li>

@@ -1,29 +1,71 @@
-<h1>[상단 네브바]</h1>
-
-  <div class="grid">
-    <div class="grid-box a">프로필 사진</div>
-    <div class="grid-box b">자기소개</div>
-    <div class="grid-box c">팔로우</div>
-    <div class="grid-box d">설정</div>
-    <div class="grid-box e">하는 게임</div>
+<!-- 네브바 시작 -->
+<nav class="navbarbg">
+  <div class="nav-wrapper">
+    <a href="/" class="brand-logo white-text">로고</a>
+    <ul class="hide-on-med-and-down right">               
+      <li>    
+        <div class="center row">
+          <div class="col s12">
+            <div class="row" id="topbarsearch">
+              <div class="input-field col s6 s12 white-text">
+              <i class="white-text material-icons prefix">search</i>
+              <input type="text" placeholder="search" id="autocomplete-input" class="autocomplete white-text" >
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      
+      <li><a href="javascript:void(0);" onclick="toggleFullScreen()"><i class="material-icons toggle-fullscreen">settings_overscan</i></a></li>
+      <li><a href=""><i class="material-icons">people_outline</i></a></li>
+      <li><a href=""><i class="material-icons">notifications_none</i></a></li>
+      <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">accessibility</i></a></li>
+      <li>
+        <% if user_signed_in?%>
+          <%= link_to "로그아웃", destroy_user_session_path, method: :delete%><i class="material-icons right">power_settings_new</i>
+        <% else %>
+          <%= link_to "로그인", new_user_session_path%>
+        <% end%></a></li>
+    </ul>
   </div>
-  
-<h5>[JQuery Tab Here 제이쿼리 탭 넣는 자리]</h5>
+</nav>
+<!-- 네브바 끝 -->
 
-<% if current_user.id != @user.id %>
-	<a href="/profile/mypage/<%= @user.id %>">프로필 메인</a>
-	<a href="/profile/<%= @user.id %>/album">앨범</a>
-	<a href="/profile/<%= @user.id %>/archive">아카이브</a>
-  <a href="/profile/<%= @user.id %>/tagged">태그됨</a>
+<div class="grid">
+  <div class="grid-box a">프로필 사진</div>
+  <div class="grid-box b">자기소개</div>
+  <div class="grid-box c">
+    <% if current_user.following?(@user) %>
+    <%= link_to "Following", {action: 'unfollow', id: @user.id}, method: 'post', remote: true %>
+    <% elsif current_user != @user %>
+    <%= link_to "Follow", {action: 'follow', id: @user.id}, method: 'post', remote: true %>
+    <% elsif current_user == @user %>
+    여기선 이 문구가 뜨고 다른 유저 페이지에서는 Follow가 뜸
+    <% end %>
+  </div>
+  <div class="grid-box d">설정</div>
+  <div class="grid-box e">하는 게임</div>
+</div>
+
+<% if current_user != @user.id %>
+  <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
+    <li class="tab waves-effect waves-pink"><a href="/profile/mypage/<%= @user.id %>">프로필 메인</a></li>
+    <li class="tab waves-effect waves-pink"><a href="/profile/<%= @user.id %>/album">앨범</a></li>
+    <li class="tab waves-effect waves-pink"><%= @user.name %></a></li>
+    <li class="tab waves-effect waves-pink"><a href="/profile/<%= @user.id %>/archive">아카이브</a></li>
+    <li class="tab waves-effect waves-pink"><a href="/profile/<%= @user.id %>/tagged">태그됨</a></li>
+  </ul>
 <% else %>
-	<a href="/profile/mypage/<%= current_user.id %>">프로필 메인</a>
-	<a href="/profile/<%= current_user.id %>/album">앨범</a>
-	<a href="/profile/<%= current_user.id %>/archive">아카이브</a>
-  <a href="/profile/<%= current_user.id %>/tagged">태그됨</a>
-  <a href="/board/<%= current_user.id  %>/new">글쓰기</a>
+  <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
+    <li class="tab waves-effect waves-pink"><a href="/profile/mypage/<%= current_user.id %>">프로필 메인</a></li>
+    <li class="tab waves-effect waves-pink"><a href="/profile/<%= current_user.id %>/album">앨범</a></li>
+    <li class="tab waves-effect waves-pink"><%= @user.name %></a></li>
+    <li class="tab waves-effect waves-pink"><a href="/profile/<%= current_user.id %>/archive">아카이브</a></li>
+    <li class="tab waves-effect waves-pink"><a href="/profile/<%= current_user.id %>/tagged">태그됨</a></li>
+  </ul>
 <% end %>
 
-<h6>profile/user_id/archive. 해당 유저가 작성한 모든 board 아카이브로 표시. 여기서 글쓰기 가능</h6>
+<h6>profile/user_id/archive. 해당 유저가 작성한 모든 board 아카이브로 표시</h6>
 
 <div class="box-container">
     <div class="row">

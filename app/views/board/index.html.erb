@@ -1,75 +1,108 @@
-<h1>[상단 네브바]</h1>
-
-  <div class="grid">
-    <div class="grid-box a">프로필 사진</div>
-    <div class="grid-box b">자기소개</div>
-    <div class="grid-box c">팔로우</div>
-    <div class="grid-box d">설정</div>
-    <div class="grid-box e">하는 게임</div>
+<!-- 네브바 시작 -->
+<nav class="navbarbg">
+  <div class="nav-wrapper">
+    <a href="/" class="brand-logo white-text">로고</a>
+    <ul class="hide-on-med-and-down right">               
+      <li>    
+        <div class="center row">
+          <div class="col s12">
+            <div class="row" id="topbarsearch">
+              <div class="input-field col s6 s12 white-text">
+              <i class="white-text material-icons prefix">search</i>
+              <input type="text" placeholder="search" id="autocomplete-input" class="autocomplete white-text" >
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      
+      <li><a href="javascript:void(0);" onclick="toggleFullScreen()"><i class="material-icons toggle-fullscreen">settings_overscan</i></a></li>
+      <li><a href=""><i class="material-icons">people_outline</i></a></li>
+      <li><a href=""><i class="material-icons">notifications_none</i></a></li>
+      <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">accessibility</i></a></li>
+      <li>
+        <% if user_signed_in?%>
+          <%= link_to "로그아웃", destroy_user_session_path, method: :delete%><i class="material-icons right">power_settings_new</i>
+        <% else %>
+          <%= link_to "로그인", new_user_session_path%>
+        <% end%></a></li>
+    </ul>
   </div>
+</nav>
+<!-- 네브바 끝 -->
+
+  <!--<wrapper>-->
+    <div class="grid">
+      <div class="grid-box a">프로필 사진</div>
+      <div class="grid-box b">자기소개</div>
+      <div class="grid-box c">팔로우</div>
+      <div class="grid-box d">설정
+        <img src="/settings_icon.png", width='100px' height='100px'></img>
+      </div>
+      <div class="grid-box e">하는 게임</div>
+    </div>
   
-<h5>[JQuery Tab Here 제이쿼리 탭 넣는 자리]</h5>
-
-<% if current_user.id != @bo.profile.user.id %>
-	<a href="/profile/mypage/<%= @bo.profile.user.id %>">프로필 메인</a>
-	<a href="/profile/<%= @bo.profile.user.id %>/album">전체 게시물</a>
-	<a href="/profile/<%= @bo.profile.user.id %>/saved">즐겨찾기</a>
-  <a href="/profile/<%= @bo.profile.user.id %>/tagged">태그됨</a>
-<% else %>
-	<a href="/profile/mypage/<%= current_user.id %>">프로필 메인</a>
-	<a href="/profile/<%= current_user.id %>/album">전체 게시물</a>
-	<a href="/profile/<%= current_user.id %>/saved">즐겨찾기</a>
-  <a href="/profile/<%= current_user.id %>/tagged">태그됨</a>
-<% end %>
-
-<h5>board/board_id 임. <%= @bo.id %>번 게시물 표시</h5>
-
-<!-- 게시물 클릭 시 인스타 게시물 클릭 한 것 처럼 뜨게 하는 곳-->
-
-
-    <div>제목: <%= @bo.title %></div>
-    <div>내용: <%= @bo.content %></div>
-    <div>
-      <img class="image" src="<%= @bo.image_url %>">
-    </div>
-
-    <div>
-      <% if current_user.is_like?(@bo) %>
-        <%= link_to "좋아요 취소", like_board_path(@bo), method: "POST" %>
-      <% else %>
-        <%= link_to "좋아요", like_board_path(@bo), method: "POST" %>
-      <% end %>
-      <%= @bo.liked_users.size %>
-    </div>
-    
-    <div>해시태그:<br>
-     <% @bo.hashtags.each do |h| %>
-     <!-- 등록하지 않을경우 출력하지 않음-->
-       <% if h.title != "" %>
-         #<%= h.title %>
+  <% if current_user.id != @bo.profile.user.id %>
+  	<a href="/profile/mypage/<%= @bo.profile.user.id %>">프로필 메인</a>
+  	<a href="/profile/<%= @bo.profile.user.id %>/album">전체 게시물</a>
+  	<a href="/profile/<%= @bo.profile.user.id %>/saved">즐겨찾기</a>
+    <a href="/profile/<%= @bo.profile.user.id %>/tagged">태그됨</a>
+  <% else %>
+  	<a href="/profile/mypage/<%= current_user.id %>">프로필 메인</a>
+  	<a href="/profile/<%= current_user.id %>/album">전체 게시물</a>
+  	<a href="/profile/<%= current_user.id %>/saved">즐겨찾기</a>
+    <a href="/profile/<%= current_user.id %>/tagged">태그됨</a>
+  <% end %>
+<!--</wrapper>  -->
+  <h5>board/board_id 임. <%= @bo.id %>번 게시물 표시</h5>
+  
+  <!-- 게시물 클릭 시 인스타 게시물 클릭 한 것 처럼 뜨게 하는 곳-->
+  
+  
+      <div>제목: <%= @bo.title %></div>
+      <div>내용: <%= @bo.content %></div>
+      <div>
+        <img class="image" src="<%= @bo.image_url %>">
+      </div>
+  
+      <div>
+        <% if current_user.is_like?(@bo) %>
+          <%= link_to "좋아요 취소", like_board_path(@bo), method: "POST" %>
+        <% else %>
+          <%= link_to "좋아요", like_board_path(@bo), method: "POST" %>
+        <% end %>
+        <%= @bo.liked_users.size %>
+      </div>
+      
+      <div>해시태그:<br>
+       <% @bo.hashtags.each do |h| %>
+       <!-- 등록하지 않을경우 출력하지 않음-->
+         <% if h.title != "" %>
+           #<%= h.title %>
+         <% end %>
        <% end %>
-     <% end %>
-    </div>
+      </div>
+  
+      <div>
+        <% if user_signed_in?%>
+        <form action="/board/comments/<%= @bo.id %>" method="POST">
+   <!-- 코멘트 입력 / 제출 -->
+          <input type="textarea" name="body" placeholder="댓글 쓰는 곳">
+          <input type="submit">
+        </form>
+        <% end %>
+        <% @bo.comments.each do |comment| %>
+        <%= comment.body.reverse %><hr>
+        <% end %>
+      </div>
+  
+  
+  <a href="/profile/<%= @pro %>">뒤로가기</a>
+</body>
 
-    <div>
-      <% if user_signed_in?%>
-      <form action="/board/comments/<%= @bo.id %>" method="POST">
- <!-- 코멘트 입력 / 제출 -->
-        <input type="textarea" name="body" placeholder="댓글 쓰는 곳">
-        <input type="submit">
-      </form>
-      <% end %>
-      <% @bo.comments.each do |comment| %>
-      <%= comment.body.reverse %><hr>
-      <% end %>
-    </div>
-
-
-<a href="/profile/<%= @pro %>">뒤로가기</a>
-
+<footer></footer>
 
 <!-- CSS -->
-
  <style>
     body {
       background-color: #FAFAFA;
@@ -77,6 +110,9 @@
     
     a:hover {
       background: none;
+    }
+    #wrapper{
+      max-width:68em;
     }
     
     .box-container {
@@ -168,3 +204,5 @@
       grid-column-end: 5;
     }
 </style>
+<!--웹폰트 뭐쓰지-->
+<script></script>
