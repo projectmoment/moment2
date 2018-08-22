@@ -17,4 +17,5 @@ Category.create(name: '스타크래프트', image_url: Rails.root.join("app/asse
 Category.create(name: '던전앤파이터', image_url: Rails.root.join("app/assets/images/dungeon.jpg").open)
 Category.create(name: '히어로즈오브더스톰', image_url: Rails.root.join("app/assets/images/hos.jpg").open)
 Category.create(name: '리니지', image_url: Rails.root.join("app/assets/images/lg.jpg").open)
+
 # seed에 create쓰지 말고 create써야한대요

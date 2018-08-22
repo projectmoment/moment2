@@ -1,7 +1,8 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
-      <a href="/" class="brand-logo white-text"><img src="/moment_logo.png" width="120" height="64" id="logo"></a>
+  <a href="/" class="brand-logo white-text"><img src="/moment_logo.png" width="120" height="64" id="logo"></a>
+  
 <!--검색기능-->
 
 
@@ -21,8 +22,9 @@
       </li>
         <li><div class="divider"></div></li>
       <!--여기부터 유저 프로필-->
-          <a href="#name"><span class="black-text name"><%= current_user.name %></span></a>
-          <a href="#email"><span class="black-text email"><%= current_user.email%></span></a>
+      <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">assignment_ind</i><%= current_user.name %></a></li>
+      <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">email</i><%= current_user.email %></a></li>
+         
     <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">cloud</i>My Page</a></li>
     <!--여기까지 유저 프로필-->
     
@@ -67,7 +69,7 @@
             <% end%>
             </li>
     </ul>
-   <a href="#" data-target="slide-out" class="sidenav-trigger sidenav-song"><i class="material-icons">menu</i></a>
+   <a href="#" data-target="slide-out" class="sidenav-trigger sidenav-song"><img class="circle-song_2" src="<%= @info.try("image_url") %>"></i></a>
    
   <!-- Post List Table -->
     <div class="container">
@@ -122,12 +124,16 @@
                     <input type="textarea" name="body" placeholder="댓글을 입력해 주세요">
                     <input type="submit">
                     </form>
-                      <% board.comments.each do |comment| %>
+                      <% board.comments.reverse.each do |comment| %>
+                      
+                      <!-- 댓글 작성자-->
+                      <%= link_to getNamebyID(comment.user_id), '/profile/mypage/'+comment.user_id.to_s, class: "ui violet basic button"%> : 
+                      
                         <% user = nil %>
                         
                         <!-- @XXX 문자열이 없으면 그대로 출력 -->
                         <% if comment.body.scan(/@[^0-9 ]*/).map.first.nil? %>
-                          <%= comment.body %> <hr>
+                          <%= comment.body %> 
                         <!-- @XXX 문자열이 있다면?-->
                         <% else %>
                           <!-- @XXX 형태의 문자열을 겹치는 값이 없는 배열로 저장-->
@@ -267,6 +273,15 @@
       border-radius: 50%;
      
   }
+  
+  .circle-song_2 {
+      border-radius: 50%;
+      height: 60px;
+      width: 60px;
+      border: 3px solid #0054FFF;
+      
+  }
+  
   .like-button-song {
     padding-right: 30px;
   }
@@ -276,8 +291,16 @@
   }
   .sidenav-song{
     position:fixed;
-    top:20%;
-    bottom:80%;
-    left:70;
+    top:2%;
+    bottom:98%;
+    left:94%;
+    right:6%;
+  }
+  
+  .moment_logo{
+    top:10%;
+    bottom:90%;
+    left:5%;
+    right:95%;
   }
 </style>

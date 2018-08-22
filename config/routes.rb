@@ -44,6 +44,10 @@ Rails.application.routes.draw do
   
   post 'plays/create/:user_id' => 'plays#create'
   
+  post 'comments/create/:board_id' => 'comments#create'
+  get 'comments/edit/:board_id' => 'comments#edit'
+  post 'comments/update/:board_id' => 'comments#update'
+  get 'comments/destroy:board_id' => 'comments#destroy'
   
   resources :images
   # omniauth : for SNS(facebook) login

@@ -92,8 +92,10 @@
         </form>
         <% end %>
         
-        <% @bo.comments.each do |comment| %>
-       <b><%= comment.user.name %></b>
+        <% @bo.comments.reverse.each do |comment| %>
+       <!-- 댓글 작성자-->
+       <%= link_to getNamebyID(comment.user_id), '/profile/mypage/'+comment.user_id.to_s, class: "ui violet basic button"%> : 
+                      
    
           <% user = nil %>
           

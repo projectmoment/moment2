@@ -82,14 +82,16 @@
                               </p>
                               <p>
                                 <!-- Tags in Comment -->
-                                <% board.comments.each do |comment| %>
-                                  
+                                <% board.comments.reverse.each do |comment| %>
+                                 <!-- 댓글 작성자-->
+                                 <%= link_to getNamebyID(comment.user_id), '/profile/mypage/'+comment.user_id.to_s, class: "ui violet basic button"%> : 
+                             
+                                        
                                   <% user = nil %>
                                   
                                   <!-- @XXX 문자열이 없으면 그대로 출력 -->
                                   <% if comment.body.scan(/@[^0-9 ]*/).map.first.nil? %>
-                                    <%= comment.body %> 
-
+                                    <%= comment.body %> ㅈ
                               
                                   <!-- @XXX 문자열이 있다면?-->
                                   <% else %>

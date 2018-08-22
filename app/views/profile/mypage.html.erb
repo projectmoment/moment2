@@ -35,21 +35,23 @@
 <!-- current_user 와 @user가 다를 경우 설정에 link 없음-->
 <% if current_user != @user %>
   <div class="grid">
-    <div class="grid-box a"><img src="<%=%>">프로필 사진</div>
-    <div class="grid-box b"><%=%>자기소개</div>
-    <div class="grid-box c">
-      <% if current_user.following?(@user) %>
-      <%= link_to "Following", {action: 'unfollow', id: @user.id}, method: 'post', remote: true %>
-      <% elsif current_user != @user %>
-      <%= link_to "Follow", {action: 'follow', id: @user.id}, method: 'post', remote: true %>
-      <% elsif current_user == @user %>
-      여기선 이 문구가 뜨고 다른 유저 페이지에서는 Follow가 뜸
-      <% end %>
+    <div>
+        <div class="grid-box a"><img src="<%=%>">프로필 사진</div>
+        <div class="grid-box b"><%=%>자기소개</div>
+        <div class="grid-box c">
+          <% if current_user.following?(@user) %>
+          <%= link_to "Following", {action: 'unfollow', id: @user.id}, method: 'post', remote: true %>
+          <% elsif current_user != @user %>
+          <%= link_to "Follow", {action: 'follow', id: @user.id}, method: 'post', remote: true %>
+          <% elsif current_user == @user %>
+          여기선 이 문구가 뜨고 다른 유저 페이지에서는 Follow가 뜸
+          <% end %>
+        </div>
+        <div class="grid-box d">설정
+              <img src "settings icon.png" >
+        </div>
+        <div class="grid-box e">하는 게임</div>
     </div>
-    <div class="grid-box d">설정
-          <img src "settings icon.png" >
-    </div>
-    <div class="grid-box e">하는 게임</div>
   </div>
   
 <!-- current_user 와 @user가 같을 경우 설정에 link 있음-->  
@@ -57,6 +59,7 @@
   <a href="/info/new/<%=current_user.id%>">개인정보가 없습니다. 개인정보를 설정해 주세요.</a>
 <% else %>
   <div class="grid">
+    <div>
     <div class="grid-box a"><img src="<%= @info.image_url %>">프로필 사진</div>
     <div class="grid-box b"><h5>자기소개</h5><br><h6><%= @info.introduction %></h6></div>
     <div class="grid-box c">
@@ -76,7 +79,7 @@
           <!-- a링크가 ul, li 태그에 막혀 작동이 안되서 id="for_a"를 줘서 a태그의 크기를 일부러 크게 만듬 -->
           <a href="/info/edit/<%=current_user.id%>" , id="for_a">
             <!-- icon 크기 재설정 해줘야 함-->
-            <i class = "edit icon"></i>
+            <i class = "edit icon", width="1"></i>
           </a>
         </button>
       </div>
@@ -86,8 +89,9 @@
       <% @plays.each do |play|%>
         <p><%= play.name %></p>
         <% end %>
-      </div>
-</div>
+    </div>
+    </div>
+  </div>
 <% end %>
 
 <% if current_user != @user %>
@@ -164,12 +168,17 @@
                   </form>
                   <p>
                   <!-- Tags in Comment -->
-                  <% board.comments.each do |comment| %>
+                  <% board.comments.reverse.each do |comment| %>
+                  
+                     <!-- 댓글 작성자-->
+                     <%= link_to getNamebyID(comment.user_id), '/profile/mypage/'+comment.user_id.to_s, class: "ui violet basic button"%> : 
+                      
+                      
                     <% user = nil %>
                     
                     <!-- @XXX 문자열이 없으면 그대로 출력 -->
                     <% if comment.body.scan(/@[^0-9 ]*/).map.first.nil? %>
-                      <%= comment.body %> <hr>
+                      <%= comment.body %>
                     <!-- @XXX 문자열이 있다면?-->
                     <% else %>
                       <!-- @XXX 형태의 문자열을 겹치는 값이 없는 배열로 저장-->
@@ -231,7 +240,7 @@
     border-color: #E6E6E6;
     border-style: solid;
     border-width: 1px;
-    max-width: 700px;
+    max-width: 700px
     text-align: left;
   }
   
@@ -285,6 +294,9 @@
   }
   
   .grid {
+    width: 1519px;
+    
+    padding: 0px 270px 0px 270px ;
     display: grid;
     grid-template: 1fr 1fr / 2fr 6fr 1fr 1fr;
   }
@@ -294,7 +306,7 @@
     color: black;
     border-radius: 5px;
     border: 2px dodgerblue solid;
-    grid-gap: 10px;
+    /*grid-gap: 10px;*/
   }
   
   .grid .a {
