@@ -2,17 +2,10 @@ class BoardController < ApplicationController
     
     def index
         @bo = Board.find(params[:id])
+        @comment = Comment.where(user_id: current_user.id).first
         @current_image = @bo.image_url
         @pro = @bo.profile_id
     end
-    
-    def comments
-        @bo = Board.find(params[:id])
-        @bo.comments.create(body:params[:body])
-        redirect_to :back
-    end
-
-
     
     def new
         @board = Board.new
@@ -69,21 +62,12 @@ class BoardController < ApplicationController
 
 # ---------------
 
-    def lol
-        #모든 롤 카테고리의 포스트를 보여주는 뷰
-    end
-    
-
-    def maple
-        #모든 메이플 카테고리의 포스트를 보여주는 뷰
-    end
     
     def board_params
       params.require(:board).permit(:title, :contents, :image_url)
     end
     
 private
-    
     
     def hashtag_params
       params.require(:board).permit(hashtags_attributes: [:title])

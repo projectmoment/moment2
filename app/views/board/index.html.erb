@@ -88,22 +88,18 @@
         <% if user_signed_in?%>
         <form action="/board/comments/<%= @bo.id %>" method="POST">
           <input type="textarea" name="body" placeholder="댓글 쓰는 곳">
-          
           <input type="submit">
         </form>
         <% end %>
         
         <% @bo.comments.each do |comment| %>
-        <%= comment.user.name %>
-          <% if current_user.id != @bo.profile.user.id %>
-          <%= comment.content %> <a href= "/comment/<%= @bo.id %>/destroy/<%= c.id %>" data-method="post">삭제</a><br>
-          <% end %>
+       <b><%= comment.user.name %></b>
    
           <% user = nil %>
           
           <!-- @XXX 문자열이 없으면 그대로 출력 -->
           <% if comment.body.scan(/@[^0-9 ]*/).map.first.nil? %>
-            <%= comment.body %> <hr>
+            <%= comment.body %>
           <!-- @XXX 문자열이 있다면?-->
           <% else %>
             <!-- @XXX 형태의 문자열을 겹치는 값이 없는 배열로 저장-->
@@ -116,10 +112,14 @@
               <%=  # @이름으로 링크를 달아서 출력
               h comment.body.gsub(/@[^0-9 ]*/){|word|
                   link_to word.delete('@'), "/profile/mypage/#{getIDbyName(word)}", class: "ui violet basic button"}.html_safe  
-              %><hr>
+              %>
           <% end %>
           
-        <% end %> <!-- Tag and Comment End -->
+          
+          <% if current_user.id == @comment.user_id %>
+          <% end %>
+          
+        <hr><% end %> <!-- Tag and Comment End -->
 
       </div>
   

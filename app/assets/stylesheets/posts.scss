@@ -1,30 +1,36 @@
 // Place all the styles related to the posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.container
-{
-    text-align: center;
-    width: 1500px;
-    margin: 0px auto;
-    padding: 50px;
+// .login_container{
+//     text-align: center;
+//     width: 15em;
+//     margin: 0px auto;
+//     padding: 50px;
+// }
+// .container
+// {
+//     text-align: center;
+//     width: 1500px;
+//     margin: 0px auto;
+//     padding: 50px;
 
-}
-.moment_logo
-{
-    float: left;
-    grid-col-start: 2;
-    grid-col-end: 8;
-}
+// }
+// .moment_logo
+// {
+//     float: left;
+//     grid-col-start: 1;
+//     grid-col-end: 5;
+// }
 
 .login_box
 {
     border: 6px solid #000000;
     padding: 50px;
-    float: right;
     border-radius: 15px;
     background-color: #B5E0F8;
     grid-col-start: 9;
     grid-col-end: 12;
+    text-align:center;
 }
 
 .signup_page

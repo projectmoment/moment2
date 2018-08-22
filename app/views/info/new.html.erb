@@ -3,7 +3,9 @@
     <form action="/info/create" method="post" enctype="multipart/form-data">
         <div>
             <p>프로필 사진</p>
-            <input type="file" name="image_url" id="info_image_url"><br>
+            <input type="file" name="image_url" id="imgInput"><br>
+            <!-- 저장 전에 미리보기 -->
+            <img id="image_section" src="#" alt="your image" />
         </div>
     
         <div>
@@ -28,9 +30,24 @@
     </form>
 
 
-        
-
-
+<script>
+    function readURL(input) {
+     
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+     
+            reader.onload = function (e) {
+                $('#image_section').attr('src', e.target.result);
+            }
+     
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+     
+    $("#imgInput").change(function(){
+        readURL(this);
+    });
+</script>
 
 
 

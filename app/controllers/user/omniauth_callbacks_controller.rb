@@ -19,7 +19,7 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
    end
   
   # Only "Facebook, Naver" Yet
-    [:instagram, :kakao, :naver, :facebook, :google_oauth2, :line].each do |provider|
+    [:facebook].each do |provider|
       provides_callback_for provider
     end
   

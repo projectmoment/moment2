@@ -71,7 +71,15 @@
     <% if @info.blank? %>
       <div class="grid-box d"><a href="/info/new/<%=current_user.id%>">설정</a></div>
     <% else %>
-      <div class="grid-box d"><a href="/info/edit/<%=current_user.id%>">설정</a></div>
+      <div class="grid-box d" >
+        <button class="ui icon button">
+          <!-- a링크가 ul, li 태그에 막혀 작동이 안되서 id="for_a"를 줘서 a태그의 크기를 일부러 크게 만듬 -->
+          <a href="/info/edit/<%=current_user.id%>" , id="for_a">
+            <!-- icon 크기 재설정 해줘야 함-->
+            <i class = "edit icon"></i>
+          </a>
+        </button>
+      </div>
     <% end %>
     <div class="grid-box e">
       <h6>하는 게임</h6><br>
@@ -314,6 +322,13 @@
     grid-row-end: 3;
     grid-column-start: 2;
     grid-column-end: 5;
+  }
+  
+  #for_a{
+    z-index: 10000;
+    display: inline-block;
+    height: 100px;
+    width: 100px;
   }
 
 

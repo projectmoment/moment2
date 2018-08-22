@@ -14,7 +14,7 @@ gem 'semantic-ui-rails'
 # for SNS  Login
 gem 'omniauth'
 gem 'omniauth-facebook'
-gem 'omniauth-naver'
+#gem 'omniauth-naver'
 
 gem 'figaro'
 

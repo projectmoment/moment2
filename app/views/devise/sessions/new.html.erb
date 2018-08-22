@@ -1,49 +1,147 @@
 <!-- view/devise/sessions/new.html.erb-->
+<head>
+<body>
+  
+    <div id="modal1" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <center>
+      <div class="logo">
+        <img src="/m_logo.ico" >
+      </div>
+      <h4>우와! 시작하시려구요?</h4>
+      <p>당신에 대해 알려주세요!</p></center>
+      <div class="login_container">
+                              <!-- 로고 -->
 
-
-<!-- container, content1, content2 설정 => app/stylesheets/posts.scss-->
-<!-- 로고 -->
-  <div class="moment_logo">
-    <img src="/moment_logo.png" >
-  </div>
-  <div class="ui vertical divider">
-      Or
+                                <!--<div class="blank_login_2"></div>-->
+                              
+                                <!-- 로그인 화면 -->
+                                <div class="login_box">
+                                  <img src="/moment_word.png" hspace="20"><br>
+                                  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                                    <div class="field">
+                                      <div class="ui form">
+                                        <i class="user icon"></i><%= f.label :email %><br />
+                                        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "ui left icon input", placeholder: "이메일을 입력해 주세요" %>
+                                  
+                                        <div class="field">
+                                            <i class="lock icon"></i><%= f.label :password %><br />
+                                            <%= f.password_field :password, autocomplete: "off", class: "ui left icon input" %>
+                                        </div>
+                                      </div>
+                                    </div>
+                                      <div class="action">
+                                        <%= f.submit "Log in",class: "ui blue submit button" %>
+                                      </div>
+                                  <% end %>
+                                  
+                                  <%= render "devise/shared/links" %>
+                                </div>
     </div>
-  <!--<div class="blank_login_2"></div>-->
 
-  <!-- 로그인 화면 -->
-  <div class="login_box">
-    <img src="/moment_word.png" hspace="20"><br>
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="field">
-        <div class="ui form">
-          <i class="user icon"></i><%= f.label :email %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "ui left icon input", placeholder: "이메일을 입력해 주세요" %>
-    
-      <div class="field">
-          <i class="lock icon"></i><%= f.label :password %><br />
-          <%= f.password_field :password, autocomplete: "off", class: "ui left icon input" %>
-      </div>
-    
-        </div>
-      </div>
-      <div class="action">
-        <%= f.submit "Log in",class: "ui blue submit button" %>
-      </div>
-    <% end %>
-    
-    <%= render "devise/shared/links" %>
   </div>
+        </header>
+    </section>
+
+</body>
+<footer></footer>
+
+<script>
+    // 웹폰트 뭐하지
+</script>
+</div>
+  
+  
+  
+<div class="intro">
+    <section class="scene one">
+        <header>
+            <h1>게임 속 순간들을 기록하세요.</h1>
+            Moment는 게임을 좋아하는 모두를 위한 서비스입니다.
+        </header>
+        <header>
+          5차전직을 했을 때, 보스를 깼을 때, 레벨업을 했을 때
+        </header>
+  
+    </section>
+    <section class="scene two">
+        <header>
+            <h1>다른 유저들과 공유하세요.</h1>
+            온라인, 모바일, 플레이스테이션, 닌텐도 등 게임에 관한 것이라면 뭐든 환영합니다.
+        </header>
+        
+    </section>
+    <section class="scene three">
+        <header>
+            <h1>지금 시작하세요!</h1>
+            앨범을 만들고, 게임 속 순간들을 올려 보세요!
+        </header>
+        <header>
+          <!--모달을 바꾸자-->
+           <!-- Modal Trigger -->
+  <a class="waves-effect waves-light btn modal-trigger" href="#modal1">시작하기!</a>
+
+  <!-- Modal Structure -->
+
+</head>
+<!--여기까지 패럴랙스-->
+<!-- container, content1, content2 설정 => app/stylesheets/posts.scss-->
+
 
 </div>
-
-</div>
-    
-  </div>
-
 <style>
   .moment_logo{
-    padding-right: 90px;
   }
-  
+  .login_container{
+    display:gird;
+    grid-template-columns: 50% 50%;
+    grid-column-gap:2em;
+  }
+  .login_container > div{
+    
+    padding:2em;
+  }
+</style>
+<style>
+    .body{
+        margin:0 auto;
+    }
+    .scene{
+        height:100vh;  
+        display: block;
+        background-attachment: fixed;
+    }
+    .scene h1{
+        margin:0;
+        font-size:2rem;
+        text-align:center;
+    }
+    .scene h1:after{
+        content:'';
+        border-bottom: 2px solid white;
+        display:block;
+        width:15rem;
+        margin:1rem auto;
+        font-weight: 200;
+
+    }
+    .scene header{
+        color:white;
+        max-width:80%;
+        position:relative;
+        top:50%;
+        left:50%;
+        transform:translateX(-50%) translateY(-50%);
+        font-weight: 200;
+        text-align: center;
+        }
+    .scene.one{
+        background-image:url(https://source.unsplash.com/FJFPuE1MAOM/700x900);
+    }
+    .scene.two{
+        background-image:url(https://source.unsplash.com/5ExRBlHu1DA/1600x900);
+    }
+    .scene.three{
+        background-image:url(https://source.unsplash.com/collection/1793372/700x900);
+    }
 </style>

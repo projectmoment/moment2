@@ -1,40 +1,35 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
-  
-<!-- 네브바 시작 -->
-<nav class="navbarbg">
-  <div class="nav-wrapper">
-    <a href="/" class="brand-logo white-text">로고</a>
-    <ul class="hide-on-med-and-down right">
-    </ui>
-</nav>
+      <a href="/" class="brand-logo white-text"><img src="/moment_logo.png" width="120" height="64" id="logo"></a>
+<!--검색기능-->
 
+
+<!--검색기능-->
+  
   <!--사이드 네브바 넣을 자리-->
   <ul id="slide-out" class="sidenav">
+      <li>
+        <div class="user-view valign-wrapper">
+        <!--<div class="background">-->
+        <!--<img src="/m_logo.ico" height='125px'>-->
+        <!--</div>-->
+          <a href="/profile/mypage/<%=current_user.id%>"><img class="circle-song" src="<%= @info.try("image_url") %>"></a>
+          <br>
+
+        </div>
+      </li>
+        <li><div class="divider"></div></li>
       <!--여기부터 유저 프로필-->
-    <li><div class="user-view">
-      <div class="background">
-        <img src="images/office.jpg">
-      </div>
-      <a href="#user"><img class="circle" src="images/yuna.jpg"></a>
-      <a href="#"><span class="white-text name"><%= current_user.name %></span></a>
-      <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
-    </div></li>
-      <li><div class="divider"></div></li>
+          <a href="#name"><span class="black-text name"><%= current_user.name %></span></a>
+          <a href="#email"><span class="black-text email"><%= current_user.email%></span></a>
+    <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">cloud</i>My Page</a></li>
     <!--여기까지 유저 프로필-->
-    <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">cloud</i>MyPage</a></li>
-    <li>
-      <% if user_signed_in?%>
-      <%= link_to "로그아웃", destroy_user_session_path, method: :delete%>
-      <% else %>
-      <%= link_to "로그인", new_user_session_path%>
-      <% end%>
-    </li>
-            <!------ 검색 ------->
-    <li><a href="#search" class="modal-trigger"><i class="material-icons">search</i></a>
-      <div id="search" class="modal">
-      <div class="modal-content center">
+    
+      <!------ 검색아이콘 ------->
+    <li><a href="#search" class="modal-trigger"><i class="material-icons">search</i>Search User</a>
+          <div id="search" class="modal">
+    <div class="modal-content center">
         <h2>친구찾기</h2>
         <%= form_tag("/", :method => "get", id: "search-form", remote: true) do %>
         <%= text_field_tag :search, params[:search], placeholder: "유저 검색", :class => 'white-text' %>
@@ -55,14 +50,12 @@
           </tbody>
         </table>
       <div></div></li>
-      <!--검색 끝 -->
-      <li><a href="javascript:void(0);" onclick="toggleFullScreen()"><i class="material-icons toggle-fullscreen">settings_overscan</i></a></li>
+      <!--검색아이콘 끝 -->
+      <li><a href="javascript:void(0);" onclick="toggleFullScreen()"><i class="material-icons toggle-fullscreen">settings_overscan</i>Full Screen</a></li>
       <!--<li><a href=""><i class="material-icons">people_outline</i></a></li>-->
       <!--<li><a href=""><i class="material-icons">notifications_none</i></a></li>-->
-      <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">accessibility</i></a></li>
+      <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">accessibility</i>Following & Follower</a></li>
   </div>
-
-<!--여기까지검색-->
       <li><div class="divider"></div></li>
         <li><a class="subheader">모먼트는 사랑입니다</a></li>
       <!--<li><a class="waves-effect" href="#!">Third Link With Waves</a></li>-->
@@ -130,7 +123,27 @@
                     <input type="submit">
                     </form>
                       <% board.comments.each do |comment| %>
-                      <%= comment.body %><hr>
+                        <% user = nil %>
+                        
+                        <!-- @XXX 문자열이 없으면 그대로 출력 -->
+                        <% if comment.body.scan(/@[^0-9 ]*/).map.first.nil? %>
+                          <%= comment.body %> <hr>
+                        <!-- @XXX 문자열이 있다면?-->
+                        <% else %>
+                          <!-- @XXX 형태의 문자열을 겹치는 값이 없는 배열로 저장-->
+                          <% comment.body.scan(/@[^0-9 ]*/).map.each do |c|%>
+                            <!-- @를 제거한 XXX를 이름으로 User 테이블에서 검색-->
+                            <% user = User.find_by(name: c.delete('@'))%>
+                          <% end %>
+                          <!-- user가 검색되었다면 -->
+                
+                            <%=  # @이름으로 링크를 달아서 출력
+                            h comment.body.gsub(/@[^0-9 ]*/){|word|
+                                link_to word.delete('@'), "/profile/mypage/#{getIDbyName(word)}", class: "ui violet basic button"}.html_safe  
+                            %>
+             
+                          <% end %>
+                      <hr>
                       <% end %>
                   <% end %>
                 </div>
@@ -144,11 +157,11 @@
     </div>
   </div>
 </body>
+
 <footer>
+  project moment
 </footer>
 
-<script>
-</script>
 
 <style>
   body {
@@ -246,12 +259,13 @@
   }
   
   .sidenav .user-view .circle-song {
-      height: 80px;
-      width: 80px;
+      height: 90px;
+      width: 90px;
   }
   
   .circle-song {
       border-radius: 50%;
+     
   }
   .like-button-song {
     padding-right: 30px;
@@ -262,7 +276,8 @@
   }
   .sidenav-song{
     position:fixed;
-    top:50%;
-    bottom:50%;
+    top:20%;
+    bottom:80%;
+    left:70;
   }
 </style>

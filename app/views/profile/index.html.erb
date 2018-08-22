@@ -1,4 +1,3 @@
-
 <!-- 네브바 시작 -->
 <nav class="navbarbg">
   <div class="nav-wrapper">
@@ -78,16 +77,20 @@
                                 <form action="/board/comments/<%= board.id %>" method="POST">
                                   <input type="textarea" name="body" placeholder="댓글 쓰는 곳">
                                   <input type="submit">
+
                                 </form>
                               </p>
                               <p>
                                 <!-- Tags in Comment -->
                                 <% board.comments.each do |comment| %>
+                                  
                                   <% user = nil %>
                                   
                                   <!-- @XXX 문자열이 없으면 그대로 출력 -->
                                   <% if comment.body.scan(/@[^0-9 ]*/).map.first.nil? %>
-                                    <%= comment.body %> <hr>
+                                    <%= comment.body %> 
+
+                              
                                   <!-- @XXX 문자열이 있다면?-->
                                   <% else %>
                                     <!-- @XXX 형태의 문자열을 겹치는 값이 없는 배열로 저장-->
@@ -97,13 +100,17 @@
                                     <% end %>
                                     <!-- user가 검색되었다면 -->
                           
-                                      <%=  # @이름으로 링크를 달아서 출력
+                                      <%  # @이름으로 링크를 달아서 출력
                                       h comment.body.gsub(/@[^0-9 ]*/){|word|
                                           link_to word.delete('@'), "/profile/mypage/#{getIDbyName(word)}", class: "ui violet basic button"}.html_safe  
                                       %>
-                           
+                      
                                   <% end %>
-              
+                                  <% if comment.user_id = current_user.id %>
+                                    <button class="ui icon button">
+                                      <a href = "/comment/destroy/<%= comment.id %>" ><i class="cut icon"></i></a>
+                                    </button>
+                                  <% end %>
                                 <hr>
                                 <% end %> <!-- Tag and Comment -->
                               </p>
