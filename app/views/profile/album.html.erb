@@ -1,37 +1,51 @@
 <!-- 네브바 시작 -->
-<nav class="navbarbg">
-  <div class="nav-wrapper">
-    <a href="/" class="brand-logo white-text">로고</a>
-    <ul class="hide-on-med-and-down right">               
-      <li>    
-        <div class="center row">
-          <div class="col s12">
-            <div class="row" id="topbarsearch">
-              <div class="input-field col s6 s12 white-text">
-              <i class="white-text material-icons prefix">search</i>
-              <input type="text" placeholder="search" id="autocomplete-input" class="autocomplete white-text" >
-              </div>
-            </div>
-          </div>
+<a href="/" class="brand-logo white-text"><img src="/moment_logo.png" width="120" height="64" id="logo"></a>
+  
+<!--검색기능-->
+
+
+<!--검색기능-->
+  
+  <!--사이드 네브바 넣을 자리-->
+  <ul id="slide-out" class="sidenav">
+      <li>
+        <div class="user-view valign-wrapper">
+        <!--<div class="background">-->
+        <!--<img src="/m_logo.ico" height='125px'>-->
+        <!--</div>-->
+          <a href="/profile/mypage/<%=current_user.id%>"><img class="circle-song" src="<%= @info.try("image_url") %>"></a>
+          <br>
+
         </div>
       </li>
-      
-      <li><a href="javascript:void(0);" onclick="toggleFullScreen()"><i class="material-icons toggle-fullscreen">settings_overscan</i></a></li>
-      <li><a href=""><i class="material-icons">people_outline</i></a></li>
-      <li><a href=""><i class="material-icons">notifications_none</i></a></li>
-      <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">accessibility</i></a></li>
-      <li>
-        <% if user_signed_in?%>
-          <%= link_to "로그아웃", destroy_user_session_path, method: :delete%>
-        <% else %>
-          <%= link_to "로그인", new_user_session_path%>
-        <% end%></a></li>
-    </ul>
+        <li><div class="divider"></div></li>
+      <!--여기부터 유저 프로필-->
+      <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">assignment_ind</i><%= current_user.name %></a></li>
+      <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">email</i><%= current_user.email %></a></li>
+         
+    <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">cloud</i>My Page</a></li>
+    <!--여기까지 유저 프로필-->
+    
+      <li><a href="javascript:void(0);" onclick="toggleFullScreen()"><i class="material-icons toggle-fullscreen">settings_overscan</i>Full Screen</a></li>
+      <!--<li><a href=""><i class="material-icons">people_outline</i></a></li>-->
+      <!--<li><a href=""><i class="material-icons">notifications_none</i></a></li>-->
+      <li><a href="/profile/mypage/<%=current_user.id%>"><i class="material-icons">accessibility</i>Following & Follower</a></li>
   </div>
-</nav>
-<!-- 네브바 끝 -->
+      <li><div class="divider"></div></li>
+        <li><a class="subheader">모먼트는 사랑입니다</a></li>
+      <!--<li><a class="waves-effect" href="#!">Third Link With Waves</a></li>-->
+           <li class="waves-effect">
+            <% if user_signed_in?%>
+            <%= link_to "로그아웃", destroy_user_session_path, method: :delete%>
+            <% else %>
+            <%= link_to "로그인", new_user_session_path%>
+            <% end%>
+            </li>
+    </ul>
+   <a href="#" data-target="slide-out" class="sidenav-trigger sidenav-song"><img class="circle-song_2" src="<%= @info.try("image_url") %>"></i></a>
+   
 
-
+<br>
 <% if current_user != @profile_user %>
   <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
     <li class="tab waves-effect waves-pink"><a href="/profile/mypage/<%= @profile_user %>">프로필 메인</a></li>
@@ -189,4 +203,43 @@
       grid-column-start: 2;
       grid-column-end: 5;
     }
+    
+     .circle{
+    border: 4px solid #000000;
+    width:80px;
+    height:80px;
+    
+  }
+  
+  .sidenav .user-view .circle-song {
+      height: 90px;
+      width: 90px;
+  }
+  
+  .circle-song {
+      border-radius: 50%;
+     
+  }
+  
+  .circle-song_2 {
+      border-radius: 50%;
+      height: 60px;
+      width: 60px;
+      border: 3px solid #0054FFF;
+      
+  }
+  .sidenav-song{
+    position:fixed;
+    top:2%;
+    bottom:98%;
+    left:94%;
+    right:6%;
+  }
+  
+  .moment_logo{
+    top:10%;
+    bottom:90%;
+    left:5%;
+    right:95%;
+  }
 </style>

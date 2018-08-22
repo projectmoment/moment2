@@ -2,30 +2,30 @@ Rails.application.routes.draw do
   
   root "posts#index"
   get 'posts/explore' => 'posts#explore' 
-  get 'posts/intro'  => 'posts#intro'
-  get 'posts/search' => 'posts#search'
+  get 'posts/intro'   => 'posts#intro'
+  get 'posts/search'  => 'posts#search'
   resources :posts, defaults: { format: 'js' }
   
-  get 'profile/:user_id' => 'profile#index', as: 'profile_index'
-  get 'profile/mypage/:user_id' => 'profile#mypage', as: 'mypage'
-  get 'profile/:user_id/new' => 'profile#new'
-  get 'profile/:user_id/album' => 'profile#album'
+  get 'profile/:user_id'         => 'profile#index', as: 'profile_index'
+  get 'profile/mypage/:user_id'  => 'profile#mypage', as: 'mypage'
+  get 'profile/:user_id/new'     => 'profile#new'
+  get 'profile/:user_id/album'   => 'profile#album'
   get 'profile/:user_id/archive' => 'profile#archive'
   post 'profile/:user_id/create' => 'profile#create', as: 'create_profile'
-  get 'profile/edit2/:id' =>  'profile#edit2', as: 'edit2_profile'
+  get 'profile/edit2/:id'   =>  'profile#edit2', as: 'edit2_profile'
   post 'profile/update/:id' => 'profile#update'
-  get 'profile/show/:id' => 'profile#show'
+  get 'profile/show/:id'    => 'profile#show'
   post 'profile/delete/:id' => 'profile#delete', as: 'delete_profile'
-  post 'profile/follow/:user_id' => 'profile#follow'
+  post 'profile/follow/:user_id'   => 'profile#follow'
   post 'profile/unfollow/:user_id' => 'profile#unfollow'
-  get 'profile/:user_id/ingame' => 'profile#ingame'
-  get 'profile/:user_id/list' => 'profile#list'
+  get 'profile/:user_id/ingame'    => 'profile#ingame'
+  get 'profile/:user_id/list'      => 'profile#list'
   resources :profile
   
   get 'board/:id' => 'board#index'
-  get 'board/:profile_id/new' => 'board#new'
+  get 'board/:profile_id/new'     => 'board#new'
   post 'board/:profile_id/create' => 'board#create', as: 'create_board'
-  get 'board/edit/:id' => 'board#edit'
+  get 'board/edit/:id'    => 'board#edit'
   post 'board/update/:id' => 'board#update'
   post 'board/:board_id/like', to: "likes#like_toggle", as: 'like_board'
   post 'board/comments/:board_id' => 'board#comments'
@@ -35,19 +35,19 @@ Rails.application.routes.draw do
   
   resources :categories, only: [:show]
   
-  get 'info/new/:user_id' => 'info#new', as: 'new_info'
-  post 'info/create' => 'info#create', as: 'create_info'
-  get 'info/edit/:user_id' => 'info#edit', as: 'edit_info'
+  get 'info/new/:user_id'     => 'info#new', as: 'new_info'
+  post 'info/create'          => 'info#create', as: 'create_info'
+  get 'info/edit/:user_id'    => 'info#edit', as: 'edit_info'
   post 'info/update/:user_id' => 'info#update', as: 'update_info'
-  post 'info/follow/:category_id' => 'info#follow', as: 'follow_info'
+  post 'info/follow/:category_id'   => 'info#follow', as: 'follow_info'
   post 'info/unfollow/:category_id' => 'info#unfollow', as: 'unfollow_info'
   
   post 'plays/create/:user_id' => 'plays#create'
   
   post 'comments/create/:board_id' => 'comments#create'
-  get 'comments/edit/:board_id' => 'comments#edit'
+  get 'comments/edit/:board_id'    => 'comments#edit'
   post 'comments/update/:board_id' => 'comments#update'
-  get 'comments/destroy:board_id' => 'comments#destroy'
+  get 'comments/destroy/:board_id' => 'comments#destroy'
   
   resources :images
   # omniauth : for SNS(facebook) login

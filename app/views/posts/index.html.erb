@@ -118,7 +118,7 @@
                 <% end %><br><br>
                 
                 <!-- 코멘트 입력 / 제출 -->
-                <div class="comment">
+            
                   <% if user_signed_in?%>
                     <form action="/board/comments/<%= board.id %>" method="POST">
                     <input type="textarea" name="body" placeholder="댓글을 입력해 주세요">
@@ -155,7 +155,8 @@
                 </div>
             </div>  
           </div>    
-        </div>
+   
+        
         <div class="newspace"><br>
         <!-- 게시글 사이에 여백 -->
         </div>

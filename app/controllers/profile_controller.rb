@@ -1,16 +1,17 @@
  class ProfileController < ApplicationController
     
-    
     def index
         @board = Board.where(profile_id: params[:user_id])
         @pro = Profile.find(params[:user_id])
         @user = @pro.user
+        @info = Info.find_by(user_id: params[:user_id])
     end
     
     def album
         @user = User.find(params[:user_id])
         @profile = Profile.where(user_id: params[:user_id])
         @profile_user = (params[:user_id]).to_i
+        @info = Info.find_by(user_id: params[:user_id])
     end
     
     def archive
