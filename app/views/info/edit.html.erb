@@ -1,20 +1,34 @@
-<h1>info 수정 페이지</h1>
+<h1>info수정페이지</h1>
 
 <form action="/info/update/<%= current_user.id%>" method="post" enctype="multipart/form-data">
     <div>
+        <div class="ui raised segment">
         <p>프로필 사진</p>
-        <input type="file" name="image_url" id="imgInput"><br>
+        <input type="file" name="image_url" id="imgInput"><br><br>
         <!-- 저장 전에 미리보기 -->
         <img id="image_section" src="#" alt="your image" />
+        </div>
     </div>
 
-    <div>
+    <div class="ui grey segment">
+        
         <p>자기소개</p>
-        <input type="text" name="introduction">
-    </div>
+        
+        <div class="ui form">
+  <div class="field">
+    <label>Text</label>
+    <textarea></textarea>
+  </div>
+      </div>
+      </div>
     
     <div class="aa">
         <p>하는 게임을 모두 선택하시오.</p>
+        
+<div class="inline field">
+        <div class="ui toggle checkbox">
+              <input type="checkbox" tabindex="0" class="hidden">
+              <label></label>
         <% @categories.each do |category|%> 
             <%= category.name %>
             <% if current_user.following?(category) %>
@@ -22,10 +36,12 @@
             <% else %>
                 <%= link_to "Off",follow_info_path(category.id), method: 'post', remote: true, class: "game#{category.id}" %><br>
             <% end %>
-        <% end %>
+    <% end %>
+    </div>
+</div>
     </div>
     
-    <input type="submit" value="저장">
+    <input type="submit" class="ui teal basic button" value="저장">
 </form>
     
 <script>
@@ -45,4 +61,7 @@
     $("#imgInput").change(function(){
         readURL(this);
     });
+    $('.ui.checkbox')
+  .checkbox()
+;
 </script>

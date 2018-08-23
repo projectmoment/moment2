@@ -15,7 +15,12 @@
         <!--<div class="background">-->
         <!--<img src="/m_logo.ico" height='125px'>-->
         <!--</div>-->
-          <a href="/profile/mypage/<%=current_user.id%>"><img class="circle-song" src="<%= @info.try("image_url") %>"></a>
+ 
+          <a href="/profile/mypage/<%=current_user.id%>"><img class="circle-song" src=<% if @info.present? %>
+            <%= @info.try("image_url") %>
+          <% else %>
+            <img src="/person.png">
+          <% end %>></a>
           <br>
 
         </div>
@@ -69,7 +74,11 @@
             <% end%>
             </li>
     </ul>
-   <a href="#" data-target="slide-out" class="sidenav-trigger sidenav-song"><img class="circle-song_2" src="<%= @info.try("image_url") %>"></i></a>
+   <a href="#" data-target="slide-out" class="sidenav-trigger sidenav-song"><img class="circle-song_2" src=<% if @info.present? %>
+            <%= @info.try("image_url") %>
+          <% else %>
+            <img src="/person.png">
+          <% end %>></i></a>
    
   <!-- Post List Table -->
     <div class="container">
@@ -155,7 +164,7 @@
                 </div>
             </div>  
           </div>    
-   
+        </div>
         
         <div class="newspace"><br>
         <!-- 게시글 사이에 여백 -->

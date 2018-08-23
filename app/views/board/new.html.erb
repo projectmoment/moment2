@@ -1,8 +1,7 @@
-
 <head>
   <div class="logo">
     <%= link_to root_path do %>
-    <%= image_tag('모멘트 로고.png') %>
+    <%= image_tag('moment_logo.png') %>
     <% end %>
   </div>
   <script>
@@ -17,58 +16,62 @@
 </script>
 </head>
 <body>
-  <!--test-->
 
-  <!--여기까지test-->
   <h3>글을 작성해 주세요</h3>
   <div class="new">
     <!-- form_for(Board.new , ) => form_for(@board ,) -->
     <%= form_for(@board, url: create_board_path, method: 'post') do |f| %>
 
-    
+    <div class="ui form">
+      <div class="field">
         <%= f.label :title, "글 제목" %>
         <%= f.text_field :title, placeholder: "hello world" %><br>
-        
+      </div>  
+      <div class="field">
         <%= f.label :content, "글 내용"%>
         <%= f.text_area :content %><br>
-        
+      </div>  
     <!--image upload-->
-        
-        <%= f.label :image_url, "이미지 첨부" %><br><br>
+      <div class="field">
+        <%= f.label :image_url, "이미지 첨부" %>
         <%= f.file_field :image_url %>
-        
+      </div>
+      
       <!-- Hashtag 입력창 넣기! -->
-      <ul>
-        <%= f.fields_for :hashtags do |h|%>
-          <li>
-            <%= h.label :title, "해시태그" %>
-            <%= h.text_field :title %>
-          </li>
-        <% end %>
+        <div class="field">
+        <ul>
+          <%= f.fields_for :hashtags do |h|%>
+            <li>
+              <%= h.label :title, "해시태그" %>
+              <%= h.text_field :title %>
+            </li>
+          <% end %>
+        </div>  
       </ul>
       <a class="waves-effect waves-light btn-large" href="#"> <%= f.submit "제출" %></a>
+    </div> <!-- div ui form-->
     <% end %>  
   </div>
 </body>
 <footer>
-  <div class="ui inverted segment">
-  <button class="ui inverted basic button">Basic</button>
-  <button class="ui inverted primary basic button">Primary</button>
-  <button class="ui inverted secondary basic button">Secondary</button>
-  <button class="ui inverted red basic button">Basic Red</button>
-  <button class="ui inverted orange basic button">Basic Orange</button>
-  <button class="ui inverted yellow basic button">Basic Yellow</button>
-  <button class="ui inverted olive basic button">Basic Olive</button>
-  <button class="ui inverted green basic button">Basic Green</button>
-  <button class="ui inverted teal basic button">Basic Teal</button>
-  <button class="ui inverted blue basic button">Basic Blue</button>
-  <button class="ui inverted violet basic button">Basic Violet</button>
-  <button class="ui inverted purple basic button">Basic Purple</button>
-  <button class="ui inverted pink basic button">Basic Pink</button>
-  <button class="ui inverted brown basic button">Basic Brown</button>
-  <button class="ui inverted grey basic button">Basic Grey</button>
-  <button class="ui inverted black basic button">Basic Black</button>
-</div>
+<!--  <div class="ui inverted segment">-->
+<!--  <button class="ui inverted basic button">Basic</button>-->
+<!--  <button class="ui inverted primary basic button">Primary</button>-->
+<!--  <button class="ui inverted secondary basic button">Secondary</button>-->
+<!--  <button class="ui inverted red basic button">Basic Red</button>-->
+<!--  <button class="ui inverted orange basic button">Basic Orange</button>-->
+<!--  <button class="ui inverted yellow basic button">Basic Yellow</button>-->
+<!--  <button class="ui inverted olive basic button">Basic Olive</button>-->
+<!--  <button class="ui inverted green basic button">Basic Green</button>-->
+<!--  <button class="ui inverted teal basic button">Basic Teal</button>-->
+<!--  <button class="ui inverted blue basic button">Basic Blue</button>-->
+<!--  <button class="ui inverted violet basic button">Basic Violet</button>-->
+<!--  <button class="ui inverted purple basic button">Basic Purple</button>-->
+<!--  <button class="ui inverted pink basic button">Basic Pink</button>-->
+<!--  <button class="ui inverted brown basic button">Basic Brown</button>-->
+<!--  <button class="ui inverted grey basic button">Basic Grey</button>-->
+<!--  <button class="ui inverted black basic button">Basic Black</button>-->
+<!--</div>-->
 </footer>
 <style>
   .body{
@@ -86,5 +89,4 @@
   }          
 </style>
 <script>
-  
 </script>

@@ -8,8 +8,7 @@ class PostsController < ApplicationController
     @info  = Info.find_by(user_id: current_user.id)
     @following_user_profile_id = Profile.where(user_id: current_user.following_users.pluck("id")).ids
     @boards = Board.all.reverse
-    @info  = Info.find_by(user_id: current_user.id)
-    
+
     #@boards = Board.where(profile: @following_user_profile_id)
     #@all_boards = Board.where(profile_id: @following_user_board_id + current_user.profiles.pluck["id"])
     # User.find(current_user.id).following_users.includes(:profiles).collect{|u| u.profiles}.flatten

@@ -1,13 +1,9 @@
 
 <!-- 네브바 시작 -->
 <a href="/" class="brand-logo white-text"><img src="/moment_logo.png" width="120" height="64" id="logo"></a>
-  
-<!--검색기능-->
+<!--여기까지 네브바-->
 
-
-<!--검색기능-->
-  
-  <!--사이드 네브바 넣을 자리-->
+<!--사이드 네브바-->
   <ul id="slide-out" class="sidenav">
       <li>
         <div class="user-view valign-wrapper">
@@ -16,7 +12,6 @@
         <!--</div>-->
           <a href="/profile/mypage/<%=current_user.id%>"><img class="circle-song" src="<%= @info.try("image_url") %>"></a>
           <br>
-
         </div>
       </li>
         <li><div class="divider"></div></li>
@@ -44,15 +39,17 @@
             </li>
     </ul>
    <a href="#" data-target="slide-out" class="sidenav-trigger sidenav-song"><img class="circle-song_2" src="<%= @info.try("image_url") %>"></i></a>
+   <!--여기까지 사이드네브바-->
    
-
 <!-- current_user 와 @user가 다를 경우 설정에 link 없음-->
 <% if current_user != @user %>
   <div class="grid">
-    <div>
-        <div class="grid-box a"><img src="<%=%>">프로필 사진</div>
-        <div class="grid-box b"><%=%>자기소개</div>
-        <div class="grid-box c">
+    <!--프로필이미지-->
+    <img src="<%= @user_info.image_url %>" width="150px" height="150px">
+      <!--자기소개-->
+<h5>자기소개</h5><br>
+<h6><%= @user_info.introduction %></h6>
+        <!--follow-->
           <% if current_user.following?(@user) %>
           <%= link_to "Following", {action: 'unfollow', id: @user.id}, method: 'post', remote: true %>
           <% elsif current_user != @user %>
@@ -60,12 +57,17 @@
           <% elsif current_user == @user %>
           여기선 이 문구가 뜨고 다른 유저 페이지에서는 Follow가 뜸
           <% end %>
-        </div>
-        <div class="grid-box d">설정
+          
+        <div class="settings">설정
               <img src "settings icon.png" >
         </div>
-        <div class="grid-box e">하는 게임</div>
-    </div>
+        <div class="grid-box e">
+          <h6>하는 게임</h6>
+          <% @plays.each do |play|%>
+            <p><%= play.name %></p>
+          <% end %>
+        </div>
+    
   </div>
   
 <!-- current_user 와 @user가 같을 경우 설정에 link 있음-->  
@@ -73,8 +75,8 @@
   <a href="/info/new/<%=current_user.id%>">개인정보가 없습니다. 개인정보를 설정해 주세요.</a>
 <% else %>
   <div class="grid">
-    <div>
-    <div class="grid-box a"><img src="<%= @info.image_url %>">프로필 사진</div>
+    
+    <div class="grid-box a"><img src="<%= @info.image_url %>"></div>
     <div class="grid-box b"><h5>자기소개</h5><br><h6><%= @info.introduction %></h6></div>
     <div class="grid-box c">
       <% if current_user.following?(@user) %>
@@ -91,7 +93,7 @@
       <div class="grid-box d" >
         <button class="ui icon button">
           <!-- a링크가 ul, li 태그에 막혀 작동이 안되서 id="for_a"를 줘서 a태그의 크기를 일부러 크게 만듬 -->
-          <a href="/info/edit/<%=current_user.id%>" , id="for_a">
+          <a href="/info/edit/<%=current_user.id%>" >
             <!-- icon 크기 재설정 해줘야 함-->
             <i class = "edit icon", width="1"></i>
           </a>
@@ -105,9 +107,9 @@
         <% end %>
     </div>
     </div>
-  </div>
+  
 <% end %>
-
+<!--주 메뉴-->
 <% if current_user != @user %>
   <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
     <li class="tab waves-effect waves-pink"><a href="/profile/mypage/<%= @user.id %>">프로필 메인</a></li>
@@ -231,8 +233,7 @@
 </body>
 <!-- CSS -->
 
-
- <style>
+<style>
   body {
     background-color: #FAFAFA;
   }
@@ -272,18 +273,18 @@
     margin-right: 0.3em;
   }
   
-  .box .padding {
-    padding-left: 1.5em;
-    padding-right: 1.5em;
-    margin-bottom: 1.5em;
-  }
+  /*.box .padding {*/
+  /*  padding-left: 1.5em;*/
+  /*  padding-right: 1.5em;*/
+  /*  margin-bottom: 1.5em;*/
+  /*}*/
   
-  .box .image {
-    margin-top: 5em;
-    min-width: 700px;
-    max-width: 100%;
-    max-height: 600px;
-    margin-bottom: 1em;
+  /*.box .image {*/
+    /*margin-top: 5em;*/
+    /*min-width: 700px;*/
+    /*max-width: 100%;*/
+    /*max-height: 600px;*/
+    /*margin-bottom: 1em;*/
   }
   
   .box .hit {
@@ -309,8 +310,7 @@
   
   .grid {
     width: 1519px;
-    
-    padding: 0px 270px 0px 270px ;
+    /*padding: 0px 270px 0px 270px ;*/
     display: grid;
     grid-template: 1fr 1fr / 2fr 6fr 1fr 1fr;
   }
@@ -325,7 +325,7 @@
   
   .grid .a {
     grid-row-start: 1;
-    grid-row-end: 3;
+    grid-row-end: 1;
   }
   
   .grid .b {
@@ -395,5 +395,5 @@
     left:5%;
     right:95%;
   }
+  
 </style>
-

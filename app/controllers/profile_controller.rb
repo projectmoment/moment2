@@ -12,6 +12,7 @@
         @profile = Profile.where(user_id: params[:user_id])
         @profile_user = (params[:user_id]).to_i
         @info = Info.find_by(user_id: params[:user_id])
+        @categories = Category.all.map { |cat| [cat.name, cat.id] }
     end
     
     def archive
@@ -21,6 +22,7 @@
     
     def mypage
         @user = User.find(params[:user_id])
+        @user_info = Info.find_by(user_id: @user)
         @info = Info.find_by(user_id: params[:user_id])
         @board = Board.where(profile: @user.profiles).reverse
         @plays = @user.all_following
